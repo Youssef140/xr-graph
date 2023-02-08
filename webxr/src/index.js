@@ -5,7 +5,9 @@ require('aframe-log-component');
 require('aframe-plot-component');
 require('aframe-ui-widgets');
 require('aframe-orbit-controls');
-
+require('aframe-physics-system')
+require('aframe-extras')
+require('aframe-physics-extras')
 require('aframe-fps-counter-component');
 
 require('./components/aframe-aabb-collider');

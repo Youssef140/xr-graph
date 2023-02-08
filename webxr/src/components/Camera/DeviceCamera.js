@@ -52,9 +52,13 @@ window.addEventListener("load", (event) => {
     phoneCamera.appendChild(cameraMixin);
     AFRAME.scenes[0].appendChild(phoneCamera);
   } else {
-    alert("Desktop");
 
-    var desktopCamera = document.createElement("a-camera");
+    var desktopCamera = document.createElement("a-entity");
+    desktopCamera.setAttribute("camera", "");
+    desktopCamera.setAttribute("position", "0 1.2 0.3");
+    desktopCamera.setAttribute("kinematic-body", "radius: 0.3");
+    desktopCamera.setAttribute("look-controls", "pointerLockEnabled: true;");
+    desktopCamera.setAttribute("wasd-controls", "acceleration: 200");
     var cursorEntity = document.createElement("a-entity");
     cursorEntity.setAttribute("cursor", "");
     cursorEntity.setAttribute("position", "0 0 -1");
@@ -66,14 +70,6 @@ window.addEventListener("load", (event) => {
     cursorEntity.setAttribute("raycaster", "showLine: true");
     desktopCamera.appendChild(cursorEntity);
     AFRAME.scenes[0].appendChild(desktopCamera);
-
-    // <a-camera>
-    //   <a-entity cursor position="0 0 -1"
-    //             geometry="primitive: sphere; radius: 0.007"
-    //             material="color: #ffffff; shader: flat; opacity: 0.6"
-    //             raycaster="showLine: true">
-    //
-    //   </a-entity>
-    // </a-camera>
+    
   }
 });

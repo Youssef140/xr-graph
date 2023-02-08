@@ -53,7 +53,7 @@
 <div class="enter-ar">
   <button class="enter-ar-button" id="enter-ar"></button>
 </div>
-<a-scene shadow="type: pcfsoft" physics="driver: local; debug: true; gravity: 0; friction: 0; restitution: 0;" renderer="antialias: true" raycaster="objects: [my-slider]">
+<a-scene shadow="type: pcfsoft" physics="driver: local; gravity: 0; friction: 0; restitution: 0;" renderer="antialias: true" raycaster="objects: [my-slider]">
   <a-assets>
     <a-mixin id="touch" class="hands" ></a-mixin>
   </a-assets>
@@ -70,10 +70,11 @@
 
   <!--      Room-->
 
-  <a-plane static-body material="side: double" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/thumbnails%2FWoodQuarteredChiffon001_COL_2K.jpg?1675808243856" repeat="10 10" position="0 0 3" rotation="0 0 0" scale="6.3 7.45 7"></a-plane>
-  <a-plane material="side: double" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/thumbnails%2FWoodFineDark004_COL_2K.jpg?1675809047142" repeat="10 10" position="0 3.7 0" rotation="90 0 0" scale="7 7 4"></a-plane>
-  <a-plane material="side: double" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/thumbnails%2FWoodQuarteredChiffon001_COL_2K.jpg?1675808243856" repeat="10 10" position="-3.15 0 0" rotation="0 90 0" scale="6 7.45 5"></a-plane>
-  <a-plane material="side: double" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/thumbnails%2FWoodQuarteredChiffon001_COL_2K.jpg?1675808243856" repeat="10 10" position="3.15 0 0" rotation="0 90 0" scale="6 7.45 5"></a-plane>
+  <a-plane material="side: double" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/thumbnails%2FWoodQuarteredChiffon001_COL_2K.jpg?1675808243856" repeat="10 10" position="0 0 3" rotation="0 0 0" scale="6.3 7.45 7" static-body></a-plane>
+  <a-plane material="side: double" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/thumbnails%2FWoodFineDark004_COL_2K.jpg?1675809047142" repeat="10 10" position="0 3.7 0" rotation="90 0 0" scale="7 7 4" static-body></a-plane>
+  <a-plane material="side: double" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/thumbnails%2FWoodQuarteredChiffon001_COL_2K.jpg?1675808243856" repeat="10 10" position="-3.15 0 0" rotation="0 90 0" scale="6 7.45 5" static-body></a-plane>
+  <a-plane material="side: double" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/thumbnails%2FWoodQuarteredChiffon001_COL_2K.jpg?1675808243856" repeat="10 10" position="3.15 0 0" rotation="0 90 0" scale="6 7.45 5" static-body></a-plane>
+  <a-plane material="side: double"  position="0 0 -3" rotation="0 0 0" scale="6 7.45 5" static-body></a-plane>
 
   <a-assets>
     <a-asset-item id="classRoom" src="https://raw.githubusercontent.com/Youssef140/Assets/main/Assets/imitation_classroom_stage/scene.gltf?token=GHSAT0AAAAAAB6O4KZMQ6GZ5PYLZ7HPAZLOY7CYJ2A"></a-asset-item>
