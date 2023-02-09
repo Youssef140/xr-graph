@@ -34,10 +34,10 @@ AFRAME.registerComponent('graph-parameter-ui', {
             planeHeight = this.parameterInfos[1].range;
         }
 
-        this.planeGeo = new THREE.PlaneBufferGeometry(planeWidth, planeHeight, 1, 1);
-        this.planeGeo.clearGroups();
-        this.planeGeo.addGroup( 0, Infinity, 0 );
-        this.planeGeo.addGroup( 0, Infinity, 1 );
+        this.planeGeo = new THREE.PlaneGeometry(planeWidth, planeHeight, 1, 1);
+        // this.planeGeo.clearGroups();
+        // this.planeGeo.addGroup( 0, Infinity, 0 );
+        // this.planeGeo.addGroup( 0, Infinity, 1 );
 
         const transparentWireMaterial = new THREE.MeshBasicMaterial({side: THREE.DoubleSide});
         if (this.alphaTexture == null) {

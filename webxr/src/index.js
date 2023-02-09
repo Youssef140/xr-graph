@@ -5,7 +5,9 @@ require('aframe-log-component');
 require('aframe-plot-component');
 require('aframe-ui-widgets');
 require('aframe-orbit-controls');
-
+require('aframe-physics-system')
+require('aframe-extras')
+require('aframe-physics-extras')
 require('aframe-fps-counter-component');
 
 require('./components/aframe-aabb-collider');
@@ -17,6 +19,7 @@ require('./components/ToggleComponent/toggle.component');
 require('./components/GraphParameterUIComponent/graph-parameter-ui.component');
 require('./components/GraphVariableUIComponent/graph-variable-ui.component');
 require('./components/TextComponent/text.component');
+require('./components/Camera/DeviceCamera')
 
 import './styles/vr.css';
 
