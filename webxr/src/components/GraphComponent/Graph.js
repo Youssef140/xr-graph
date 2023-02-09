@@ -1,4 +1,4 @@
-import { SpriteText2D, textAlign } from 'three-text2d'
+import { MeshText2D } from 'three-text2d'
 import { MathExpression } from './MathExpression';
 import { MathGraphMaterial } from './MathGraphShader';
 import { MathCurveMaterial } from './MathCurveShader';
@@ -404,39 +404,39 @@ AFRAME.registerComponent('graph', {
         const offset = 0.6;
         
         if (this.xMinText == null) {            
-            this.xMinText = new SpriteText2D("", {fillStyle: "#fb2841"});
+            this.xMinText = new MeshText2D("", {fillStyle: "#fb2841"});
         }
         this.xMinText.text = (Math.floor(this.xMin * 100) / 100).toString();
         this.xMinText.scale.set(scale,scale,scale);
         this.xMinText.position.set(this.xMin + space, this.yMin, this.zMin - offset);
         if (this.xMaxText == null) {
-            this.xMaxText = new SpriteText2D("", {fillStyle: "#fb2841"});
+            this.xMaxText = new MeshText2D("", {fillStyle: "#fb2841"});
         }
         this.xMaxText.text = (Math.floor(this.xMax * 100) / 100).toString();
         this.xMaxText.scale.set(scale,scale,scale);
         this.xMaxText.position.set(this.xMax - space, this.yMin, this.zMin - offset)
 
         if (this.yMinText == null) {
-            this.yMinText = new SpriteText2D("", {fillStyle: "#14eb0d"});
+            this.yMinText = new MeshText2D("", {fillStyle: "#14eb0d"});
         }
         this.yMinText.text = (Math.floor(this.yMin * 100) / 100).toString();
         this.yMinText.scale.set(scale,scale,scale);
         this.yMinText.position.set(this.xMax + offset, this.yMin + space, this.zMax + offset);
         if (this.yMaxText == null) {
-            this.yMaxText = new SpriteText2D("", {fillStyle: "#14eb0d"});
+            this.yMaxText = new MeshText2D("", {fillStyle: "#14eb0d"});
         }
         this.yMaxText.text = (Math.floor(this.yMax * 100) / 100).toString();
         this.yMaxText.scale.set(scale,scale,scale);
         this.yMaxText.position.set(this.xMax + offset, this.yMax - space, this.zMax + offset)
 
         if (this.zMinText == null) {
-            this.zMinText = new SpriteText2D("", {fillStyle: "#49caf3"});
+            this.zMinText = new MeshText2D("", {fillStyle: "#49caf3"});
         }
         this.zMinText.text = (Math.floor(this.zMin * 100) / 100).toString();
         this.zMinText.scale.set(scale,scale,scale);
         this.zMinText.position.set(this.xMin - offset, this.yMin, this.zMin + space);
         if (this.zMaxText == null) {
-            this.zMaxText = new SpriteText2D("", {fillStyle: "#49caf3"});
+            this.zMaxText = new MeshText2D("", {fillStyle: "#49caf3"});
         }
         this.zMaxText.text = (Math.floor(this.zMax * 100) / 100).toString();
         this.zMaxText.scale.set(scale,scale,scale);

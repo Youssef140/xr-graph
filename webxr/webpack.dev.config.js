@@ -23,7 +23,7 @@ module.exports = merge(common, {
   },
   devServer: {
     https: true,
-    host: 'localhost',
+    host: '0.0.0.0',
     overlay: {
       warnings: false,
       errors: true
