@@ -1,4 +1,6 @@
 import { isPhone } from "../GazeBasedSystem/DeviceCamera";
+import { getDevice } from "../GazeBasedSystem/DeviceCamera";
+
 
 AFRAME.registerComponent('graph-variable-ui', {
     schema: {
@@ -83,8 +85,11 @@ AFRAME.registerComponent('graph-variable-ui', {
             }
             
             this.el.appendChild(slider)
-            this.el.appendChild(plus)
-            this.el.appendChild(minus)
+            if(getDevice() === "Desktop" || getDevice() === "Mobile"){
+                this.el.appendChild(plus)
+                this.el.appendChild(minus)
+            }
+
             index++;
         }
     },
