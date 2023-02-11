@@ -1,4 +1,4 @@
-import { MeshText2D, textAlign } from 'three-text2d'
+import { isPhone } from "../GazeBasedSystem/DeviceCamera";
 
 AFRAME.registerComponent('graph-variable-ui', {
     schema: {
@@ -39,7 +39,52 @@ AFRAME.registerComponent('graph-variable-ui', {
                 graphAtributes[variable] = newvalue;
                 this.data.graph.setAttribute('graph', graphAtributes)
             })
+            let plus = document.createElement("a-entity")
+            plus.setAttribute("gltf-model", "#plus")
+            plus.setAttribute("scale", "0.0055 0.0055 0.0055")
+            plus.setAttribute("rotation", "90 0 0")
+            plus.setAttribute('position', `0.1 ${index * -height + offset + 0.03} 0`)
+            let minus = document.createElement("a-entity")
+            minus.setAttribute("gltf-model", "#minus")
+            minus.setAttribute("scale", "0.0055 0.0055 0.0055")
+            minus.setAttribute("rotation", "90 0 0")
+            minus.setAttribute('position', `-0.45 ${index * -height + offset + 0.03} 0`)
+            var interval = null
+            if (isPhone()){
+                plus.addEventListener("mouseenter", () => {
+                    if (interval) clearInterval(interval)
+                    interval = this.gazeBasedChangeValue(slider, variable, "plus")
+                })
+                plus.addEventListener("mouseleave", () => {
+                    if (interval) clearInterval(interval)
+                })
+                minus.addEventListener("mouseenter", () => {
+                    if (interval) clearInterval(interval)
+                    interval = this.gazeBasedChangeValue(slider, variable, "minus")
+                })
+                minus.addEventListener("mouseleave", () => {
+                    if (interval) clearInterval(interval)
+                })
+            } else {
+                plus.addEventListener("mousedown", () => {
+                    if (interval) clearInterval(interval)
+                    interval = this.gazeBasedChangeValue(slider, variable, "plus")
+                })
+                plus.addEventListener("mouseup", () => {
+                    if (interval) clearInterval(interval)
+                })
+                minus.addEventListener("mousedown", () => {
+                    if (interval) clearInterval(interval)
+                    interval = this.gazeBasedChangeValue(slider, variable, "minus")
+                })
+                minus.addEventListener("mouseup", () => {
+                    if (interval) clearInterval(interval)
+                })
+            }
+            
             this.el.appendChild(slider)
+            this.el.appendChild(plus)
+            this.el.appendChild(minus)
             index++;
         }
     },
@@ -60,5 +105,20 @@ AFRAME.registerComponent('graph-variable-ui', {
             max
         })
         return slider;
+    },
+    gazeBasedChangeValue: function (slider, variable, mode) {
+        let interval = setInterval(() => {
+            let sliderAttributes = slider.getAttribute("my-slider")
+            if ((mode === 'plus' && sliderAttributes.value < sliderAttributes.max) ||
+            (mode === 'minus' && sliderAttributes.value > sliderAttributes.min)){
+                let newvalue = sliderAttributes.value + (mode === "plus" ? 0.05 : -0.05);
+                let graphAtributes = {}
+                graphAtributes[variable] = newvalue;
+                this.data.graph.setAttribute('graph', graphAtributes)
+                sliderAttributes["value"] = newvalue;
+                slider.setAttribute('my-slider', sliderAttributes)
+            }
+        }, 200)
+        return interval
     }
 })
