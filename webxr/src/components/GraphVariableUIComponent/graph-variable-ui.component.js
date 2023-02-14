@@ -1,4 +1,3 @@
-import { isPhone } from "../GazeBasedSystem/DeviceCamera";
 import { getDevice } from "../GazeBasedSystem/DeviceCamera";
 
 
@@ -52,7 +51,7 @@ AFRAME.registerComponent('graph-variable-ui', {
             minus.setAttribute("rotation", "90 0 0")
             minus.setAttribute('position', `-0.45 ${index * -height + offset + 0.03} 0`)
             var interval = null
-            if (isPhone()){
+            if(getDevice() === "Mobile"){
                 plus.addEventListener("mouseenter", () => {
                     if (interval) clearInterval(interval)
                     interval = this.gazeBasedChangeValue(slider, variable, "plus")

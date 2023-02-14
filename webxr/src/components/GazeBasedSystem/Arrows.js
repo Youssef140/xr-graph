@@ -1,4 +1,4 @@
-import { isPhone } from "./DeviceCamera";
+import { getDevice } from "./DeviceCamera";
 
 function updateGraphUV(id) {
   let interval = setInterval(() => {
@@ -24,7 +24,7 @@ window.addEventListener("load", () => {
   console.log("tets", arrows);
   arrows.forEach((arrow) => {
     var interval = null;
-    if (isPhone()) {
+    if(getDevice() === "Mobile"){
       arrow.addEventListener("mouseenter", () => {
         if (interval) clearInterval(interval);
         interval = updateGraphUV(arrow.id);
