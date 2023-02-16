@@ -35,13 +35,13 @@ AFRAME.registerComponent('graph', {
             default: false
         },
         showBoundingBox: {
-            default: true
+            default: false
         },
         showWireframe: {
             default: false
         },
         showGrid: {
-            default: false
+            default: true
         },
         function: {
             default: "f(u, v) = [1.5 * u, 0.1 * u^2 * cos(v), 0.1 * u^2 * sin(v)]"
@@ -83,21 +83,33 @@ AFRAME.registerComponent('graph', {
         this.root.add(this.labels);
 
         this.gridHelperGroup = new THREE.Group();
-        const opacity = 0.5;
-        this.gridHelperXY = new THREE.GridHelper( 10, 10, 0xFF3333, 0x666666 );
+        const opacity = 1;
+        this.gridHelperXLabel = new MeshText2D("X", {fillStyle: "#ffffff"});
+        this.gridHelperXLabel.scale.set(0.02, 0.02, 0.02)
+        this.gridHelperXLabel.position.set(7, 0.2, 0)
+        this.gridHelperYLabel = new MeshText2D("Y", {fillStyle: "#ffffff"});
+        this.gridHelperYLabel.scale.set(0.02, 0.02, 0.02)
+        this.gridHelperYLabel.position.set(0, 0.2, 7)
+        this.gridHelperZLabel = new MeshText2D("Z", {fillStyle: "#ffffff"});
+        this.gridHelperZLabel.scale.set(0.02, 0.02, 0.02)
+        this.gridHelperZLabel.position.set(0, 7, 0)
+        this.gridHelperXY = new THREE.GridHelper( 12, 12, 0xFF3333, 0x666666 );
         this.gridHelperXY.material.opacity = opacity;
         this.gridHelperXY.material.transparent = true;
-        this.gridHelperYZ = new THREE.GridHelper( 10, 10, 0xFF3333, 0x666666 );
+        this.gridHelperYZ = new THREE.GridHelper( 12, 12, 0xFF3333, 0x666666 );
         this.gridHelperYZ.material.opacity = opacity;
         this.gridHelperYZ.material.transparent = true;
         this.gridHelperYZ.rotation.set(0,0,-Math.PI/2)
-        this.gridHelperXZ = new THREE.GridHelper( 10, 10, 0xFF3333, 0x666666 );
+        this.gridHelperXZ = new THREE.GridHelper( 12, 12, 0xFF3333, 0x666666 );
         this.gridHelperXZ.material.opacity = opacity;
         this.gridHelperXZ.material.transparent = true;
         this.gridHelperXZ.rotation.set(0,-Math.PI/2,-Math.PI/2)
         this.gridHelperGroup.add(this.gridHelperXY);
         this.gridHelperGroup.add(this.gridHelperYZ);
         this.gridHelperGroup.add(this.gridHelperXZ);
+        this.gridHelperGroup.add(this.gridHelperXLabel);
+        this.gridHelperGroup.add(this.gridHelperYLabel);
+        this.gridHelperGroup.add(this.gridHelperZLabel);
         this.gridHelperGroup.visible = this.data.showGrid;
         this.root.add( this.gridHelperGroup );
 
@@ -105,6 +117,26 @@ AFRAME.registerComponent('graph', {
         new THREE.BufferGeometry();
 
         this.root.scale.set(0.1, 0.1, 0.1)
+
+        this.scaleInterval = null
+
+        this.el.sceneEl.addEventListener("scaleGraph", ({detail: id}) => {
+            if (this.scaleInterval) clearInterval(this.scaleInterval)
+            var newScale = this.root.scale
+            let change = id === 'scalePlus' ? 0.0015 : -0.0015
+            this.scaleInterval = setInterval(() => {
+                if ((id=== 'scalePlus' && newScale.x <=0.2) || (id === 'scaleMinus' && newScale.x >= 0.02)){
+                    newScale.x += change;
+                    newScale.y += change;
+                    newScale.z += change;
+                    this.root.scale.set(newScale.x, newScale.y, newScale.z) 
+                }
+            }, 30)
+        })
+        
+        this.el.sceneEl.addEventListener("stopScaleGraph", () => {
+            if (this.scaleInterval) clearInterval(this.scaleInterval)
+        })
 
         //root.add(this.makeZeroPlanes())
         this.el.setObject3D('mesh', this.root)
@@ -372,7 +404,7 @@ AFRAME.registerComponent('graph', {
         new THREE.BufferGeometry();
         const graphGeometry = new THREE.PlaneBufferGeometry(1, 1, 200, 200);
         graphGeometry.scale(1, 1, 1);
-        const graphMat = new MathGraphMaterial(expression);
+        const graphMat = new MathGraphMaterial(expression, false);
         const graph = new THREE.Mesh(graphGeometry, graphMat.material);
         graph.frustumCulled = false;
 

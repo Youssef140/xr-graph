@@ -28,7 +28,7 @@
     </div>
     <p>
       How to write a function:<br>
-      Declare parameters with <em>f(u,v)</em><br>
+      Declare parameters with <em>f(x,y)</em><br>
       Declare a vector with square brackets <em>[x,y,z]</em>
     </p>
     <h2>Examples:</h2>
@@ -89,16 +89,16 @@
 
   <a-entity gltf-model="#classRoom" modify-materials scale="0.005 0.005 0.005" position="0 0.7 0"></a-entity>
 
-  <a-entity data-aabb-collider-dynamic="true" class="grabbable" id="plot" scale="0.5 0.5 0.5" position="0 1 -0.6" graph="uMin: -6.2; uMax: 6.2; vMin: -6.2; vMax: 6.2; showBoundingBox: true; showBoundingLabels: false; showWireframe: false; function: f(u,v) = [u, v, a * cos(v) + b * sin(u)]"></a-entity >
+  <a-entity data-aabb-collider-dynamic="true" class="grabbable" id="plot" scale="0.5 0.5 0.5" position="0 1 -0.6" graph="uMin: -6.2; uMax: 6.2; vMin: -6.2; vMax: 6.2; showBoundingLabels: true; showWireframe: false; function: f(u,v) = [u, v, a * cos(v) + b * sin(u)]"></a-entity >
 
   <a-entity data-aabb-collider-dynamic="true" class="grabbable visible-on-vr" position="0.6 1 0" rotation="0 -70 0" graph-variable-ui="graph: #plot"></a-entity>
 
   <a-entity position="0.7 1 0.4" rotation="0 -90 0" data-aabb-collider-dynamic="true" class="grabbable visible-on-vr" >
-    <a-entity my-toggle="title: bounding box; active: true" event-set__active="_target: #plot; graph.showBoundingBox: true" event-set__inactive="_target: #plot; graph.showBoundingBox: false" position="0 0 0"></a-entity>
+    <a-entity my-toggle="title: Bounding Box; active: false" event-set__active="_target: #plot; graph.showBoundingBox: true" event-set__inactive="_target: #plot; graph.showBoundingBox: false" position="0 0 0"></a-entity>
     <!--        <a-entity id="toggle2" my-toggle="title: bounding box; active: false" event-set__start="_event: click; _target: #toggle1; graph.showBoundingBox= true" position="0 0 0" clickable></a-entity>-->
-    <a-entity my-toggle="title: labels; active: false" event-set__active="_target: #plot; graph.showBoundingLabels: true" event-set__inactive="_target: #plot; graph.showBoundingLabels: false" position="0 0.2 0"></a-entity>
-    <a-entity my-toggle="title: wireframe; active: false" event-set__active="_target: #plot; graph.showWireframe: true" event-set__inactive="_target: #plot; graph.showWireframe: false" position="0.25 0 0"></a-entity>
-    <a-entity my-toggle="title: grid; active: false" event-set__active="_target: #plot; graph.showGrid: true" event-set__inactive="_target: #plot; graph.showGrid: false" position="0.25 0.2 0"></a-entity>
+    <a-entity my-toggle="title: Labels; active: true" event-set__active="_target: #plot; graph.showBoundingLabels: true" event-set__inactive="_target: #plot; graph.showBoundingLabels: false" position="0 0.2 0"></a-entity>
+    <a-entity my-toggle="title: Hide Colors; active: false" event-set__active="_target: #plot; graph.showWireframe: true" event-set__inactive="_target: #plot; graph.showWireframe: false" position="0.25 0 0"></a-entity>
+    <a-entity my-toggle="title: Grid; active: true" event-set__active="_target: #plot; graph.showGrid: true" event-set__inactive="_target: #plot; graph.showGrid: false" position="0.25 0.2 0"></a-entity>
   </a-entity>
 
   <a-entity id="function-text" position="0 1.5 -2.5" rotation="0 0 0" scale="1.5 1.5 1.5" my-text="text: ; color: white"></a-entity>

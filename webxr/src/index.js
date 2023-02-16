@@ -20,7 +20,7 @@ require('./components/GraphParameterUIComponent/graph-parameter-ui.component');
 require('./components/GraphVariableUIComponent/graph-variable-ui.component');
 require('./components/TextComponent/text.component');
 require('./components/GazeBasedSystem/DeviceCamera')
-require('./components/GazeBasedSystem/Arrows')
+require('./components/GazeBasedSystem/GraphScaler')
 
 import './styles/vr.css';
 
