@@ -56,15 +56,9 @@ AFRAME.registerComponent('graph-variable-ui', {
                     if (interval) clearInterval(interval)
                     interval = this.gazeBasedChangeValue(slider, variable, "plus")
                 })
-                plus.addEventListener("mouseleave", () => {
-                    if (interval) clearInterval(interval)
-                })
                 minus.addEventListener("mouseenter", () => {
                     if (interval) clearInterval(interval)
                     interval = this.gazeBasedChangeValue(slider, variable, "minus")
-                })
-                minus.addEventListener("mouseleave", () => {
-                    if (interval) clearInterval(interval)
                 })
             } else {
                 plus.addEventListener("mousedown", () => {
@@ -83,6 +77,13 @@ AFRAME.registerComponent('graph-variable-ui', {
                 })
             }
             
+            plus.addEventListener("mouseleave", () => {
+                if (interval) clearInterval(interval)
+            })
+            minus.addEventListener("mouseleave", () => {
+                if (interval) clearInterval(interval)
+            })
+
             this.el.appendChild(slider)
             if(getDevice() === "Desktop" || getDevice() === "Mobile"){
                 this.el.appendChild(plus)
@@ -115,14 +116,14 @@ AFRAME.registerComponent('graph-variable-ui', {
             let sliderAttributes = slider.getAttribute("my-slider")
             if ((mode === 'plus' && sliderAttributes.value < sliderAttributes.max) ||
             (mode === 'minus' && sliderAttributes.value > sliderAttributes.min)){
-                let newvalue = sliderAttributes.value + (mode === "plus" ? 0.05 : -0.05);
+                let newvalue = sliderAttributes.value + (mode === "plus" ? 0.01 : -0.01);
                 let graphAtributes = {}
                 graphAtributes[variable] = newvalue;
                 this.data.graph.setAttribute('graph', graphAtributes)
                 sliderAttributes["value"] = newvalue;
                 slider.setAttribute('my-slider', sliderAttributes)
             }
-        }, 200)
+        }, 25)
         return interval
     }
 })

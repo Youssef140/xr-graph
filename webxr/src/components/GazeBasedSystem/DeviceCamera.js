@@ -38,7 +38,6 @@ window.addEventListener("load", (event) => {
       "material",
       "color: #000; shader: flat; opacity: 0.6"
     );
-    cursorEntity.setAttribute("raycaster", "showLine: true");
     camera.appendChild(cursorEntity);
   } else {
     camera.setAttribute(

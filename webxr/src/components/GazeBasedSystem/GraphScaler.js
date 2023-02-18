@@ -136,9 +136,6 @@ window.addEventListener("load", () => {
         if (interval) clearInterval(interval);
         interval = updateGraphUV(rangeButton.id);
       });
-      rangeButton.addEventListener("mouseleave", () => {
-        if (interval) clearInterval(interval);
-      });
     } else {
       rangeButton.addEventListener("mousedown", () => {
         if (interval) clearInterval(interval);
@@ -148,6 +145,9 @@ window.addEventListener("load", () => {
         if (interval) clearInterval(interval);
       });
     }
+    rangeButton.addEventListener("mouseleave", () => {
+      if (interval) clearInterval(interval);
+    });
   });
   
   let scaleButtons = document.querySelectorAll(".scaleButton");
@@ -157,9 +157,6 @@ window.addEventListener("load", () => {
       scaleButton.addEventListener("mouseenter", () => {
         scaleButton.emit("scaleGraph", scaleButton.id)
       });
-      scaleButton.addEventListener("mouseleave", () => {
-        scaleButton.emit("stopScaleGraph")
-      });
     } else {
       scaleButton.addEventListener("mousedown", () => {
         scaleButton.emit("scaleGraph", scaleButton.id)
@@ -168,5 +165,8 @@ window.addEventListener("load", () => {
         scaleButton.emit("stopScaleGraph")
       });
     }
+    scaleButton.addEventListener("mouseleave", () => {
+      scaleButton.emit("stopScaleGraph")
+    });
   });
 });
