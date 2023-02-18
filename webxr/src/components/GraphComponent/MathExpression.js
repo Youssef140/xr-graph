@@ -121,3 +121,24 @@ export class MathExpression {
 
 }
 
+// Validate function in main page
+
+window.addEventListener('load', () => {
+    document.getElementById('visualize-button').addEventListener('click', () => {
+        let error_text = document.getElementById('function-error-message')
+        try {
+            new MathExpression(document.querySelector('#function-input').value);
+            if (error_text.classList.contains("d-block")) {
+                console.log("??")
+                error_text.classList.remove("d-block")
+                error_text.classList.add("d-none")
+            }
+            window.location.href = 'index.html?function=' + encodeURIComponent(document.querySelector('#function-input').value)
+        } catch (e) {
+            if (error_text.classList.contains("d-none")) {
+                error_text.classList.remove("d-none")
+                error_text.classList.add("d-block")
+            }
+        }
+    })
+})

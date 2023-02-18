@@ -85,14 +85,14 @@ AFRAME.registerComponent('graph', {
         this.gridHelperGroup = new THREE.Group();
         const opacity = 1;
         this.gridHelperXLabel = new MeshText2D("X", {fillStyle: "#ffffff"});
-        this.gridHelperXLabel.scale.set(0.02, 0.02, 0.02)
-        this.gridHelperXLabel.position.set(7, 0.2, 0)
+        this.gridHelperXLabel.scale.set(0.03, 0.03, 0.03)
+        this.gridHelperXLabel.position.set(7, 0.3, 0)
         this.gridHelperYLabel = new MeshText2D("Y", {fillStyle: "#ffffff"});
-        this.gridHelperYLabel.scale.set(0.02, 0.02, 0.02)
+        this.gridHelperYLabel.scale.set(0.03, 0.03, 0.03)
         this.gridHelperYLabel.position.set(0, 0.2, 7)
         this.gridHelperZLabel = new MeshText2D("Z", {fillStyle: "#ffffff"});
-        this.gridHelperZLabel.scale.set(0.02, 0.02, 0.02)
-        this.gridHelperZLabel.position.set(0, 7, 0)
+        this.gridHelperZLabel.scale.set(0.03, 0.03, 0.03)
+        this.gridHelperZLabel.position.set(0, 7.5, 0)
         this.gridHelperXY = new THREE.GridHelper( 12, 12, 0xFF3333, 0x666666 );
         this.gridHelperXY.material.opacity = opacity;
         this.gridHelperXY.material.transparent = true;

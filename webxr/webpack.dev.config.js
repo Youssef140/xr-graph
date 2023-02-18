@@ -13,13 +13,15 @@ module.exports = merge(common, {
   // this is just the entry js that gets bundled
   entry: {
     vr: "./src/index.js",
-    ar: "./src/ar-script.js"
+    ar: "./src/ar-script.js",
+    expression_validation: "./src/components/GraphComponent/MathExpression.js"
   },
   output: {
     // the filename is the name of the bundled file
     filename: "[name].bundle.js",
     // dist is the folder name it gets exported to
-    path: path.resolve(__dirname, "dist")
+    path: path.resolve(__dirname, "dist"),
+    publicPath: "/"
   },
   devServer: {
     https: true,
@@ -30,6 +32,13 @@ module.exports = merge(common, {
     }
   },
   plugins: [new HtmlWebpackPlugin({
+    favicon: "./src/images/favicon.png",
+    chunks: ['expression_validation'],
+    template: "./src/home.html",
+    filename: "home.html",
+    // Injects file in the head of the html
+    inject: 'head'
+  }),new HtmlWebpackPlugin({
     favicon: "./src/images/favicon.png",
     chunks: ['vr'],
     template: "./src/index.html",
