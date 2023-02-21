@@ -34,15 +34,15 @@ module.exports = merge(common, {
   plugins: [new HtmlWebpackPlugin({
     favicon: "./src/images/favicon.png",
     chunks: ['expression_validation'],
-    template: "./src/home.html",
-    filename: "home.html",
+    template: "./src/index.html",
+    filename: "index.html",
     // Injects file in the head of the html
     inject: 'head'
   }),new HtmlWebpackPlugin({
     favicon: "./src/images/favicon.png",
     chunks: ['vr'],
-    template: "./src/index.html",
-    filename: "index.html",
+    template: "./src/scene.html",
+    filename: "scene.html",
     // Injects file in the head of the html
     inject: 'head'
   }),

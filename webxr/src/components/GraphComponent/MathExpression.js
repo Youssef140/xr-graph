@@ -133,7 +133,7 @@ window.addEventListener('load', () => {
                 error_text.classList.remove("d-block")
                 error_text.classList.add("d-none")
             }
-            window.location.href = 'index.html?function=' + encodeURIComponent(document.querySelector('#function-input').value)
+            window.location.href = 'scene.html?function=' + encodeURIComponent(document.querySelector('#function-input').value)
         } catch (e) {
             if (error_text.classList.contains("d-none")) {
                 error_text.classList.remove("d-none")

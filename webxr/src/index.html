@@ -1,200 +1,143 @@
 <html>
+  <head>
+    <title>Calculus Graph Visualizer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
 
-<head>
-  <title>XR Graph</title>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-41295198-4"></script>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,500,0..1,-50..200" />
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-41295198-4');
-  </script>
-</head>
-
-<body>
-  <span
-    class="material-symbols-outlined"
-    style="position: fixed; top: 20; left: 20; z-index: 1; font-size: 42px; cursor: pointer; color: #ffb95d"
-    onclick="window.location.href = 'home.html'"  
-  >
-    logout
-  </span>
-<a-scene shadow="type: pcfsoft" physics="driver: local; gravity: 0; friction: 0; restitution: 0;" renderer="antialias: true" raycaster="objects: [my-slider]">
-  <a-assets>
-    <a-mixin id="touch" class="hands" ></a-mixin>
-  </a-assets>
-
-  <!-- <a-sky color="#444"></a-sky> -->
-  <a-entity class="environment" environment="groundTexture: none; grid: 1x1; gridColor: #222; ground: flat; lighting: none; skyType: color; skyColor: gray; horizonColor: #222; groundColor: black; groundColor2: #fff"></a-entity>
-
-  <!--    <a-camera>-->
-  <!--      <a-entity cursor position="0 0 -1"-->
-  <!--                geometry="primitive: sphere; radius: 0.007"-->
-  <!--                material="color: #000000; shader: flat; opacity: 0.6">-->
-  <!--      </a-entity>-->
-  <!--    </a-camera>-->
-
-  <!--      Room-->
-
-  <a-plane material="side: double" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/thumbnails%2FWoodQuarteredChiffon001_COL_2K.jpg?1675808243856" repeat="10 10" position="0 0 3" rotation="0 0 0" scale="6.3 7.45 7" static-body></a-plane>
-  <a-plane material="side: double" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/thumbnails%2FWoodFineDark004_COL_2K.jpg?1675809047142" repeat="10 10" position="0 3.7 0" rotation="90 0 0" scale="7 7 4" static-body></a-plane>
-  <a-plane material="side: double" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/thumbnails%2FWoodQuarteredChiffon001_COL_2K.jpg?1675808243856" repeat="10 10" position="-3.15 0 0" rotation="0 90 0" scale="6 7.45 5" static-body></a-plane>
-  <a-plane material="side: double" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/thumbnails%2FWoodQuarteredChiffon001_COL_2K.jpg?1675808243856" repeat="10 10" position="3.15 0 0" rotation="0 90 0" scale="6 7.45 5" static-body></a-plane>
-  <a-plane material="side: double"  position="0 0 -3" rotation="0 0 0" scale="6 7.45 5" static-body></a-plane>
-
-  <a-assets>
-    <a-asset-item id="classRoom" src="https://raw.githubusercontent.com/Youssef140/Assets/main/Assets/imitation_classroom_stage/scene.gltf?token=GHSAT0AAAAAAB6O4KZMQ6GZ5PYLZ7HPAZLOY7CYJ2A"></a-asset-item>
-
-    <a-asset-item id="plus" src="https://cdn.glitch.global/126b4e72-2ac0-4b74-ad2f-4be152694c26/MINUSS%20.glb?v=1675981115171"></a-asset-item>
-
-    <a-asset-item id="arrow" src="https://cdn.glitch.global/126b4e72-2ac0-4b74-ad2f-4be152694c26/ARROW%202%20.glb?v=1675978565131"></a-asset-item>
-
-    <a-asset-item id="minus" src="https://cdn.glitch.global/126b4e72-2ac0-4b74-ad2f-4be152694c26/pluss.glb?v=1675981125859"></a-asset-item>
-
-  </a-assets>
-
-  <a-entity gltf-model="#classRoom" modify-materials scale="0.005 0.005 0.005" position="0 0.7 0"></a-entity>
-
-  <a-entity data-aabb-collider-dynamic="true" class="grabbable" id="plot" scale="0.5 0.5 0.5" position="0 1 -0.6" graph="uMin: -6.2; uMax: 6.2; vMin: -6.2; vMax: 6.2; showBoundingLabels: true; showWireframe: false; function: f(u,v) = [u, v, a * cos(v) + b * sin(u)]"></a-entity >
-
-  <a-entity data-aabb-collider-dynamic="true" class="grabbable visible-on-vr" position="0.6 1 0" rotation="0 -70 0" graph-variable-ui="graph: #plot"></a-entity>
-
-  <a-entity position="0.7 1 0.4" rotation="0 -90 0" data-aabb-collider-dynamic="true" class="grabbable visible-on-vr" >
-    <a-entity my-toggle="title: Bounding Box; active: false" event-set__active="_target: #plot; graph.showBoundingBox: true" event-set__inactive="_target: #plot; graph.showBoundingBox: false" position="0 0 0"></a-entity>
-    <!--        <a-entity id="toggle2" my-toggle="title: bounding box; active: false" event-set__start="_event: click; _target: #toggle1; graph.showBoundingBox= true" position="0 0 0" clickable></a-entity>-->
-    <a-entity my-toggle="title: Labels; active: true" event-set__active="_target: #plot; graph.showBoundingLabels: true" event-set__inactive="_target: #plot; graph.showBoundingLabels: false" position="0 0.2 0"></a-entity>
-    <a-entity my-toggle="title: Hide Colors; active: false" event-set__active="_target: #plot; graph.showWireframe: true" event-set__inactive="_target: #plot; graph.showWireframe: false" position="0.25 0 0"></a-entity>
-    <a-entity my-toggle="title: Grid; active: true" event-set__active="_target: #plot; graph.showGrid: true" event-set__inactive="_target: #plot; graph.showGrid: false" position="0.25 0.2 0"></a-entity>
-  </a-entity>
-
-  <a-entity id="function-text" position="0 1.5 -2.5" rotation="0 0 0" scale="1.5 1.5 1.5" my-text="text: ; color: white"></a-entity>
-
-  <a-entity light="type: spot; color: #ffffff; intensity: 0.9; castShadow: false" position="0 2 0" rotation="-90 0 0"></a-entity>
-  <a-entity light="type: ambient; color: #ffffff; intensity: 0.6;" position="0 3 0"></a-entity>
-
-  <!-- <a-entity position="0 1.2 -0.3" fps-counter="for90fps: false"></a-entity> -->
-
-  <!-- <a-log rotation="0 45 0" position="-2 0 -1"></a-log> -->
-
-  <a-entity interaction-hands aabb-collider="objects: .grabbable" id="lhand" hand-controls="hand: left; handModelStyle: highPoly" mixin="touch"></a-entity>
-  <a-entity interaction-hands aabb-collider="objects: .grabbable" id="rhand" hand-controls="hand: right; handModelStyle: highPoly" mixin="touch"></a-entity>
-
-  <a-sky color="white"></a-sky>
-
-</a-scene>
-</body>
-
-
-<script>
-
-  const scene = document.querySelector('a-scene');
-  const vrElements = document.querySelectorAll(".visible-on-vr");
-  const environment = document.querySelector(".environment");
-  console.log(environment);
-  scene.addEventListener("enter-vr", () => {
-    if (scene.is('ar-mode')) {
-      environment.setAttribute("visible", "false")
-    }
-  })
-  scene.addEventListener("exit-vr", () => {
-    environment.setAttribute("visible", "true")
-  })
-
-  const plot = document.querySelector("#plot");
-  const textEl = document.querySelector("#function-text");
-  const graph = plot.components["graph"];
-
-  plot.addEventListener('function-changed', (evt) => {
-    textEl.setAttribute('my-text', {
-      text: evt.detail.function
-    })
-  })
-
-  textEl.setAttribute('my-text', {
-    text: plot.components["graph"].data.function
-  })
-
-  function findGetParameter(parameterName) {
-    var result = null,
-            tmp = [];
-    location.search
-            .substr(1)
-            .split("&")
-            .forEach(function (item) {
-              tmp = item.split("=");
-              if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
-            });
-    return result;
-  }
-
-  function cleanString(input) {
-    var output = "";
-    for (var i=0; i<input.length; i++) {
-      if (input.charAt(i) == '‑') {
-        output += '-'
-      } else if (input.charCodeAt(i) <= 127) {
-        output += input.charAt(i);
+    <style>
+      body {
+        background: linear-gradient(rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.95)),
+          url('src/images/background.jpg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
       }
-    }
-    return output;
-  }
-
-  const getAllGetParameters = () => {
-    parameters = {};
-    location.search
-            .substr(1)
-            .split("&")
-            .forEach(function (item) {
-              tmp = item.split("=");
-              parameters[tmp[0]] = cleanString(decodeURIComponent(tmp[1]));
-            });
-    return parameters
-  }
-
-  plot.setAttribute('graph', getAllGetParameters());
-
-  document.querySelector('.function-input').value = plot.components["graph"].data.function;
-  document.querySelector('.update-button').addEventListener('click', () => {
-    window.location.href = '?function=' + encodeURIComponent(document.querySelector('.function-input').value);
-  })
-
-  document.querySelector('.menu-icon').addEventListener('click', () => {
-    document.querySelector('.menu').classList.toggle('closed');
-  })
-
-  // function checkARSupport() {
-  //   if (navigator.xr == null) {
-  //     return false;
-  //   }
-  //   if (navigator.xr.supportsSession == null) {
-  //     return false;
-  //   }
-  //   // Check to see if the UA can support an AR sessions.
-  //   return navigator.xr.supportsSession('immersive-ar')
-  //       .then(() => { console.log("AR content is supported!"); })
-  //       .catch((reason) => { console.log("AR content is not supported: " + reason); });
-  // }
-
-  // if(checkARSupport()) {
-  //   document.querySelector(".enter-ar").style.display = "none";
-  // }
-
-  document.querySelector(".enter-ar").addEventListener("click", () => {
-    let params = Object.entries(plot.getAttribute("graph")).map(([key, val]) => `${key}=${encodeURIComponent(val)}`).join('&');
-    window.location.href = 'ar.html?' + params;
-  });
-
-  // var a = 1;
-
-  // setInterval(() => {
-  //   plot.setAttribute("graph", {
-  //     a: a
-  //   })
-  //   a += 0.001;
-  // }, 1);
-
-</script>
+      #wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
+      }
+      .text-primary {
+        color: #cc9955 !important;
+      }
+      .text-secondary {
+        color: #a3a3a3 !important;
+      }
+      .text-tertiary {
+        color: #c5c5c5;
+      }
+      .btn-primary:hover {
+        background-color: #aa7733 !important;
+        border-color: #aa7733 !important;
+      }
+      .btn-primary,
+      .btn-primary:active {
+        background-color: #996622 !important;
+        border-color: #996622 !important;
+      }
+      .bg-secondary {
+        background-color: #322414 !important;
+      }
+      .form-control:focus {
+        box-shadow: 0 0 1px 1px #bb8844 !important;
+      }
+      .border-primary {
+        border-color: #cc9955 !important;
+      }
+    </style>
+  </head>
+  <body class="bg-dark my-1 my-lg-5">
+    <div id="wrapper">
+      <div
+        class="container d-flex flex-column h-100 h-lg-75 justify-content-evenly my-1 my-lg-5"
+      >
+        <div class="row">
+          <p class="col-12 text-primary fs-1 text-center m-0">
+            Calculus Graph Visualizer
+          </p>
+        </div>
+        <div class="row justify-content-center">
+          <p class="text-white fs-4 text-center m-0 col-10">
+            Enter your desired function to visualize it in a VR environment!
+          </p>
+        </div>
+        <div class="row justify-content-center">
+          <p
+            class="text-tertiary fs-6 text-center m-0 border-bottom border-primary col-8 col-lg-3 mb-3 lh-lg"
+          >
+            How to write a function:
+          </p>
+          <div class="row justify-content-center">
+            <ul class="text-secondary fs-6 m-0 col-10 col-lg-4">
+              <li>
+                Declare function parameters with
+                <em>f(u,v) = [parameters]</em>
+              </li>
+              <li>
+                The first parameters are the variable units that the function
+                depends on.
+              </li>
+              <li>
+                The last parameter is the actual function. (Example below)
+              </li>
+              <li>
+                Basic operations:
+                <em>+, -, *, /</em>
+              </li>
+              <li>
+                Trigonometric functions:
+                <em>sin(), cos(), tan()</em>
+              </li>
+              <li>
+                Powers:
+                <em>^</em>
+              </li>
+              <li>
+                Factorials:
+                <em>!</em>
+              </li>
+              <li>
+                Order operations using: '
+                <em>(</em>
+                ' and '
+                <em>)</em>
+                '
+              </li>
+              <li><em>Spaces are optional.</em></li>
+            </ul>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-11 col-lg-6">
+            <input
+              id="function-input"
+              type="text"
+              class="form-control form-control-lg bg-secondary border-secondary text-white text-center fs-6"
+              placeholder="Function"
+              value="f(u, v) = [u, v, a * cos(u) + b * sin(v)]"
+            />
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <button id="visualize-button" class="col-6 col-lg-3 btn btn-primary">
+            Visualize!
+          </button>
+        </div>
+        <div class="row justify-content-center">
+          <p id="function-error-message" class="text-center text-danger d-none">Function is invalid.</p>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
