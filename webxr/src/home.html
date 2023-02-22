@@ -16,12 +16,6 @@
 
     <style>
       body {
-        /* background: linear-gradient(rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.95)),
-          url("src/images/background.jpg"); */
-        /* background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover; */
-        /* background-color: rgb(150, 150, 150); */
         height: 100vh;
       }
       #wrapper {
@@ -31,31 +25,7 @@
         min-height: 100%;
       }
       .text-primary {
-        color: #407366 !important;
-      }
-      .text-secondary {
-        color: #a3a3a3 !important;
-      }
-      .text-tertiary {
-        color: #c5c5c5;
-      }
-      .btn-primary:hover {
-        background-color: #407366 !important;
-        border-color: #407366 !important;
-      }
-      .btn-primary,
-      .btn-primary:active {
-        background-color: #2a4d44 !important;
-        border-color: #2a4d44 !important;
-      }
-      .bg-secondary {
-        background-color: #13221e !important;
-      }
-      .form-control:focus {
-        box-shadow: 0 0 1px 1px #bb8844 !important;
-      }
-      .border-primary {
-        border-color: #407366 !important;
+        color: #93ca69 !important;
       }
       .project-card {
         border-radius: 15px;
@@ -65,7 +35,7 @@
         background-repeat: no-repeat;
         background-size: cover;
         padding: 0;
-        min-height: 40vh;
+        height: 45vh;
         display: flex;
         flex-direction: column;
         box-shadow: 0px 0px 15px 0.5px black;
@@ -74,17 +44,17 @@
         cursor: pointer;
       }
       .project-card:hover {
-        box-shadow: 0px 0px 30px 0.5px black;
+        box-shadow: 0px 0px 30px 1px black;
         transition-duration: 0.5s;
       }
       .project-header {
-        height: calc(0.6 * 40vh);
+        height: calc(0.6 * 45vh);
         display: flex;
         flex-direction: column;
         justify-content: center;
       }
       .project-content {
-        background-color: #1d3630;
+        background-color: #243119;
         border-bottom-left-radius: 15px;
         border-bottom-right-radius: 15px;
         padding: 20px;
@@ -105,7 +75,7 @@
       >
         <div class="row justify-content-center">
           <img
-            class="col-6 col-lg-4"
+            class="col-6 col-lg-3"
             src="https://seeklogo.com/images/L/lebanese-american-university-logo-983F7BC800-seeklogo.com.png"
           />
         </div>
@@ -129,7 +99,7 @@
         <div
           class="row justify-content-center align-items-center flex-column flex-md-row"
         >
-          <div class="col-8 col-md-4 col-lg-3 project-card">
+          <div class="col-8 col-md-4 col-lg-3 project-card" onclick="window.location.href='index.html'">
             <div class="project-header">
               <p class="text-primary text-center fs-4 mx-3 mx-md-0 mx-xl-5">
                 Calculus Graph Visualizer
@@ -153,20 +123,18 @@
           <div class="col-8 col-md-4 col-lg-3 project-card">
             <div class="project-header">
               <p class="text-primary text-center fs-4 mx-3 mx-md-0 mx-xl-5">
-                Calculus Graph Visualizer
+                Pressure Bending
               </p>
             </div>
 
             <div class="project-content">
               <p class="text-center text-white m-0 d-none d-xl-block fs-5">
-                Input a 2-variable function and visualize it in a 3D VR
-                environment.
+                Simulate material that bends under certain conditions.
               </p>
               <p
                 class="text-center text-white m-0 d-block d-xl-none fs-6 mx-3 mx-md-0"
               >
-                Input a 2-variable function and visualize it in a 3D VR
-                environment.
+                Simulate material that bends under certain conditions.
               </p>
             </div>
           </div>
@@ -174,20 +142,18 @@
           <div class="col-8 col-md-4 col-lg-3 project-card">
             <div class="project-header">
               <p class="text-primary text-center fs-4 mx-3 mx-md-0 mx-xl-5">
-                Calculus Graph Visualizer
+                Project 3
               </p>
             </div>
 
             <div class="project-content">
               <p class="text-center text-white m-0 d-none d-xl-block fs-5">
-                Input a 2-variable function and visualize it in a 3D VR
-                environment.
+                Project 3 Description.
               </p>
               <p
                 class="text-center text-white m-0 d-block d-xl-none fs-6 mx-3 mx-md-0"
               >
-                Input a 2-variable function and visualize it in a 3D VR
-                environment.
+              Project 3 Description.
               </p>
             </div>
           </div>

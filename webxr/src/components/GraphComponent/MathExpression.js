@@ -125,20 +125,32 @@ export class MathExpression {
 
 window.addEventListener('load', () => {
     document.getElementById('visualize-button').addEventListener('click', () => {
+        let function2_checkbox = document.getElementById("function2-checkbox")
         let error_text = document.getElementById('function-error-message')
         try {
             new MathExpression(document.querySelector('#function-input').value);
             if (error_text.classList.contains("d-block")) {
-                console.log("??")
                 error_text.classList.remove("d-block")
                 error_text.classList.add("d-none")
             }
-            window.location.href = 'scene.html?function=' + encodeURIComponent(document.querySelector('#function-input').value)
-        } catch (e) {
-            if (error_text.classList.contains("d-none")) {
-                error_text.classList.remove("d-none")
-                error_text.classList.add("d-block")
+
+            if (function2_checkbox.checked) {
+                try {
+                    new MathExpression(document.querySelector('#function2-input').value);
+        
+                    window.location.href = 'scene.html?function=' + encodeURIComponent(document.querySelector('#function-input').value) + '&function2=' + encodeURIComponent(document.querySelector('#function2-input').value) 
+                } catch (e) {
+                    error_text.innerHTML = "Function 2 is invalid."
+                    error_text.classList.remove("d-none")
+                    error_text.classList.add("d-block")
+                }
+            } else {
+                window.location.href = 'scene.html?function=' + encodeURIComponent(document.querySelector('#function-input').value)
             }
+        } catch (e) {
+            error_text.innerHTML = "Function 1 is invalid."
+            error_text.classList.remove("d-none")
+            error_text.classList.add("d-block")
         }
     })
 })
