@@ -20,7 +20,7 @@ window.addEventListener("load", (event) => {
   var camera = document.createElement("a-entity");
   camera.setAttribute("camera", "");
   var device = getDevice();
-  if (device === "Desktop" || device === "Mobile") {
+  if (device === "Desktop") {
     camera.setAttribute("position", "0 1.2 0.3");
     camera.setAttribute("kinematic-body", "radius: 0.3");
     camera.setAttribute("look-controls", "pointerLockEnabled: false;");
@@ -39,7 +39,114 @@ window.addEventListener("load", (event) => {
       "color: #000; shader: flat; opacity: 0.6"
     );
     camera.appendChild(cursorEntity);
-  } else {
+    const leftTeleport = document.getElementById("left-teleport")
+    console.log(leftTeleport)
+    leftTeleport.addEventListener("mouseenter", () => {
+      camera.setAttribute("position", "-1 1.2 -1");
+      console.log(">>>>>>>>>>>>>Event")
+    });
+  }
+  else if(device === "Mobile"){
+    camera.setAttribute("position", "0 1.2 0.3");
+    camera.setAttribute("kinematic-body", "radius: 0.3");
+    camera.setAttribute("look-controls", "pointerLockEnabled: false;");
+    camera.setAttribute("wasd-controls", "acceleration: 200");
+    var cursorEntity = document.createElement("a-entity");
+    cursorEntity.setAttribute("cursor", "");
+    cursorEntity.setAttribute("position", "0 0 -0.1");
+    cursorEntity.setAttribute(
+        "geometry",
+        `primitive: sphere; radius: ${
+            getDevice() === "Mobile" ? "0.001" : "0.0006"
+        }`
+    );
+    cursorEntity.setAttribute(
+        "material",
+        "color: #000; shader: flat; opacity: 0.6"
+    );
+    camera.appendChild(cursorEntity);
+
+    var leftTel = document.createElement("a-entity")
+    leftTel.setAttribute("id","left-teleport")
+    leftTel.setAttribute("gltf-model","#teleportationArea")
+    leftTel.setAttribute("modify-materials","")
+    leftTel.setAttribute("scale","0.02 0.02 0.02")
+    leftTel.setAttribute("position","-1 0.1 -1")
+
+    var teleportDelay = 0
+
+    function setDelay(){
+      teleportDelay = 2000
+    }
+
+    function killDelay(){
+      teleportDelay = 0
+    }
+
+    var cameraPosition = null
+    function setPosition(position){
+      cameraPosition = position
+    }
+
+
+    leftTeleport.addEventListener("mouseenter", () => {
+      setPosition("leftTeleport")
+      setTimeout(function() {
+          if(cameraPosition === "leftTeleport"){
+            camera.setAttribute("position", "-1 1.2 -1")
+          }
+      }, 2000);
+
+    });
+
+    leftTeleport.addEventListener("mouseleave", () => {
+      setPosition(null)
+    });
+
+    const rightTeleport = document.getElementById("right-teleport")
+    rightTeleport.addEventListener("mouseenter", () => {
+      setPosition("rightTeleport")
+      setTimeout(function() {
+        if(cameraPosition === "rightTeleport"){
+          camera.setAttribute("position", "1 1.2 -1")
+        }
+      }, 2000);
+    });
+
+    rightTeleport.addEventListener("mouseleave", () => {
+      setPosition(null)
+    });
+
+
+    const centerUpTeleport = document.getElementById("center-up-teleport")
+    centerUpTeleport.addEventListener("mouseenter", () => {
+      setPosition("centerUpTeleport")
+      setTimeout(function() {
+        if(cameraPosition === "centerUpTeleport"){
+          camera.setAttribute("position", "0 1.2 -2")
+        }
+      }, 2000);
+    });
+
+    centerUpTeleport.addEventListener("mouseleave", () => {
+      setPosition(null)
+    });
+
+    const centerDownTeleport = document.getElementById("center-down-teleport")
+    centerDownTeleport.addEventListener("mouseenter", () => {
+      setPosition("centerDownTeleport")
+      setTimeout(function() {
+        if(cameraPosition === "centerDownTeleport"){
+          camera.setAttribute("position", "0 0.5 -0.7")
+        }
+      }, 2000);
+    });
+
+    centerDownTeleport.addEventListener("mouseleave", () => {
+      setPosition(null)
+    });
+  }
+  else {
     camera.setAttribute(
       "orbit-controls",
       "target: 0 1 -0.6; initialPosition: -0.5 1.4 0.3; minDistance: -0.01; enableZoom: false;"

@@ -28,7 +28,7 @@
   </a-assets>
 
   <!-- <a-sky color="#444"></a-sky> -->
-  <a-entity class="environment" environment="groundTexture: none; grid: 1x1; gridColor: #222; ground: flat; lighting: none; skyType: color; skyColor: gray; horizonColor: #222; groundColor: black; groundColor2: #fff"></a-entity>
+  <a-entity class="environment" environment="groundTexture: none; grid: 1x1; gridColor: #222; ground: flat; skyType: color; skyColor: gray; horizonColor: #222; groundColor: black; groundColor2: #fff"></a-entity>
 
   <!--    <a-camera>-->
   <!--      <a-entity cursor position="0 0 -1"-->
@@ -39,14 +39,13 @@
 
   <!--      Room-->
 
-  <a-plane material="side: double" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/thumbnails%2FWoodQuarteredChiffon001_COL_2K.jpg?1675808243856" repeat="10 10" position="0 0 3" rotation="0 0 0" scale="6.3 7.45 7" static-body></a-plane>
-  <a-plane material="side: double" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/thumbnails%2FWoodFineDark004_COL_2K.jpg?1675809047142" repeat="10 10" position="0 3.7 0" rotation="90 0 0" scale="7 7 4" static-body></a-plane>
-  <a-plane material="side: double" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/thumbnails%2FWoodQuarteredChiffon001_COL_2K.jpg?1675808243856" repeat="10 10" position="-3.15 0 0" rotation="0 90 0" scale="6 7.45 5" static-body></a-plane>
-  <a-plane material="side: double" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/thumbnails%2FWoodQuarteredChiffon001_COL_2K.jpg?1675808243856" repeat="10 10" position="3.15 0 0" rotation="0 90 0" scale="6 7.45 5" static-body></a-plane>
-  <a-plane material="side: double"  position="0 0 -3" rotation="0 0 0" scale="6 7.45 5" static-body></a-plane>
-
+<!--  <a-plane material="side: double" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/thumbnails%2FWoodQuarteredChiffon001_COL_2K.jpg?1675808243856" repeat="10 10" position="0 0 3" rotation="0 0 0" scale="6.3 7.45 7" static-body></a-plane>-->
+<!--  <a-plane material="side: double" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/thumbnails%2FWoodFineDark004_COL_2K.jpg?1675809047142" repeat="10 10" position="0 3.7 0" rotation="90 0 0" scale="7 7 4" static-body></a-plane>-->
+<!--  <a-plane material="side: double" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/thumbnails%2FWoodQuarteredChiffon001_COL_2K.jpg?1675808243856" repeat="10 10" position="-3.15 0 0" rotation="0 90 0" scale="6 7.45 5" static-body></a-plane>-->
+<!--  <a-plane material="side: double" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/thumbnails%2FWoodQuarteredChiffon001_COL_2K.jpg?1675808243856" repeat="10 10" position="3.15 0 0" rotation="0 90 0" scale="6 7.45 5" static-body></a-plane>-->
+<!--  <a-plane material="side: double"  position="0 0 -3" rotation="0 0 0" scale="6 7.45 5" static-body></a-plane>-->
   <a-assets>
-    <a-asset-item id="classRoom" src="https://raw.githubusercontent.com/Youssef140/Assets/main/Assets/imitation_classroom_stage/scene.gltf?token=GHSAT0AAAAAAB6O4KZMQ6GZ5PYLZ7HPAZLOY7CYJ2A"></a-asset-item>
+<!--    <a-asset-item id="classRoom" src="https://raw.githubusercontent.com/Youssef140/Assets/main/Assets/imitation_classroom_stage/scene.gltf?token=GHSAT0AAAAAAB6O4KZMQ6GZ5PYLZ7HPAZLOY7CYJ2A"></a-asset-item>-->
 
     <a-asset-item id="plus" src="https://cdn.glitch.global/126b4e72-2ac0-4b74-ad2f-4be152694c26/MINUSS%20.glb?v=1675981115171"></a-asset-item>
 
@@ -54,13 +53,32 @@
 
     <a-asset-item id="minus" src="https://cdn.glitch.global/126b4e72-2ac0-4b74-ad2f-4be152694c26/pluss.glb?v=1675981125859"></a-asset-item>
 
+    <a-asset-item id="teleportationArea" src="https://raw.githubusercontent.com/Youssef140/Assets/main/Assets/magic_ring_-_green/scene.gltf"></a-asset-item>
+
+    <a-asset-item id="class" src="https://cdn.glitch.me/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/CLASSROOM%203.glb"></a-asset-item>
+
+
   </a-assets>
 
-  <a-entity gltf-model="#classRoom" modify-materials scale="0.005 0.005 0.005" position="0 0.7 0"></a-entity>
+<!--  <a-entity gltf-model="#class" modify-materials scale="0.005 0.005 0.005" position="0 0.7 0"></a-entity>-->
+
+  <a-entity id="left-teleport" gltf-model="#teleportationArea" modify-materials scale="0.02 0.02 0.02" position="-1 0.1 -1"></a-entity>
+
+  <a-entity id="right-teleport" gltf-model="#teleportationArea" modify-materials scale="0.02 0.02 0.02" position="1 0.1 -1"></a-entity>
+
+  <a-entity id="center-up-teleport" gltf-model="#teleportationArea" modify-materials scale="0.02 0.02 0.02" position="0 0.2 -2"></a-entity>
+
+  <a-entity id="center-down-teleport" gltf-model="#teleportationArea" modify-materials scale="0.02 0.02 0.02" position="0 0.1 -0.7"></a-entity>
+
+  <a-entity id="center-down-teleport" gltf-model="#teleportationArea" modify-materials scale="0.02 0.02 0.02" rotation="-90 0 0" position="4 1.1 6.7"></a-entity>
 
   <a-entity data-aabb-collider-dynamic="true" class="grabbable" id="plot" scale="0.5 0.5 0.5" position="0 1 -0.6" graph="uMin: -6.2; uMax: 6.2; vMin: -6.2; vMax: 6.2; showBoundingLabels: true; showWireframe: false; function: f(u,v) = [u, v, a * cos(v) + b * sin(u)]"></a-entity >
 
   <a-entity data-aabb-collider-dynamic="true" class="grabbable visible-on-vr" position="0.6 1 0" rotation="0 -70 0" graph-variable-ui="graph: #plot"></a-entity>
+
+
+  <a-entity gltf-model="#class" position="17 0.1 -12.4" rotation="0 180 0" scale="1 1 1"></a-entity>
+
 
   <a-entity position="0.7 1 0.4" rotation="0 -90 0" data-aabb-collider-dynamic="true" class="grabbable visible-on-vr" >
     <a-entity my-toggle="title: Bounding Box; active: false" event-set__active="_target: #plot; graph.showBoundingBox: true" event-set__inactive="_target: #plot; graph.showBoundingBox: false" position="0 0 0"></a-entity>
@@ -72,8 +90,8 @@
 
   <a-entity id="function-text" position="0 1.5 -2.5" rotation="0 0 0" scale="1.5 1.5 1.5" my-text="text: ; color: white"></a-entity>
 
-  <a-entity light="type: spot; color: #ffffff; intensity: 0.9; castShadow: false" position="0 2 0" rotation="-90 0 0"></a-entity>
-  <a-entity light="type: ambient; color: #ffffff; intensity: 0.6;" position="0 3 0"></a-entity>
+<!--  <a-entity light="type: spot; color: #ffffff; intensity: 1; castShadow: false" position="0 2 0" rotation="-90 0 0"></a-entity>-->
+  <a-entity light="type: ambient; color: #ffffff; intensity: 1;" position="0 3 0"></a-entity>
 
   <!-- <a-entity position="0 1.2 -0.3" fps-counter="for90fps: false"></a-entity> -->
 
@@ -164,6 +182,8 @@
   document.querySelector('.menu-icon').addEventListener('click', () => {
     document.querySelector('.menu').classList.toggle('closed');
   })
+
+
 
   // function checkARSupport() {
   //   if (navigator.xr == null) {
