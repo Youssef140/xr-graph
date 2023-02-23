@@ -40,10 +40,8 @@ window.addEventListener("load", (event) => {
     );
     camera.appendChild(cursorEntity);
     const leftTeleport = document.getElementById("left-teleport")
-    console.log(leftTeleport)
     leftTeleport.addEventListener("mouseenter", () => {
       camera.setAttribute("position", "-1 1.2 -1");
-      console.log(">>>>>>>>>>>>>Event")
     });
   }
   else if(device === "Mobile"){

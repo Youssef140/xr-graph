@@ -47,7 +47,7 @@ AFRAME.registerComponent('graph', {
             default: "f(x, y) = [1.5 * x, 0.1 * x^2 * cos(y), 0.1 * x^2 * sin(y)]"
         },
         function2: {
-            default: null
+            default: ''
         },
         debounceTimeForBoundaryCalculation: {
             default: 0

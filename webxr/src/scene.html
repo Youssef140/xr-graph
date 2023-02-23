@@ -11,6 +11,13 @@
     gtag('js', new Date());
 
     gtag('config', 'UA-41295198-4');
+
+    function goBack() {
+      const params = getAllGetParameters()
+      const func2Param = params.function2 ? `&function2=${encodeURIComponent(params.function2)}` : ''
+      console.log(`home.html?function=${encodeURIComponent(params.function)}${func2Param}`)
+      window.location.href = `home.html?function=${encodeURIComponent(params.function)}${func2Param}`
+    }
   </script>
 </head>
 
@@ -18,7 +25,7 @@
   <span
     class="material-symbols-outlined"
     style="position: fixed; top: 20; left: 20; z-index: 1; font-size: 42px; cursor: pointer; color: #ffb95d"
-    onclick="window.location.href = 'home.html'"  
+    onclick="goBack()"  
   >
     logout
   </span>
@@ -173,17 +180,6 @@
 
   plot.setAttribute('graph', getAllGetParameters());
 
-  document.querySelector('.function-input').value = plot.components["graph"].data.function;
-  document.querySelector('.update-button').addEventListener('click', () => {
-    window.location.href = '?function=' + encodeURIComponent(document.querySelector('.function-input').value);
-  })
-
-  document.querySelector('.menu-icon').addEventListener('click', () => {
-    document.querySelector('.menu').classList.toggle('closed');
-  })
-
-
-
   // function checkARSupport() {
   //   if (navigator.xr == null) {
   //     return false;
@@ -201,10 +197,10 @@
   //   document.querySelector(".enter-ar").style.display = "none";
   // }
 
-  document.querySelector(".enter-ar").addEventListener("click", () => {
-    let params = Object.entries(plot.getAttribute("graph")).map(([key, val]) => `${key}=${encodeURIComponent(val)}`).join('&');
-    window.location.href = 'ar.html?' + params;
-  });
+  //document.querySelector(".enter-ar").addEventListener("click", () => {
+  //  let params = Object.entries(plot.getAttribute("graph")).map(([key, val]) => `${key}=${encodeURIComponent(val)}`).join('&');
+  //  window.location.href = 'ar.html?' + params;
+  //});
 
   // var a = 1;
 
