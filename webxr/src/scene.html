@@ -72,7 +72,7 @@
 
   <a-entity id="center-down-teleport" gltf-model="#teleportationArea" modify-materials scale="0.02 0.02 0.02" rotation="-90 0 0" position="4 1.1 6.7"></a-entity>
 
-  <a-entity data-aabb-collider-dynamic="true" class="grabbable" id="plot" scale="0.5 0.5 0.5" position="0 1 -0.6" graph="uMin: -6.2; uMax: 6.2; vMin: -6.2; vMax: 6.2; showBoundingLabels: true; showWireframe: false; function: f(u,v) = [u, v, a * cos(v) + b * sin(u)]"></a-entity >
+  <a-entity data-aabb-collider-dynamic="true" class="grabbable" id="plot" scale="0.5 0.5 0.5" position="0 1 -0.6" graph="xMin: -6.2; xMax: 6.2; yMin: -6.2; yMax: 6.2; x2Min: -6.2; x2Max: 6.2; y2Min: -6.2; y2Max: 6.2; showBoundingLabels: true; showWireframe: false; function: f(x,y) = [x, y, a * cos(y) + b * sin(x)]"></a-entity >
 
   <a-entity data-aabb-collider-dynamic="true" class="grabbable visible-on-vr" position="0.6 1 0" rotation="0 -70 0" graph-variable-ui="graph: #plot"></a-entity>
 
@@ -111,7 +111,6 @@
   const scene = document.querySelector('a-scene');
   const vrElements = document.querySelectorAll(".visible-on-vr");
   const environment = document.querySelector(".environment");
-  console.log(environment);
   scene.addEventListener("enter-vr", () => {
     if (scene.is('ar-mode')) {
       environment.setAttribute("visible", "false")

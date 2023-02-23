@@ -33,6 +33,13 @@ module.exports = merge(common, {
   },
   plugins: [new HtmlWebpackPlugin({
     favicon: "./src/images/favicon.png",
+    chunks: [],
+    template: "./src/home.html",
+    filename: "home.html",
+    // Injects file in the head of the html
+    inject: 'head'
+  }),new HtmlWebpackPlugin({
+    favicon: "./src/images/favicon.png",
     chunks: ['expression_validation'],
     template: "./src/index.html",
     filename: "index.html",
