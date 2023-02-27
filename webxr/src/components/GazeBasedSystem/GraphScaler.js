@@ -100,27 +100,39 @@ function updateGraphUV(id) {
   let interval = setInterval(() => {
     let plot = document.getElementById("plot");
     let graphAtributes = plot.getAttribute("graph");
-    let { uMax, uMin, vMax, vMin } = graphAtributes;
-    let change = 0.12
+    let { xMax, xMin, yMax, yMin, x2Max, x2Min, y2Max, y2Min } = graphAtributes;
+    let change = 0.12;
     if (id === "rangeYPlus") {
-      vMax += change;
-      vMin -= change;
-    } else if (id === "rangeYMinus" && vMax > 0 && vMin < 0) {
-      vMax -= change;
-      vMin += change;
+      yMax += change;
+      yMin -= change;
+      y2Max += change;
+      y2Min -= change;
+    } else if (id === "rangeYMinus" && yMax > 0 && yMin < 0) {
+      yMax -= change;
+      yMin += change;
+      y2Max -= change;
+      y2Min += change;
     } else if (id === "rangeXPlus") {
-      uMax += change;
-      uMin -= change;
-    } else if (id === "rangeXMinus" && uMax > 0 && uMin < 0) {
-      uMax -= change;
-      uMin += change;
+      xMax += change;
+      xMin -= change;
+      x2Max += change;
+      x2Min -= change;
+    } else if (id === "rangeXMinus" && xMax > 0 && xMin < 0) {
+      xMax -= change;
+      xMin += change;
+      x2Max -= change;
+      x2Min += change;
     }
     let newAttributes = {
       ...graphAtributes,
-      uMax,
-      uMin,
-      vMax,
-      vMin
+      xMax,
+      xMin,
+      yMax,
+      yMin,
+      x2Max,
+      x2Min,
+      y2Max,
+      y2Min,
     };
     plot.setAttribute("graph", newAttributes);
   }, 30);
@@ -149,24 +161,24 @@ window.addEventListener("load", () => {
       if (interval) clearInterval(interval);
     });
   });
-  
+
   let scaleButtons = document.querySelectorAll(".scaleButton");
   scaleButtons.forEach((scaleButton) => {
     var interval = null;
     if (getDevice() === "Mobile") {
       scaleButton.addEventListener("mouseenter", () => {
-        scaleButton.emit("scaleGraph", scaleButton.id)
+        scaleButton.emit("scaleGraph", scaleButton.id);
       });
     } else {
       scaleButton.addEventListener("mousedown", () => {
-        scaleButton.emit("scaleGraph", scaleButton.id)
+        scaleButton.emit("scaleGraph", scaleButton.id);
       });
       scaleButton.addEventListener("mouseup", () => {
-        scaleButton.emit("stopScaleGraph")
+        scaleButton.emit("stopScaleGraph");
       });
     }
     scaleButton.addEventListener("mouseleave", () => {
-      scaleButton.emit("stopScaleGraph")
+      scaleButton.emit("stopScaleGraph");
     });
   });
 });

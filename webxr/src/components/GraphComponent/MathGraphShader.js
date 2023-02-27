@@ -1,9 +1,9 @@
 export class MathGraphMaterial {
 
-    constructor(expression) {
+    constructor(expression, isGraph2 = false) {
 
         this.expression = expression;
-
+        this.isGraph2 = isGraph2;
         this.uniforms = {
             colorB: {type: 'vec3', value: new THREE.Color(0xACB6E5)},
             colorA: {type: 'vec3', value: new THREE.Color(0x74ebd5)},
@@ -72,7 +72,7 @@ export class MathGraphMaterial {
     fragmentShader() {
     return `
         uniform bool wireframeActive;
-
+        
         uniform float yBoundaryMin; 
         uniform float yBoundaryMax; 
 
@@ -114,9 +114,14 @@ export class MathGraphMaterial {
                 
                 float f1 = 2.0 * hsl.z - f2;
                 
-                rgb.r = HueToRGB(f1, f2, hsl.x + (1.0/3.0));
+                ${!this.isGraph2 ? 
+                `rgb.r = HueToRGB(f1, f2, hsl.x + (1.0/3.0));
                 rgb.g = HueToRGB(f1, f2, hsl.x);
-                rgb.b= HueToRGB(f1, f2, hsl.x - (1.0/3.0));
+                rgb.b= HueToRGB(f1, f2, hsl.x - (1.0/3.0));` :
+                `rgb.r = HueToRGB(f2, f1, hsl.x + (1.0/3.0));
+                rgb.g = HueToRGB(f2, f1, hsl.x);
+                rgb.b= HueToRGB(f2, f1, hsl.x - (1.0/3.0));`
+                }
             }
             return rgb;
         }

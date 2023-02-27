@@ -44,7 +44,10 @@ AFRAME.registerComponent('graph', {
             default: true
         },
         function: {
-            default: "f(u, v) = [1.5 * u, 0.1 * u^2 * cos(v), 0.1 * u^2 * sin(v)]"
+            default: "f(x, y) = [1.5 * x, 0.1 * x^2 * cos(y), 0.1 * x^2 * sin(y)]"
+        },
+        function2: {
+            default: ''
         },
         debounceTimeForBoundaryCalculation: {
             default: 0
@@ -59,6 +62,12 @@ AFRAME.registerComponent('graph', {
             }
             if (this.yMin != null) {
                 this.graph.material.uniforms.yBoundaryMin.value = this.yMin;
+            }
+            if (this.y2Max != null && this.graph2) {
+                this.graph2.material.uniforms.yBoundaryMax.value = this.y2Max;
+            }
+            if (this.y2Min != null && this.graph2) {
+                this.graph2.material.uniforms.yBoundaryMin.value = this.y2Min;
             }
             this.updateAxesLabels();
             this.boundariesNeedUpdate = false;
@@ -75,6 +84,8 @@ AFRAME.registerComponent('graph', {
         this.boundingBoxVisual = new THREE.Box3Helper(this.boundingBox, 0xffffff);
         
         this.root = new THREE.Group();
+
+
         this.root.add(this.graph);
 
         this.root.add(this.boundingBoxVisual);
@@ -82,6 +93,15 @@ AFRAME.registerComponent('graph', {
         this.updateAxesLabels();
         this.root.add(this.labels);
 
+        if (this.data.function2) {
+            this.expression2 = new MathExpression(this.data.function2);
+            this.graph2 = this.createGraph(this.expression2, true);
+            this.updateBoundingBox(this.expression2, 20, true);
+            this.boundingBoxVisual2 = new THREE.Box3Helper(this.boundingBox2, 0xffffff);
+            this.root.add(this.graph2);
+            this.root.add(this.boundingBoxVisual2);
+            this.root.add(this.labels2);
+        }
         this.gridHelperGroup = new THREE.Group();
         const opacity = 1;
         this.gridHelperXLabel = new MeshText2D("X", {fillStyle: "#ffffff"});
@@ -142,7 +162,7 @@ AFRAME.registerComponent('graph', {
         this.el.setObject3D('mesh', this.root)
 
     },
-    createGraph: function(expression) {
+    createGraph: function(expression, isGraph2 = false) {
         // function mapping:
         // 1 input 1 output = curve
         // 1 input 2 output = curve
@@ -156,9 +176,9 @@ AFRAME.registerComponent('graph', {
             return this.createCurve(expression);
         } else if (inputSize == 2) {
             if (outputSize == 1) {
-                return this.createSurface(expression);
+                return this.createSurface(expression, isGraph2);
             } else {
-                return this.createSurface(expression);
+                return this.createSurface(expression, isGraph2);
             }
         }
     },
@@ -173,11 +193,27 @@ AFRAME.registerComponent('graph', {
             this.boundariesNeedUpdate = true;
         }
 
+        if (this.data.function2 != oldData.function2) {
+            this.expression2 = new MathExpression(this.data.function2);
+            this.el.emit("function-changed", {function: this.data.function2})
+            this.root.remove(this.graph2);
+            this.graph2 = this.createGraph(this.expression2);
+            this.root.add(this.graph2);
+            this.boundariesNeedUpdate = true;
+            this.boundingBoxVisual2 = new THREE.Box3Helper(this.boundingBox2, 0xffffff);
+            this.boundingBoxVisual2.visible = false
+            this.root.add(this.boundingBoxVisual2);
+            this.updateAxesLabels();
+            this.root.add(this.labels2);
+        }
+
         if (this.data.showBoundingLabels != oldData.showBoundingLabels) {
             this.labels.visible = this.data.showBoundingLabels;
+            if (this.graph2) this.labels2.visible = this.data.showBoundingLabels;
         }
         if (this.data.showBoundingBox != oldData.showBoundingBox) {
             this.boundingBoxVisual.visible = this.data.showBoundingBox;
+            if (this.graph2) this.boundingBoxVisual2.visible = this.data.showBoundingBox;
         }
         if (this.data.showGrid != oldData.showGrid) {
             this.gridHelperGroup.visible = this.data.showGrid;
@@ -186,6 +222,9 @@ AFRAME.registerComponent('graph', {
         if (this.data.showWireframe != oldData.showWireframe) {
             if (this.graph.material.uniforms.wireframeActive != null ) {
                 this.graph.material.uniforms.wireframeActive.value = this.data.showWireframe;
+            }
+            if (this.graph2 && this.graph2.material.uniforms.wireframeActive != null ) {
+                this.graph2.material.uniforms.wireframeActive.value = this.data.showWireframe;
             }
         }
         for (let [param, info] of Object.entries(this.getParameterExtrema())) {
@@ -205,22 +244,44 @@ AFRAME.registerComponent('graph', {
             }
         };
 
+        if (this.graph2){
+            for (let [param, info] of Object.entries(this.getParameterExtrema(true))) {
+                if (this.graph2.material.uniforms[param+"Min"].value != info.min) {
+                    this.graph2.material.uniforms[param+"Min"].value = info.min;
+                    this.boundariesNeedUpdate = true;
+                }
+                if (this.graph2.material.uniforms[param+"Max"].value != info.max) {
+                    this.graph2.material.uniforms[param+"Max"].value = info.max;
+                    this.boundariesNeedUpdate = true;
+                }
+            }
+            
+            for (let [variable, value] of Object.entries(this.getVariables(true))) {
+                if (this.graph2.material.uniforms[variable].value != value) {
+                    this.graph2.material.uniforms[variable].value = value
+                    this.boundariesNeedUpdate = true;
+                }
+            };
+        }
+
         if (this.boundariesNeedUpdate) {
             this.updateBoundariesDebounced();
         }
         
     },
-    getVariables: function() {
+    getVariables: function(isGraph2 = false) {
         let variables = {};
-        this.expression.getVariables().forEach(variable => {
+        let expression = isGraph2 ? this.expression2 : this.expression;
+
+        expression.getVariables().forEach(variable => {
             let value;
-            if (this.data[variable] != null) {
-                value = this.data[variable];
-            } else if (this.data[variable+"Min"] != null) {
-                value = this.data[variable+"Min"];
+            if (this.data[variable ] != null) {
+                value = this.data[variable ];
+            } else if (this.data[variable +"Min"] != null) {
+                value = this.data[variable +"Min"];
             }
-            else if (this.data[variable+"Max"] != null) {
-                value = this.data[variable+"Max"];
+            else if (this.data[variable +"Max"] != null) {
+                value = this.data[variable +"Max"];
             } else {
                 value = 1
             }            
@@ -239,6 +300,12 @@ AFRAME.registerComponent('graph', {
                 schema[param+"Max"] = {
                     default: 6
                 };
+                schema[param+"2Min"] = {
+                    default: -6
+                };
+                schema[param+"2Max"] = {
+                    default: 6
+                };
             });
             // expression.getVariables().forEach(param => {
             //     schema[param] = {
@@ -248,16 +315,18 @@ AFRAME.registerComponent('graph', {
           this.extendSchema(schema);
         }
     },
-    getParameterExtrema: function () {
+    getParameterExtrema: function (isGraph2 = false) {
         let parameterExtrema = {};
-        this.expression.getParameters().forEach(param => {
+        let expression = isGraph2 ? this.expression2 : this.expression;
+
+        expression.getParameters().forEach(param => {
             let min = -6;
             let max = 6;
-            if (this.data[param+"Min"] != null) {
-                min = parseFloat(this.data[param+"Min"])
+            if (this.data[param + (isGraph2 ? '2' : '') + "Min"] != null) {
+                min = parseFloat(this.data[param + (isGraph2 ? '2' : '') +"Min"])
             }
-            if (this.data[param+"Max"] != null) {
-                max = parseFloat(this.data[param+"Max"])
+            if (this.data[param + (isGraph2 ? '2' : '') +"Max"] != null) {
+                max = parseFloat(this.data[param + (isGraph2 ? '2' : '') +"Max"])
             }
             parameterExtrema[param] = {
                 min: min,
@@ -268,9 +337,9 @@ AFRAME.registerComponent('graph', {
         
         return parameterExtrema;
     },
-    updateBoundingBox: function (expression, segments = 100) {
+    updateBoundingBox: function (expression, segments = 100, isGraph2 = false) {
 
-        const extrema = this.getParameterExtrema();
+        const extrema = this.getParameterExtrema(isGraph2);
         const parameters = expression.getParameters();        
 
         let explicitFunctionParameter = [];
@@ -294,12 +363,21 @@ AFRAME.registerComponent('graph', {
         }
         explicitFunctionParameter = cartesianProduct(explicitFunctionParameter);
 
-        this.xMin = null;
-        this.xMax = null;
-        this.yMin = null;
-        this.yMax = null;
-        this.zMin = null;
-        this.zMax = null;
+        if (!isGraph2){
+            this.xMin = null;
+            this.xMax = null;
+            this.yMin = null;
+            this.yMax = null;
+            this.zMin = null;
+            this.zMax = null;
+        } else {
+            this.x2Min = null;
+            this.x2Max = null;
+            this.y2Min = null;
+            this.y2Max = null;
+            this.z2Min = null;
+            this.z2Max = null;
+        }
 
         let xValue;
         let yValue;
@@ -336,51 +414,108 @@ AFRAME.registerComponent('graph', {
             yValue = funcResult[1];
             zValue = funcResult[2] * -1;            
 
-            if (this.xMin == null || xValue < this.xMin) {
-                this.xMin = xValue
-            }
-            if (this.xMax == null || xValue > this.xMax) {
-                this.xMax = xValue
-            }
-            if (this.yMin == null || yValue < this.yMin) {
-                this.yMin = yValue
-            }
-            if (this.yMax == null || yValue > this.yMax) {
-                this.yMax = yValue
-            }
-            if (this.zMin == null || zValue < this.zMin) {
-                this.zMin = zValue
-            }
-            if (this.zMax == null || zValue > this.zMax) {
-                this.zMax = zValue
+            if (!isGraph2){
+                if (this.xMin == null || xValue < this.xMin) {
+                    this.xMin = xValue
+                }
+                if (this.xMax == null || xValue > this.xMax) {
+                    this.xMax = xValue
+                }
+                if (this.yMin == null || yValue < this.yMin) {
+                    this.yMin = yValue
+                }
+                if (this.yMax == null || yValue > this.yMax) {
+                    this.yMax = yValue
+                }
+                if (this.zMin == null || zValue < this.zMin) {
+                    this.zMin = zValue
+                }
+                if (this.zMax == null || zValue > this.zMax) {
+                    this.zMax = zValue
+                }
+            } else {
+                if (this.x2Min == null || xValue < this.x2Min) {
+                    this.x2Min = xValue
+                }
+                if (this.x2Max == null || xValue > this.x2Max) {
+                    this.x2Max = xValue
+                }
+                if (this.y2Min == null || yValue < this.y2Min) {
+                    this.y2Min = yValue
+                }
+                if (this.y2Max == null || yValue > this.y2Max) {
+                    this.y2Max = yValue
+                }
+                if (this.z2Min == null || zValue < this.z2Min) {
+                    this.z2Min = zValue
+                }
+                if (this.z2Max == null || zValue > this.z2Max) {
+                    this.z2Max = zValue
+                }
             }
         }        
 
-        if (this.xMax - this.xMin == 0) {
-            this.xMax += 0.2;
-            this.xMin -= 0.2;
-        }
-        if (this.yMax - this.yMin == 0) {
-            this.yMax += 0.2;
-            this.yMin -= 0.2;
-        }
-        if (this.zMax - this.zMin == 0) {
-            this.zMax += 0.2;
-            this.zMin -= 0.2;
-        }
-
-        const minVec = new THREE.Vector3(this.xMin, this.yMin, this.zMin);
-        const maxVec = new THREE.Vector3(this.xMax, this.yMax, this.zMax);
-
-        this.xRange = this.xMax - this.xMin;
-        this.yRange = this.yMax - this.yMin;
-        this.zRange = this.zMax - this.zMin;
-
-        if (this.boundingBox != null) {
-            this.boundingBox.min = minVec;
-            this.boundingBox.max = maxVec;
+        if (!isGraph2){
+            if (this.xMax - this.xMin == 0) {
+                this.xMax += 0.2;
+                this.xMin -= 0.2;
+            }
+            if (this.yMax - this.yMin == 0) {
+                this.yMax += 0.2;
+                this.yMin -= 0.2;
+            }
+            if (this.zMax - this.zMin == 0) {
+                this.zMax += 0.2;
+                this.zMin -= 0.2;
+            }
         } else {
-            this.boundingBox = new THREE.Box3(minVec, maxVec)
+            if (this.x2Max - this.x2Min == 0) {
+                this.x2Max += 0.2;
+                this.x2Min -= 0.2;
+            }
+            if (this.y2Max - this.y2Min == 0) {
+                this.y2Max += 0.2;
+                this.y2Min -= 0.2;
+            }
+            if (this.z2Max - this.z2Min == 0) {
+                this.z2Max += 0.2;
+                this.z2Min -= 0.2;
+            }
+        }
+
+        if (!isGraph2){
+            var minVec = new THREE.Vector3(this.xMin, this.yMin, this.zMin);
+            var maxVec = new THREE.Vector3(this.xMax, this.yMax, this.zMax);
+        } else {
+            var minVec = new THREE.Vector3(this.x2Min, this.y2Min, this.z2Min);
+            var maxVec = new THREE.Vector3(this.x2Max, this.y2Max, this.z2Max);
+        }
+
+        if (!isGraph2){
+            this.xRange = this.xMax - this.xMin;
+            this.yRange = this.yMax - this.yMin;
+            this.zRange = this.zMax - this.zMin;
+        } else {
+            this.xRange2 = this.x2Max - this.x2Min;
+            this.yRange2 = this.y2Max - this.y2Min;
+            this.zRange2 = this.z2Max - this.z2Min;
+        }
+
+        if (!isGraph2){
+            if (this.boundingBox != null) {
+                this.boundingBox.min = minVec;
+                this.boundingBox.max = maxVec;
+            } else {
+                this.boundingBox = new THREE.Box3(minVec, maxVec)
+            }
+        } else {
+            if (this.boundingBox2 != null) {
+                this.boundingBox2.min = minVec;
+                this.boundingBox2.max = maxVec;
+            } else {
+                this.boundingBox2 = new THREE.Box3(minVec, maxVec)
+            }
+
         }
     },
     tick: function () {
@@ -391,6 +526,10 @@ AFRAME.registerComponent('graph', {
     updateBoundaries: function() {
         this.updateBoundingBox(this.expression, 20);
         this.boundingBoxVisual.box = this.boundingBox;
+        if (this.graph2){
+            this.updateBoundingBox(this.expression2, 20, true);
+            this.boundingBoxVisual2.box = this.boundingBox2;
+        }
         if (this.graph != null) {
             if (this.yMax != null) {
                 this.graph.material.uniforms.yBoundaryMax.value = this.yMax;
@@ -399,12 +538,20 @@ AFRAME.registerComponent('graph', {
                 this.graph.material.uniforms.yBoundaryMin.value = this.yMin;
             }
         }
+        if (this.graph2){
+            if (this.y2Max != null) {
+                this.graph2.material.uniforms.yBoundaryMax.value = this.y2Max;
+            }
+            if (this.y2Min != null) {
+                this.graph2.material.uniforms.yBoundaryMin.value = this.y2Min;
+            }
+        }
     },
-    createSurface: function (expression) {
+    createSurface: function (expression, isGraph2 = false) {
         new THREE.BufferGeometry();
         const graphGeometry = new THREE.PlaneBufferGeometry(1, 1, 200, 200);
         graphGeometry.scale(1, 1, 1);
-        const graphMat = new MathGraphMaterial(expression, false);
+        const graphMat = new MathGraphMaterial(expression, isGraph2);
         const graph = new THREE.Mesh(graphGeometry, graphMat.material);
         graph.frustumCulled = false;
 
@@ -482,6 +629,57 @@ AFRAME.registerComponent('graph', {
             this.labels.add(this.yMaxText);
             this.labels.add(this.zMinText);
             this.labels.add(this.zMaxText);
+        }
+        
+        if (this.graph2) {
+            if (this.xMinText2 == null) {            
+                this.xMinText2 = new MeshText2D("", {fillStyle: "#fb2841"});
+            }
+            this.xMinText2.text = (Math.floor(this.x2Min * 100) / 100).toString();
+            this.xMinText2.scale.set(scale,scale,scale);
+            this.xMinText2.position.set(this.x2Min + space, this.y2Min, this.z2Min - offset);
+            if (this.xMaxText2 == null) {
+                this.xMaxText2 = new MeshText2D("", {fillStyle: "#fb2841"});
+            }
+            this.xMaxText2.text = (Math.floor(this.x2Max * 100) / 100).toString();
+            this.xMaxText2.scale.set(scale,scale,scale);
+            this.xMaxText2.position.set(this.x2Max - space, this.y2Min, this.z2Min - offset)
+    
+            if (this.yMinText2 == null) {
+                this.yMinText2 = new MeshText2D("", {fillStyle: "#14eb0d"});
+            }
+            this.yMinText2.text = (Math.floor(this.y2Min * 100) / 100).toString();
+            this.yMinText2.scale.set(scale,scale,scale);
+            this.yMinText2.position.set(this.x2Max + offset, this.y2Min + space, this.z2Max + offset);
+            if (this.yMaxText2 == null) {
+                this.yMaxText2 = new MeshText2D("", {fillStyle: "#14eb0d"});
+            }
+            this.yMaxText2.text = (Math.floor(this.y2Max * 100) / 100).toString();
+            this.yMaxText2.scale.set(scale,scale,scale);
+            this.yMaxText2.position.set(this.x2Max + offset, this.y2Max - space, this.z2Max + offset)
+    
+            if (this.zMinText2 == null) {
+                this.zMinText2 = new MeshText2D("", {fillStyle: "#49caf3"});
+            }
+            this.zMinText2.text = (Math.floor(this.z2Min * 100) / 100).toString();
+            this.zMinText2.scale.set(scale,scale,scale);
+            this.zMinText2.position.set(this.x2Min - offset, this.y2Min, this.z2Min + space);
+            if (this.zMaxText2 == null) {
+                this.zMaxText2 = new MeshText2D("", {fillStyle: "#49caf3"});
+            }
+            this.zMaxText2.text = (Math.floor(this.z2Max * 100) / 100).toString();
+            this.zMaxText2.scale.set(scale,scale,scale);
+            this.zMaxText2.position.set(this.x2Min - offset, this.y2Min, this.z2Max - space)
+    
+            if (this.labels2 == null) {
+                this.labels2 = new THREE.Group();
+                this.labels2.add(this.xMinText2);
+                this.labels2.add(this.xMaxText2);
+                this.labels2.add(this.yMinText2);
+                this.labels2.add(this.yMaxText2);
+                this.labels2.add(this.zMinText2);
+                this.labels2.add(this.zMaxText2);
+            }
         }
     }
 })

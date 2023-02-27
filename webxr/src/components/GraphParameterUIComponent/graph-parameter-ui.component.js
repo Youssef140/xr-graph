@@ -90,31 +90,31 @@ AFRAME.registerComponent('graph-parameter-ui', {
         this.title.position.z = 0.02;
         this.group.add(this.title);
 
-        this.uMinText = new MeshText2D(this.parameterInfos[0].min.toFixed(2), { align: textAlign.right,  font: '50px Arial', fillStyle: '#FFFFFF' , antialias: true });
-        this.uMinText.scale.set(0.01,0.01, 0.01);
-        this.uMinText.position.z = 0.02;
+        this.xMinText = new MeshText2D(this.parameterInfos[0].min.toFixed(2), { align: textAlign.right,  font: '50px Arial', fillStyle: '#FFFFFF' , antialias: true });
+        this.xMinText.scale.set(0.01,0.01, 0.01);
+        this.xMinText.position.z = 0.02;
 
-        this.uMaxText = new MeshText2D(this.parameterInfos[0].max.toFixed(2), { align: textAlign.right,  font: '50px Arial', fillStyle: '#FFFFFF' , antialias: true });
-        this.uMaxText.scale.set(0.01,0.01, 0.01);
-        this.uMaxText.position.z = 0.02;
+        this.xMaxText = new MeshText2D(this.parameterInfos[0].max.toFixed(2), { align: textAlign.right,  font: '50px Arial', fillStyle: '#FFFFFF' , antialias: true });
+        this.xMaxText.scale.set(0.01,0.01, 0.01);
+        this.xMaxText.position.z = 0.02;
 
         
-        this.group.add(this.uMinText);
-        this.group.add(this.uMaxText);
+        this.group.add(this.xMinText);
+        this.group.add(this.xMaxText);
 
 
         if (this.parameterInfos[1] != null) {
 
-            this.vMinText = new MeshText2D(this.parameterInfos[1].min.toFixed(2), { align: textAlign.right,  font: '50px Arial', fillStyle: '#FFFFFF' , antialias: true });
-            this.vMinText.scale.set(0.01,0.01, 0.01);
-            this.vMinText.position.z = 0.02;
+            this.yMinText = new MeshText2D(this.parameterInfos[1].min.toFixed(2), { align: textAlign.right,  font: '50px Arial', fillStyle: '#FFFFFF' , antialias: true });
+            this.yMinText.scale.set(0.01,0.01, 0.01);
+            this.yMinText.position.z = 0.02;
 
-            this.vMaxText = new MeshText2D(this.parameterInfos[1].max.toFixed(2), { align: textAlign.right,  font: '50px Arial', fillStyle: '#FFFFFF' , antialias: true });
-            this.vMaxText.scale.set(0.01,0.01, 0.01);
-            this.vMaxText.position.z = 0.02;
+            this.yMaxText = new MeshText2D(this.parameterInfos[1].max.toFixed(2), { align: textAlign.right,  font: '50px Arial', fillStyle: '#FFFFFF' , antialias: true });
+            this.yMaxText.scale.set(0.01,0.01, 0.01);
+            this.yMaxText.position.z = 0.02;
 
-            this.group.add(this.vMinText);
-            this.group.add(this.vMaxText);
+            this.group.add(this.yMinText);
+            this.group.add(this.yMaxText);
         }
 
         this.updateTextPosition();
@@ -176,18 +176,18 @@ AFRAME.registerComponent('graph-parameter-ui', {
         this.title.position.x = this.planeMesh.position.x - this.planeGeo.parameters.width * this.planeMesh.scale.x / 2 - 0.5;
         this.title.position.y = this.planeMesh.position.y + this.planeGeo.parameters.height * this.planeMesh.scale.y / 2 + 2.5;
 
-        this.uMinText.position.x = this.planeMesh.position.x - this.planeGeo.parameters.width * this.planeMesh.scale.x / 2 + 0.5 * 1 / this.el.object3D.scale.x;
-        this.uMinText.position.y = this.planeMesh.position.y - this.planeGeo.parameters.height * this.planeMesh.scale.y / 2 - 0.3 * 1 / this.el.object3D.scale.y;
+        this.xMinText.position.x = this.planeMesh.position.x - this.planeGeo.parameters.width * this.planeMesh.scale.x / 2 + 0.5 * 1 / this.el.object3D.scale.x;
+        this.xMinText.position.y = this.planeMesh.position.y - this.planeGeo.parameters.height * this.planeMesh.scale.y / 2 - 0.3 * 1 / this.el.object3D.scale.y;
 
-        this.uMaxText.position.x = this.planeMesh.position.x + this.planeGeo.parameters.width * this.planeMesh.scale.x / 2;
-        this.uMaxText.position.y = this.planeMesh.position.y - this.planeGeo.parameters.height * this.planeMesh.scale.y / 2 - 0.3* 1 / this.el.object3D.scale.y;
+        this.xMaxText.position.x = this.planeMesh.position.x + this.planeGeo.parameters.width * this.planeMesh.scale.x / 2;
+        this.xMaxText.position.y = this.planeMesh.position.y - this.planeGeo.parameters.height * this.planeMesh.scale.y / 2 - 0.3* 1 / this.el.object3D.scale.y;
 
         if (this.parameterInfos[1] != null) {
-            this.vMinText.position.x = this.planeMesh.position.x - this.planeGeo.parameters.width * this.planeMesh.scale.x / 2 - 0.5* 1 / this.el.object3D.scale.x;
-            this.vMinText.position.y = this.planeMesh.position.y - this.planeGeo.parameters.height * this.planeMesh.scale.y / 2 + 0.5* 1 / this.el.object3D.scale.y;
+            this.yMinText.position.x = this.planeMesh.position.x - this.planeGeo.parameters.width * this.planeMesh.scale.x / 2 - 0.5* 1 / this.el.object3D.scale.x;
+            this.yMinText.position.y = this.planeMesh.position.y - this.planeGeo.parameters.height * this.planeMesh.scale.y / 2 + 0.5* 1 / this.el.object3D.scale.y;
 
-            this.vMaxText.position.x = this.planeMesh.position.x - this.planeGeo.parameters.width * this.planeMesh.scale.x / 2 - 0.5* 1 / this.el.object3D.scale.x;
-            this.vMaxText.position.y = this.planeMesh.position.y + this.planeGeo.parameters.height * this.planeMesh.scale.y / 2;
+            this.yMaxText.position.x = this.planeMesh.position.x - this.planeGeo.parameters.width * this.planeMesh.scale.x / 2 - 0.5* 1 / this.el.object3D.scale.x;
+            this.yMaxText.position.y = this.planeMesh.position.y + this.planeGeo.parameters.height * this.planeMesh.scale.y / 2;
         }
     },
     play: function () {
@@ -296,57 +296,57 @@ AFRAME.registerComponent('graph-parameter-ui', {
             this.topKnobMesh.position.x = this.leftKnobMesh.position.x + (this.rightKnobMesh.position.x - this.leftKnobMesh.position.x) / 2;
             this.bottomKnobMesh.position.x = this.leftKnobMesh.position.x + (this.rightKnobMesh.position.x - this.leftKnobMesh.position.x) / 2;
             
-            let oldURange = this.planeGeo.parameters.width;
-            let oldVRange = this.planeGeo.parameters.height;
-            let newURange = this.planeMesh.scale.x * this.planeGeo.parameters.width;
-            let newVRange = this.planeMesh.scale.y * this.planeGeo.parameters.height;
-            let newUmax = this.parameterInfos[0].max + this.planeMesh.position.x + (newURange - oldURange) / 2
-            let newUmin = this.parameterInfos[0].min + this.planeMesh.position.x - (newURange - oldURange) / 2
+            let oldXRange = this.planeGeo.parameters.width;
+            let oldYRange = this.planeGeo.parameters.height;
+            let newXRange = this.planeMesh.scale.x * this.planeGeo.parameters.width;
+            let newYRange = this.planeMesh.scale.y * this.planeGeo.parameters.height;
+            let newXMax = this.parameterInfos[0].max + this.planeMesh.position.x + (newXRange - oldXRange) / 2
+            let newXMin = this.parameterInfos[0].min + this.planeMesh.position.x - (newXRange - oldXRange) / 2
 
-            let newVmax;
-            let newVmin;
+            let newYMax;
+            let newYMin;
             if (this.parameterInfos[1] != null) {
-                newVmax = this.parameterInfos[1].max + this.planeMesh.position.y + (newVRange - oldVRange) / 2
-                newVmin = this.parameterInfos[1].min + this.planeMesh.position.y - (newVRange - oldVRange) / 2
+                newYMax = this.parameterInfos[1].max + this.planeMesh.position.y + (newYRange - oldYRange) / 2
+                newYMin = this.parameterInfos[1].min + this.planeMesh.position.y - (newYRange - oldYRange) / 2
             }
             
             let attributeValues = {}
-            attributeValues[`${this.parameters[0]}Min`] = newUmin;
-            attributeValues[`${this.parameters[0]}Max`] = newUmax;
+            attributeValues[`${this.parameters[0]}Min`] = newXMin;
+            attributeValues[`${this.parameters[0]}Max`] = newXMax;
             if (this.parameterInfos[1] != null) {
-                attributeValues[`${this.parameters[1]}Min`] = newVmin;
-                attributeValues[`${this.parameters[1]}Max`] = newVmax;
+                attributeValues[`${this.parameters[1]}Min`] = newYMin;
+                attributeValues[`${this.parameters[1]}Max`] = newYMax;
             }
             
             this.data.graph.setAttribute('graph', attributeValues)
             
-            let xRepeat = newURange;
-            let yRepeat = newVRange;
+            let xRepeat = newXRange;
+            let yRepeat = newYRange;
             if (xRepeat < 2 || yRepeat < 2) {
                 if (this.parameterInfos[1] != null) {
-                    xRepeat = newURange * 4;
-                    yRepeat = newVRange * 4;
+                    xRepeat = newXRange * 4;
+                    yRepeat = newYRange * 4;
                 }
             }
 
             this.alphaTexture.repeat.set(xRepeat, yRepeat);            
-            this.alphaTexture.offset.x = newUmin % 1;
+            this.alphaTexture.offset.x = newXMin % 1;
             if (this.parameterInfos[1] != null) {
-                this.alphaTexture.offset.y = newVmin % 1;
+                this.alphaTexture.offset.y = newYMin % 1;
             }
 
-            this.alphaTexture2.offset.x = newUmin + 0.5;
+            this.alphaTexture2.offset.x = newXMin + 0.5;
             if (this.parameterInfos[1] != null) {
-                this.alphaTexture2.offset.y = newVmin  + 0.5;
+                this.alphaTexture2.offset.y = newYMin  + 0.5;
             }
-            this.alphaTexture2.repeat.set(newURange, newVRange);
+            this.alphaTexture2.repeat.set(newXRange, newYRange);
 
-            this.uMinText.text = newUmin.toFixed(2);
-            this.uMaxText.text = newUmax.toFixed(2);
+            this.xMinText.text = newXMin.toFixed(2);
+            this.xMaxText.text = newXMax.toFixed(2);
 
             if (this.parameterInfos[1] != null) {
-                this.vMinText.text = newVmin.toFixed(2);
-                this.vMaxText.text = newVmax.toFixed(2);
+                this.yMinText.text = newYMin.toFixed(2);
+                this.yMaxText.text = newYMax.toFixed(2);
             }
             
         }    
@@ -356,11 +356,11 @@ AFRAME.registerComponent('graph-parameter-ui', {
         this.leftKnobMesh.scale.set(Math.min(1.3 / this.el.object3D.scale.x, 1), Math.min(1.3 / this.el.object3D.scale.y, 1), Math.min(1.3 / this.el.object3D.scale.z, 1))
         this.rightKnobMesh.scale.set(Math.min(1.3 / this.el.object3D.scale.x, 1), Math.min(1.3 / this.el.object3D.scale.y, 1), Math.min(1.3 / this.el.object3D.scale.z, 1))
 
-        this.uMinText.scale.set(Math.min(1.3 / this.el.object3D.scale.x * 0.01, 0.01), Math.min(1.3 / this.el.object3D.scale.y * 0.01, 0.01), Math.min(1.3 / this.el.object3D.scale.z * 0.01, 0.01))
-        this.uMaxText.scale.set(Math.min(1.3 / this.el.object3D.scale.x * 0.01, 0.01), Math.min(1.3 / this.el.object3D.scale.y * 0.01, 0.01), Math.min(1.3 / this.el.object3D.scale.z * 0.01, 0.01))
+        this.xMinText.scale.set(Math.min(1.3 / this.el.object3D.scale.x * 0.01, 0.01), Math.min(1.3 / this.el.object3D.scale.y * 0.01, 0.01), Math.min(1.3 / this.el.object3D.scale.z * 0.01, 0.01))
+        this.xMaxText.scale.set(Math.min(1.3 / this.el.object3D.scale.x * 0.01, 0.01), Math.min(1.3 / this.el.object3D.scale.y * 0.01, 0.01), Math.min(1.3 / this.el.object3D.scale.z * 0.01, 0.01))
         if (this.parameterInfos[1] != null) {
-            this.vMinText.scale.set(Math.min(1.3 / this.el.object3D.scale.x * 0.01, 0.01), Math.min(1.3 / this.el.object3D.scale.y * 0.01, 0.01), Math.min(1.3 / this.el.object3D.scale.z * 0.01, 0.01))
-            this.vMaxText.scale.set(Math.min(1.3 / this.el.object3D.scale.x * 0.01, 0.01), Math.min(1.3 / this.el.object3D.scale.y * 0.01, 0.01), Math.min(1.3 / this.el.object3D.scale.z * 0.01, 0.01))
+            this.yMinText.scale.set(Math.min(1.3 / this.el.object3D.scale.x * 0.01, 0.01), Math.min(1.3 / this.el.object3D.scale.y * 0.01, 0.01), Math.min(1.3 / this.el.object3D.scale.z * 0.01, 0.01))
+            this.yMaxText.scale.set(Math.min(1.3 / this.el.object3D.scale.x * 0.01, 0.01), Math.min(1.3 / this.el.object3D.scale.y * 0.01, 0.01), Math.min(1.3 / this.el.object3D.scale.z * 0.01, 0.01))
         }
 
         this.updateTextPosition()
