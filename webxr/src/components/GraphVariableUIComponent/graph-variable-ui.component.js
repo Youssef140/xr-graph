@@ -1,4 +1,5 @@
 import { getDevice } from "../GazeBasedSystem/DeviceCamera";
+import { setButtonColorEvents } from "../GazeBasedSystem/GraphScaler";
 
 
 AFRAME.registerComponent('graph-variable-ui', {
@@ -50,6 +51,7 @@ AFRAME.registerComponent('graph-variable-ui', {
             minus.setAttribute("scale", "0.0055 0.0055 0.0055")
             minus.setAttribute("rotation", "90 0 0")
             minus.setAttribute('position', `-0.45 ${index * -height + offset + 0.03} 0`)
+            setButtonColorEvents([plus, minus])
             var interval = null
             if(getDevice() === "Mobile"){
                 plus.addEventListener("mouseenter", () => {

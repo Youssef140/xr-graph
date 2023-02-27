@@ -186,7 +186,7 @@ AFRAME.registerComponent('graph', {
         
         if (this.data.function != oldData.function) {
             this.expression = new MathExpression(this.data.function);
-            this.el.emit("function-changed", {function: this.data.function})
+            this.el.emit("function-changed", {function: this.data.function, function2: this.data.function2})
             this.root.remove(this.graph);
             this.graph = this.createGraph(this.expression);
             this.root.add(this.graph);
@@ -195,7 +195,7 @@ AFRAME.registerComponent('graph', {
 
         if (this.data.function2 != oldData.function2) {
             this.expression2 = new MathExpression(this.data.function2);
-            this.el.emit("function-changed", {function: this.data.function2})
+            this.el.emit("function-changed", {function: this.data.function, function2: this.data.function2})
             this.root.remove(this.graph2);
             this.graph2 = this.createGraph(this.expression2);
             this.root.add(this.graph2);

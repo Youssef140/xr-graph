@@ -92,10 +92,47 @@ window.addEventListener("load", () => {
     graphscale.appendChild(rangeYPlus);
     graphscale.appendChild(rangeYMinus);
 
+    setButtonColorEvents([scalePlus, scaleMinus, rangeXPlus, rangeXMinus, rangeYPlus, rangeYMinus])
     AFRAME.scenes[0].appendChild(graphscale);
   }
 });
 
+export function setButtonColorEvents(buttonsArr) {
+  buttonsArr.forEach((button) => {
+    button.addEventListener("model-loaded", () => {
+      const obj = button.getObject3D("mesh");
+      obj.traverse((node) => {
+        if (node.name === "Sketchup003" || node.name === "Cylinder007") {
+          node.children.forEach((mesh) => {
+            mesh.material.color.set("rgb(0, 150, 255)");
+          });
+        }
+      });
+    });
+
+    button.addEventListener("mouseenter", () => {
+      const obj = button.getObject3D("mesh");
+      obj.traverse((node) => {
+        if (node.name === "Sketchup003" || node.name === "Cylinder007") {
+          node.children.forEach((mesh) => {
+            mesh.material.color.set("rgb(0, 75, 127)");
+          });
+        }
+      });
+    });
+
+    button.addEventListener("mouseleave", () => {
+      const obj = button.getObject3D("mesh");
+      obj.traverse((node) => {
+        if (node.name === "Sketchup003" || node.name === "Cylinder007") {
+          node.children.forEach((mesh) => {
+            mesh.material.color.set("rgb(0, 150, 255)");
+          });
+        }
+      });
+    });
+  });
+}
 function updateGraphUV(id) {
   let interval = setInterval(() => {
     let plot = document.getElementById("plot");

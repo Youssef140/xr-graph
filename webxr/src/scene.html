@@ -62,7 +62,7 @@
 
     <a-asset-item id="teleportationArea" src="https://raw.githubusercontent.com/Youssef140/Assets/main/Assets/magic_ring_-_green/scene.gltf"></a-asset-item>
 
-    <a-asset-item id="class" src="https://cdn.glitch.me/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/CLASSROOM%203.glb"></a-asset-item>
+    <!-- <a-asset-item id="class" src="https://cdn.glitch.me/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/CLASSROOM%203.glb"></a-asset-item> -->
 
 
   </a-assets>
@@ -84,7 +84,7 @@
   <a-entity data-aabb-collider-dynamic="true" class="grabbable visible-on-vr" position="0.6 1 0" rotation="0 -70 0" graph-variable-ui="graph: #plot"></a-entity>
 
 
-  <a-entity gltf-model="#class" position="17 0.1 -12.4" rotation="0 180 0" scale="1 1 1"></a-entity>
+  <!-- <a-entity gltf-model="#class" position="17 0.1 -12.4" rotation="0 180 0" scale="1 1 1"></a-entity> -->
 
 
   <a-entity position="0.7 1 0.4" rotation="0 -90 0" data-aabb-collider-dynamic="true" class="grabbable visible-on-vr" >
@@ -95,7 +95,10 @@
     <a-entity my-toggle="title: Grid; active: true" event-set__active="_target: #plot; graph.showGrid: true" event-set__inactive="_target: #plot; graph.showGrid: false" position="0.25 0.2 0"></a-entity>
   </a-entity>
 
-  <a-entity id="function-text" position="0 1.5 -2.5" rotation="0 0 0" scale="1.5 1.5 1.5" my-text="text: ; color: white"></a-entity>
+  <a-entity id="functions" position="-2.5 1.5 0.5" rotation="0 90 0">
+    <a-entity id="function-text" position="0 0.1 0" scale="1.5 1.5 1.5" my-text="color: white"></a-entity>
+    <a-entity id="function2-text" position="0 -0.1 0" scale="1.5 1.5 1.5" my-text="color: white"></a-entity>
+  </a-entity>
 
 <!--  <a-entity light="type: spot; color: #ffffff; intensity: 1; castShadow: false" position="0 2 0" rotation="-90 0 0"></a-entity>-->
   <a-entity light="type: ambient; color: #ffffff; intensity: 1;" position="0 3 0"></a-entity>
@@ -128,17 +131,20 @@
   })
 
   const plot = document.querySelector("#plot");
-  const textEl = document.querySelector("#function-text");
+  const displayedFunction = document.querySelector("#function-text");
+  const displayedFunction2 = document.querySelector("#function2-text");
+
   const graph = plot.components["graph"];
 
-  plot.addEventListener('function-changed', (evt) => {
-    textEl.setAttribute('my-text', {
-      text: evt.detail.function
-    })
-  })
-
-  textEl.setAttribute('my-text', {
-    text: plot.components["graph"].data.function
+  plot.addEventListener('function-changed', ({detail}) => {
+    if (detail.function)
+      displayedFunction.setAttribute('my-text', {
+        text: `Function${detail.function2 ? ' 1' : ''}: ${detail.function}`
+      })
+    if (detail.function2)
+      displayedFunction2.setAttribute('my-text', {
+        text: `Function 2: ${detail.function2}`
+      })
   })
 
   function findGetParameter(parameterName) {
