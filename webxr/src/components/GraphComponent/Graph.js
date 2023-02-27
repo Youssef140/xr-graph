@@ -82,6 +82,7 @@ AFRAME.registerComponent('graph', {
         this.el.object3D.colliderBox = new THREE.Box3();
         this.el.object3D.colliderBox.copy( this.boundingBox ).applyMatrix4( this.graph.matrixWorld );
         this.boundingBoxVisual = new THREE.Box3Helper(this.boundingBox, 0xffffff);
+        this.boundingBoxVisual.visible = false;
         
         this.root = new THREE.Group();
 

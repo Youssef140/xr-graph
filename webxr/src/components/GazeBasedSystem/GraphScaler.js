@@ -82,8 +82,9 @@ window.addEventListener("load", () => {
     rangeYMinus.setAttribute("position", `0 -0.0225 -0.08`);
 
     let graphscale = document.createElement("a-entity");
-    graphscale.setAttribute("position", "-0.6 0.9 0.3");
-    graphscale.setAttribute("rotation", "0 150 0");
+    graphscale.setAttribute("position", "-1 0.9 1");
+    graphscale.setAttribute("rotation", "0 160 0");
+    graphscale.setAttribute("scale", "1.5 1.5 1.5")
     graphscale.appendChild(titlesEntity);
     graphscale.appendChild(scalePlus);
     graphscale.appendChild(scaleMinus);

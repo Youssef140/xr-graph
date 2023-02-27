@@ -21,7 +21,7 @@ window.addEventListener("load", (event) => {
   camera.setAttribute("camera", "");
   var device = getDevice();
   if (device === "Desktop") {
-    camera.setAttribute("position", "0 1.2 0.3");
+    camera.setAttribute("position", "0 1.2 1.2");
     camera.setAttribute("kinematic-body", "radius: 0.3");
     camera.setAttribute("look-controls", "pointerLockEnabled: false;");
     camera.setAttribute("wasd-controls", "acceleration: 200");
@@ -43,7 +43,7 @@ window.addEventListener("load", (event) => {
     });
   }
   else if(device === "Mobile"){
-    camera.setAttribute("position", "0 1.2 0.3");
+    camera.setAttribute("position", "0 1.2 1.2");
     camera.setAttribute("kinematic-body", "radius: 0.3");
     camera.setAttribute("look-controls", "pointerLockEnabled: false;");
     camera.setAttribute("wasd-controls", "acceleration: 200");
@@ -52,7 +52,7 @@ window.addEventListener("load", (event) => {
     cursorEntity.setAttribute("position", "0 0 -0.1");
     cursorEntity.setAttribute(
         "geometry",
-        `primitive: sphere; radius: 0.0006;`
+        `primitive: sphere; radius: 0.0012;`
     );
     cursorEntity.setAttribute(
         "material",
