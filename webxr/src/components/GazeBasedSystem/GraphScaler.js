@@ -82,8 +82,9 @@ window.addEventListener("load", () => {
     rangeYMinus.setAttribute("position", `0 -0.0225 -0.08`);
 
     let graphscale = document.createElement("a-entity");
-    graphscale.setAttribute("position", "-0.6 0.9 0.3");
-    graphscale.setAttribute("rotation", "0 150 0");
+    graphscale.setAttribute("position", "-1 0.9 1");
+    graphscale.setAttribute("rotation", "0 160 0");
+    graphscale.setAttribute("scale", "1.5 1.5 1.5")
     graphscale.appendChild(titlesEntity);
     graphscale.appendChild(scalePlus);
     graphscale.appendChild(scaleMinus);
@@ -92,10 +93,47 @@ window.addEventListener("load", () => {
     graphscale.appendChild(rangeYPlus);
     graphscale.appendChild(rangeYMinus);
 
+    setButtonColorEvents([scalePlus, scaleMinus, rangeXPlus, rangeXMinus, rangeYPlus, rangeYMinus])
     AFRAME.scenes[0].appendChild(graphscale);
   }
 });
 
+export function setButtonColorEvents(buttonsArr) {
+  buttonsArr.forEach((button) => {
+    button.addEventListener("model-loaded", () => {
+      const obj = button.getObject3D("mesh");
+      obj.traverse((node) => {
+        if (node.name === "Sketchup003" || node.name === "Cylinder007") {
+          node.children.forEach((mesh) => {
+            mesh.material.color.set("rgb(0, 150, 255)");
+          });
+        }
+      });
+    });
+
+    button.addEventListener("mouseenter", () => {
+      const obj = button.getObject3D("mesh");
+      obj.traverse((node) => {
+        if (node.name === "Sketchup003" || node.name === "Cylinder007") {
+          node.children.forEach((mesh) => {
+            mesh.material.color.set("rgb(0, 75, 127)");
+          });
+        }
+      });
+    });
+
+    button.addEventListener("mouseleave", () => {
+      const obj = button.getObject3D("mesh");
+      obj.traverse((node) => {
+        if (node.name === "Sketchup003" || node.name === "Cylinder007") {
+          node.children.forEach((mesh) => {
+            mesh.material.color.set("rgb(0, 150, 255)");
+          });
+        }
+      });
+    });
+  });
+}
 function updateGraphUV(id) {
   let interval = setInterval(() => {
     let plot = document.getElementById("plot");

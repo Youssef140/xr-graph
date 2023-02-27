@@ -2,7 +2,7 @@ import { MeshText2D, textAlign } from 'three-text2d'
 
 AFRAME.registerComponent('my-text', {
     schema: {
-        text: { type: 'string', default: "Hello World!" },
+        text: { type: 'string', default: "" },
         color: { type: 'color', default: "#fff" },
       },
     init: function() {

@@ -21,7 +21,7 @@ window.addEventListener("load", (event) => {
   camera.setAttribute("camera", "");
   var device = getDevice();
   if (device === "Desktop") {
-    camera.setAttribute("position", "0 1.2 0.3");
+    camera.setAttribute("position", "0 1.2 1.2");
     camera.setAttribute("kinematic-body", "radius: 0.3");
     camera.setAttribute("look-controls", "pointerLockEnabled: false;");
     camera.setAttribute("wasd-controls", "acceleration: 200");
@@ -30,9 +30,7 @@ window.addEventListener("load", (event) => {
     cursorEntity.setAttribute("position", "0 0 -0.1");
     cursorEntity.setAttribute(
       "geometry",
-      `primitive: sphere; radius: ${
-        getDevice() === "Mobile" ? "0.001" : "0.0006"
-      }`
+      `primitive: sphere; radius: 0.0015;`
     );
     cursorEntity.setAttribute(
       "material",
@@ -45,7 +43,7 @@ window.addEventListener("load", (event) => {
     // });
   }
   else if(device === "Mobile"){
-    camera.setAttribute("position", "0 1.2 0.3");
+    camera.setAttribute("position", "0 1.2 1.2");
     camera.setAttribute("kinematic-body", "radius: 0.3");
     camera.setAttribute("look-controls", "pointerLockEnabled: false;");
     camera.setAttribute("wasd-controls", "acceleration: 200");
@@ -54,9 +52,7 @@ window.addEventListener("load", (event) => {
     cursorEntity.setAttribute("position", "0 0 -0.1");
     cursorEntity.setAttribute(
         "geometry",
-        `primitive: sphere; radius: ${
-            getDevice() === "Mobile" ? "0.001" : "0.0006"
-        }`
+        `primitive: sphere; radius: 0.0012;`
     );
     cursorEntity.setAttribute(
         "material",
@@ -64,22 +60,12 @@ window.addEventListener("load", (event) => {
     );
     camera.appendChild(cursorEntity);
 
-    var leftTel = document.createElement("a-entity")
-    leftTel.setAttribute("id","left-teleport")
-    leftTel.setAttribute("gltf-model","#teleportationArea")
-    leftTel.setAttribute("modify-materials","")
-    leftTel.setAttribute("scale","0.02 0.02 0.02")
-    leftTel.setAttribute("position","-1 0.1 -1")
-
-    var teleportDelay = 0
-
-    function setDelay(){
-      teleportDelay = 2000
-    }
-
-    function killDelay(){
-      teleportDelay = 0
-    }
+    var leftTeleport = document.createElement("a-entity")
+    leftTeleport.setAttribute("id","left-teleport")
+    leftTeleport.setAttribute("gltf-model","#teleportationArea")
+    leftTeleport.setAttribute("modify-materials","")
+    leftTeleport.setAttribute("scale","0.02 0.02 0.02")
+    leftTeleport.setAttribute("position","-1 0.1 -1")
 
     var cameraPosition = null
     function setPosition(position){
