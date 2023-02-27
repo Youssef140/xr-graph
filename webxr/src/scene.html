@@ -62,14 +62,24 @@
 
     <a-asset-item id="teleportationArea" src="https://raw.githubusercontent.com/Youssef140/Assets/main/Assets/magic_ring_-_green/scene.gltf"></a-asset-item>
 
-    <a-asset-item id="class" src="https://cdn.glitch.me/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/CLASSROOM%203.glb"></a-asset-item>
+<!--    <a-asset-item id="class" src="https://cdn.glitch.me/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/CLASSROOM%203.glb"></a-asset-item>-->
+
+    <a-asset-item id="exit-sign" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/scene.gltf?v=1677528795614"></a-asset-item>
 
 
   </a-assets>
 
 <!--  <a-entity gltf-model="#class" modify-materials scale="0.005 0.005 0.005" position="0 0.7 0"></a-entity>-->
 
-  <a-entity id="left-teleport" gltf-model="#teleportationArea" modify-materials scale="0.02 0.02 0.02" position="-1 0.1 -1"></a-entity>
+  <a-entity id="left-teleport" gltf-model="#teleportationArea" modify-materials scale="0.02 0.02 0.02" position="-1 0.1 -1"
+            layer="layer2"
+            >
+    <a-animation id="scaleup-animation" attribute="scale" to="0.05 0.05 0.05" dur="200" easing="easeOutQuad" begin="enter"></a-animation>
+
+  </a-entity>
+  <a-entity light="type: hemisphere; color: #00FF00; groundColor: #000000; intensity: 1.5" position="-1 0.1 -1"
+            animation="property: light.intensity; dir: alternate; dur: 600; to: 0; loop: true"
+            layers="layer2"></a-entity>
 
   <a-entity id="right-teleport" gltf-model="#teleportationArea" modify-materials scale="0.02 0.02 0.02" position="1 0.1 -1"></a-entity>
 
@@ -84,7 +94,16 @@
   <a-entity data-aabb-collider-dynamic="true" class="grabbable visible-on-vr" position="0.6 1 0" rotation="0 -70 0" graph-variable-ui="graph: #plot"></a-entity>
 
 
-  <a-entity gltf-model="#class" position="17 0.1 -12.4" rotation="0 180 0" scale="1 1 1"></a-entity>
+<!--  <a-entity gltf-model="#class" position="17 0.1 -12.4" rotation="0 180 0" scale="1 1 1"></a-entity>-->
+
+  <a-entity gltf-model="#exit-sign" position="-1.2 2.22 -0.9" rotation="0 -50 0" scale="1 1 1"
+            material="color: #FFF;"
+            onmouseenter="this.setAttribute('material', 'color', '#555');"
+            onmouseleave="this.setAttribute('material', 'color', '#FFF');"
+            layer="layer1"></a-entity>
+<!--  <a-entity light="type: hemisphere; color: #00FF00; groundColor: #000000; intensity: 1.5" position="-1.2 2.22 -0.9"-->
+<!--            animation="property: light.intensity; dir: alternate; dur: 600; to: 0; loop: true"-->
+<!--            layers="layer1"></a-entity>-->
 
 
   <a-entity position="0.7 1 0.4" rotation="0 -90 0" data-aabb-collider-dynamic="true" class="grabbable visible-on-vr" >
@@ -114,6 +133,25 @@
 
 
 <script>
+
+  window.addEventListener('load',()=>{
+    const leftTel = document.getElementById("left-teleport")
+    const animation = document.getElementById("scaleup-animation");
+    console.log(">>>>>>>>"+leftTel)
+
+    leftTel.addEventListener('mouseenter', (event) => {
+      console.log(">>>>>>>>> Mouse Enter")
+      animation.emit("enter")
+    })
+  })
+
+
+  // leftTel.addEventListener('mouseleave', (event) => {
+  //   leftTel.setAttribute("animation","property: scale; to: 0.02 0.02 0.02; dur: 200; easing: easeOutQuad;")
+  //   console.log(">>>>>>>>>>>Mouse Leave")
+  // })
+
+
 
   const scene = document.querySelector('a-scene');
   const vrElements = document.querySelectorAll(".visible-on-vr");

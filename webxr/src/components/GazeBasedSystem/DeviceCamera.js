@@ -36,13 +36,13 @@ window.addEventListener("load", (event) => {
     );
     cursorEntity.setAttribute(
       "material",
-      "color: #000; shader: flat; opacity: 0.6"
+      "color: #fff; shader: flat; opacity: 0.6"
     );
     camera.appendChild(cursorEntity);
-    const leftTeleport = document.getElementById("left-teleport")
-    leftTeleport.addEventListener("mouseenter", () => {
-      camera.setAttribute("position", "-1 1.2 -1");
-    });
+    // const leftTeleport = document.getElementById("left-teleport")
+    // leftTeleport.addEventListener("mouseenter", () => {
+    //   camera.setAttribute("position", "-1 1.2 -1");
+    // });
   }
   else if(device === "Mobile"){
     camera.setAttribute("position", "0 1.2 0.3");
