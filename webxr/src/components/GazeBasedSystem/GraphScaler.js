@@ -82,7 +82,7 @@ window.addEventListener("load", () => {
     rangeYMinus.setAttribute("position", `0 -0.0225 -0.08`);
 
     let graphscale = document.createElement("a-entity");
-    graphscale.setAttribute("position", "-1 0.9 1");
+    graphscale.setAttribute("position", "-1 0.9 0");
     graphscale.setAttribute("rotation", "0 160 0");
     graphscale.setAttribute("scale", "1.5 1.5 1.5")
     graphscale.appendChild(titlesEntity);
@@ -134,7 +134,7 @@ export function setButtonColorEvents(buttonsArr) {
     });
   });
 }
-function updateGraphUV(id) {
+function updateGraphXY(id) {
   let interval = setInterval(() => {
     let plot = document.getElementById("plot");
     let graphAtributes = plot.getAttribute("graph");
@@ -184,12 +184,12 @@ window.addEventListener("load", () => {
     if (getDevice() === "Mobile") {
       rangeButton.addEventListener("mouseenter", () => {
         if (interval) clearInterval(interval);
-        interval = updateGraphUV(rangeButton.id);
+        interval = updateGraphXY(rangeButton.id);
       });
     } else {
       rangeButton.addEventListener("mousedown", () => {
         if (interval) clearInterval(interval);
-        interval = updateGraphUV(rangeButton.id);
+        interval = updateGraphXY(rangeButton.id);
       });
       rangeButton.addEventListener("mouseup", () => {
         if (interval) clearInterval(interval);
