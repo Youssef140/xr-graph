@@ -16,7 +16,8 @@ module.exports = merge(common, {
   devtool: "none",
   entry: {
     vr: "./src/index.js",
-    ar: "./src/ar-script.js"
+    ar: "./src/ar-script.js",
+    expression_validation: "./src/components/GraphComponent/MathExpression.js"
   },
   output: {
     // the filename is the name of the bundled file
@@ -34,20 +35,34 @@ module.exports = merge(common, {
     minimizer: [new TerserPlugin()]
   },
   // Deletes the dist folder, so the new .js files wont stack and pollute the folder
-  plugins: [new CleanWebpackPlugin(), new HtmlWebpackPlugin({
+  plugins: [new HtmlWebpackPlugin({
     favicon: "./src/images/favicon.png",
-    chunks: ['vr'],
+    chunks: [''],
     template: "./src/index.html",
     filename: "index.html",
     // Injects file in the head of the html
     inject: 'head'
-  }),
-  new HtmlWebpackPlugin({
+  }),new HtmlWebpackPlugin({
     favicon: "./src/images/favicon.png",
-    chunks: ['ar'],
-    template: "./src/ar.html",
-    filename: "ar.html",
+    chunks: ['expression_validation'],
+    template: "./src/home.html",
+    filename: "home.html",
     // Injects file in the head of the html
     inject: 'head'
-  })]
+  }),new HtmlWebpackPlugin({
+    favicon: "./src/images/favicon.png",
+    chunks: ['vr'],
+    template: "./src/scene.html",
+    filename: "scene.html",
+    // Injects file in the head of the html
+    inject: 'head'
+  }),
+    new HtmlWebpackPlugin({
+      favicon: "./src/images/favicon.png",
+      chunks: ['ar'],
+      template: "./src/ar.html",
+      filename: "ar.html",
+      // Injects file in the head of the html
+      inject: 'head'
+    })]
 });
