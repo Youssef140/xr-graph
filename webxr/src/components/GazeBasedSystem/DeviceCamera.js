@@ -53,10 +53,10 @@ window.addEventListener("load", (event) => {
     camera.setAttribute("wasd-controls", "acceleration: 200");
     var cursorEntity = document.createElement("a-entity");
     cursorEntity.setAttribute("cursor", "");
-    cursorEntity.setAttribute("position", "0 0 -0.1");
+    cursorEntity.setAttribute("position", "0 0 -0.6");
     cursorEntity.setAttribute(
         "geometry",
-        `primitive: sphere; radius: 0.0012;`
+        `primitive: sphere; radius: 0.004;`
     );
     cursorEntity.setAttribute(
         "material",
@@ -138,7 +138,7 @@ window.addEventListener("load", (event) => {
     var graphScaler = document.createElement("a-entity");
     graphScaler.setAttribute("data-aabb-collider-dynamic", "true");
     graphScaler.setAttribute("class", "grabbable visible-on-vr");
-    graphScaler.setAttribute("position", "-0.6 1 0");
+    graphScaler.setAttribute("position", "-0.6 1 1");
     graphScaler.setAttribute("rotation", "0 70 0");
     graphScaler.setAttribute("graph-parameter-ui", "graph: #plot");
 

@@ -66,25 +66,25 @@
     <a-asset-item id="exit-sign" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/scene.gltf?v=1677528795614"></a-asset-item>
   </a-assets> 
 
-  <a-entity id="left-teleport" gltf-model="#teleportationArea" modify-materials scale="0.02 0.02 0.02" position="-1.5 0.1 -1" layer="layer2"
-    animation="property: scale; to: 0.06 0.06 0.06; dur: 2000; easing: easeOutQuad; startEvents: mouseenter;"
-    animation__2="property: scale; to: 0.02 0.02 0.02; dur: 200; easing: easeOutQuad; startEvents: mouseleave;">
+  <a-entity id="left-teleport" gltf-model="#teleportationArea" modify-materials scale="0.035 0.035 0.035" position="-1.5 0.1 -1" layer="layer2"
+    animation="property: scale; to: 0.075 0.075 0.075; dur: 2000; startEvents: mouseenter;"
+    animation__2="property: scale; to: 0.035 0.035 0.035; dur: 200; startEvents: mouseleave;">
   </a-entity>
   <!-- <a-entity light="type: hemisphere; color: #00FF00; groundColor: #000000; intensity: 1.5" position="-1 0.1 -1"
             animation="property: light.intensity; dir: alternate; dur: 600; to: 0; loop: true"
             layers="layer2"></a-entity> -->
 
-  <a-entity id="right-teleport" gltf-model="#teleportationArea" modify-materials scale="0.02 0.02 0.02" position="1.7 0.1 -1"
-  animation="property: scale; to: 0.06 0.06 0.06; dur: 2000; easing: easeOutQuad; startEvents: mouseenter;"
-  animation__2="property: scale; to: 0.02 0.02 0.02; dur: 200; easing: easeOutQuad; startEvents: mouseleave;"></a-entity>
+  <a-entity id="right-teleport" gltf-model="#teleportationArea" modify-materials scale="0.035 0.035 0.035" position="1.7 0.1 -1"
+  animation="property: scale; to: 0.075 0.075 0.075; dur: 2000; easing: easeOutQuad; startEvents: mouseenter;"
+  animation__2="property: scale; to: 0.035 0.035 0.035; dur: 200; startEvents: mouseleave;"></a-entity>
 
-  <a-entity id="center-up-teleport" gltf-model="#teleportationArea" modify-materials scale="0.02 0.02 0.02" position="0 0.2 -2"
-  animation="property: scale; to: 0.06 0.06 0.06; dur: 2000; easing: easeOutQuad; startEvents: mouseenter;"
-  animation__2="property: scale; to: 0.02 0.02 0.02; dur: 200; easing: easeOutQuad; startEvents: mouseleave;"></a-entity>
+  <a-entity id="center-up-teleport" gltf-model="#teleportationArea" modify-materials scale="0.035 0.035 0.035" position="0 0.2 -2"
+  animation="property: scale; to: 0.075 0.075 0.075; dur: 2000; startEvents: mouseenter;"
+  animation__2="property: scale; to: 0.035 0.035 0.035; dur: 200; startEvents: mouseleave;"></a-entity>
 
-  <a-entity id="center-down-teleport" gltf-model="#teleportationArea" modify-materials scale="0.02 0.02 0.02" position="0 0.1 1.2"
-  animation="property: scale; to: 0.06 0.06 0.06; dur: 2000; easing: easeOutQuad; startEvents: mouseenter;"
-  animation__2="property: scale; to: 0.02 0.02 0.02; dur: 200; easing: easeOutQuad; startEvents: mouseleave;"></a-entity>
+  <a-entity id="center-down-teleport" gltf-model="#teleportationArea" modify-materials scale="0.035 0.035 0.035" position="0 0.1 1.2"
+  animation="property: scale; to: 0.075 0.075 0.075; dur: 2000; startEvents: mouseenter;"
+  animation__2="property: scale; to: 0.035 0.035 0.035; dur: 200; startEvents: mouseleave;"></a-entity>
 
   <a-entity data-aabb-collider-dynamic="true" class="grabbable" id="plot" scale="1 1 1" position="0 1.1 -0.6" graph="xMin: -6.2; xMax: 6.2; yMin: -6.2; yMax: 6.2; x2Min: -6.2; x2Max: 6.2; y2Min: -6.2; y2Max: 6.2; showBoundingLabels: true; showWireframe: false; function: f(x,y) = [x, y, a * cos(y) + b * sin(x)]"></a-entity >
 
