@@ -1,15 +1,20 @@
 {
   "name": "webxr",
   "engines": {
-    "node": "10.x"
+    "node": "16.15.1"
   },
   "version": "1.0.0",
+  "repository": {
+    "url": "git+https://github.com/Youssef140/xr-graph.git"
+  },
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.config.js --open",
     "build": "webpack --config webpack.prod.config.js",
-    "test": "jest"
+    "test": "jest",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "author": "",
   "license": "ISC",

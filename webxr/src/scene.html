@@ -29,17 +29,13 @@
   >
     logout
   </span>
-<a-scene shadow="type: pcfsoft" physics="driver: local; gravity: 0; friction: 0; restitution: 0; debug: true;" renderer="antialias: true" raycaster="objects: [my-slider]">
+<a-scene shadow="type: pcfsoft" physics="driver: local; gravity: 0; friction: 0; restitution: 0;" renderer="antialias: true" raycaster="objects: [my-slider]">
   <a-assets>
     <a-mixin id="touch" class="hands" ></a-mixin>
   </a-assets>
 
   <a-entity class="environment" environment="groundTexture: none; grid: 1x1; gridColor: #222; ground: flat; skyType: color; skyColor: gray; horizonColor: #222; groundColor: black; groundColor2: #fff"></a-entity>
-<!-- 
- <a-plane material="side: double" position="0 0 5" rotation="0 0 0" scale="10 7.45 7" static-body></a-plane>
- <a-plane material="side: double" position="-3.8 0 0" rotation="0 90 0" scale="10 7.45 5" static-body></a-plane>
- <a-plane material="side: double" position="4.7 0 0" rotation="0 90 0" scale="10 7.45 5" static-body></a-plane>
- <a-plane material="side: double" position="0 0 -4" rotation="0 0 0" scale="10 7.45 5" static-body></a-plane> -->
+
   <a-assets>
 
     <a-asset-item id="plus" src="https://cdn.glitch.global/126b4e72-2ac0-4b74-ad2f-4be152694c26/MINUSS%20.glb?v=1675981115171"></a-asset-item>
@@ -50,7 +46,7 @@
 
     <a-asset-item id="teleportationArea" src="https://raw.githubusercontent.com/Youssef140/Assets/main/Assets/magic_ring_-_green/scene.gltf"></a-asset-item>
 
-    <!-- <a-asset-item id="class" src="https://cdn.glitch.me/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/CLASSROOM%203.glb"></a-asset-item> -->
+     <a-asset-item id="class" src="https://cdn.glitch.me/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/CLASSROOM%203.glb"></a-asset-item>
 
     <a-asset-item id="exit-sign" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/scene.gltf?v=1677528795614"></a-asset-item>
   </a-assets>
@@ -59,14 +55,14 @@
 
   <a-entity data-aabb-collider-dynamic="true" class="grabbable visible-on-vr" position="0.8 1 -0.3" rotation="0 -70 0" graph-variable-ui="graph: #plot"></a-entity>
 
-  <!-- <a-entity gltf-model="#class" position="-10 0.1 -11.25" rotation="0 -90 0" scale="0.8 0.8 0.8"></a-entity> -->
-  <a-gltf-model id="class" src="src/models/classroom.glb" position="-11 0.1 -13.45" rotation="0 -90 0" scale="0.8 0.8 0.8"></a-gltf-model>
+  <a-entity gltf-model="#class" position="-11 0.1 -13.45" rotation="0 -90 0" scale="0.8 0.8 0.8"></a-entity>
+  <!-- <a-gltf-model id="class" src="src/models/classroom.glb" position="-11 0.1 -13.45" rotation="0 -90 0" scale="0.8 0.8 0.8"></a-gltf-model> -->
   
   <!-- Walls -->
-  <a-entity geometry="shape: box;" material="color: white" position="0 0 -4" scale="10 10 0.1" static-body></a-entity>
-  <a-entity geometry="shape: box;" material="color: white" position="0 0 4.4"  scale="10 10 0.1" static-body></a-entity>
-  <a-entity geometry="shape: box;" material="color: white" position="-3.7 0 0" rotation="0 90 0" scale="10 10 0.1" static-body></a-entity>
-  <a-entity geometry="shape: box;" material="color: white" position="4.6 0 0" rotation="0 90 0" scale="10 10 0.1" static-body></a-entity>
+  <a-entity geometry="primitive: box;" material="color: white" position="0 0 -4" scale="10 10 0.1" static-body></a-entity>
+  <a-entity geometry="primitive: box;" material="color: white" position="0 0 4.4"  scale="10 10 0.1" static-body></a-entity>
+  <a-entity geometry="primitive: box;" material="color: white" position="-3.7 0 0" rotation="0 90 0" scale="10 10 0.1" static-body></a-entity>
+  <a-entity geometry="primitive: box;" material="color: white" position="4.6 0 0" rotation="0 90 0" scale="10 10 0.1" static-body></a-entity>
 
   <a-entity gltf-model="#exit-sign" position="-1.2 2.22 -1.9" rotation="0 -50 0" scale="1 1 1"
             material="color: #FFF;"

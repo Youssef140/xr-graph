@@ -57,12 +57,12 @@ module.exports = merge(common, {
     // Injects file in the head of the html
     inject: 'head'
   }),
-  new HtmlWebpackPlugin({
-    favicon: "./src/images/favicon.png",
-    chunks: ['ar'],
-    template: "./src/ar.html",
-    filename: "ar.html",
-    // Injects file in the head of the html
-    inject: 'head'
-  })]
+    new HtmlWebpackPlugin({
+      favicon: "./src/images/favicon.png",
+      chunks: ['ar'],
+      template: "./src/ar.html",
+      filename: "ar.html",
+      // Injects file in the head of the html
+      inject: 'head'
+    })]
 });
