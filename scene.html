@@ -19,7 +19,7 @@
       window.location.href = `home.html?function=${encodeURIComponent(params.function)}${func2Param}`
     }
   </script>
-<link rel="shortcut icon" href="favicon.png"><script type="text/javascript" src="vr.2e94f61a5ad4e95b4799.bundle.js"></script></head>
+<link rel="shortcut icon" href="favicon.png"><script type="text/javascript" src="vr.6304c19dd281e933d925.bundle.js"></script></head>
 
 <body>
   <span
@@ -34,23 +34,8 @@
     <a-mixin id="touch" class="hands" ></a-mixin>
   </a-assets>
 
-  <!-- <a-sky color="#444"></a-sky> -->
   <a-entity class="environment" environment="groundTexture: none; grid: 1x1; gridColor: #222; ground: flat; skyType: color; skyColor: gray; horizonColor: #222; groundColor: black; groundColor2: #fff"></a-entity>
 
-  <!--    <a-camera>-->
-  <!--      <a-entity cursor position="0 0 -1"-->
-  <!--                geometry="primitive: sphere; radius: 0.007"-->
-  <!--                material="color: #000000; shader: flat; opacity: 0.6">-->
-  <!--      </a-entity>-->
-  <!--    </a-camera>-->
-
-  <!--      Room-->
-
-<!--  <a-plane material="side: double" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/thumbnails%2FWoodQuarteredChiffon001_COL_2K.jpg?1675808243856" repeat="10 10" position="0 0 3" rotation="0 0 0" scale="6.3 7.45 7" static-body></a-plane>-->
-<!--  <a-plane material="side: double" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/thumbnails%2FWoodFineDark004_COL_2K.jpg?1675809047142" repeat="10 10" position="0 3.7 0" rotation="90 0 0" scale="7 7 4" static-body></a-plane>-->
-<!--  <a-plane material="side: double" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/thumbnails%2FWoodQuarteredChiffon001_COL_2K.jpg?1675808243856" repeat="10 10" position="-3.15 0 0" rotation="0 90 0" scale="6 7.45 5" static-body></a-plane>-->
-<!--  <a-plane material="side: double" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/thumbnails%2FWoodQuarteredChiffon001_COL_2K.jpg?1675808243856" repeat="10 10" position="3.15 0 0" rotation="0 90 0" scale="6 7.45 5" static-body></a-plane>-->
-<!--  <a-plane material="side: double"  position="0 0 -3" rotation="0 0 0" scale="6 7.45 5" static-body></a-plane>-->
   <a-assets>
 
     <a-asset-item id="plus" src="https://cdn.glitch.global/126b4e72-2ac0-4b74-ad2f-4be152694c26/MINUSS%20.glb?v=1675981115171"></a-asset-item>
@@ -64,59 +49,39 @@
      <a-asset-item id="class" src="https://cdn.glitch.me/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/CLASSROOM%203.glb"></a-asset-item>
 
     <a-asset-item id="exit-sign" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/scene.gltf?v=1677528795614"></a-asset-item>
-  </a-assets> 
+  </a-assets>
 
-  <a-entity id="left-teleport" gltf-model="#teleportationArea" modify-materials scale="0.035 0.035 0.035" position="-1.5 0.1 -1" layer="layer2"
-    animation="property: scale; to: 0.075 0.075 0.075; dur: 2000; startEvents: mouseenter;"
-    animation__2="property: scale; to: 0.035 0.035 0.035; dur: 200; startEvents: mouseleave;">
-  </a-entity>
-  <!-- <a-entity light="type: hemisphere; color: #00FF00; groundColor: #000000; intensity: 1.5" position="-1 0.1 -1"
-            animation="property: light.intensity; dir: alternate; dur: 600; to: 0; loop: true"
-            layers="layer2"></a-entity> -->
+  <a-entity data-aabb-collider-dynamic="true" class="grabbable" id="plot" scale="1 1 1" position="0 1.1 -1.4" graph="xMin: -6.2; xMax: 6.2; yMin: -6.2; yMax: 6.2; x2Min: -6.2; x2Max: 6.2; y2Min: -6.2; y2Max: 6.2; showBoundingLabels: true; showWireframe: false; function: f(x,y) = [x, y, a * cos(y) + b * sin(x)]"></a-entity >
 
-  <a-entity id="right-teleport" gltf-model="#teleportationArea" modify-materials scale="0.035 0.035 0.035" position="1.7 0.1 -1"
-  animation="property: scale; to: 0.075 0.075 0.075; dur: 2000; easing: easeOutQuad; startEvents: mouseenter;"
-  animation__2="property: scale; to: 0.035 0.035 0.035; dur: 200; startEvents: mouseleave;"></a-entity>
+  <a-entity data-aabb-collider-dynamic="true" class="grabbable visible-on-vr" position="0.8 1 -0.3" rotation="0 -70 0" graph-variable-ui="graph: #plot"></a-entity>
 
-  <a-entity id="center-up-teleport" gltf-model="#teleportationArea" modify-materials scale="0.035 0.035 0.035" position="0 0.2 -2"
-  animation="property: scale; to: 0.075 0.075 0.075; dur: 2000; startEvents: mouseenter;"
-  animation__2="property: scale; to: 0.035 0.035 0.035; dur: 200; startEvents: mouseleave;"></a-entity>
+  <a-entity gltf-model="#class" position="-11 0.1 -13.45" rotation="0 -90 0" scale="0.8 0.8 0.8"></a-entity>
+  <!-- <a-gltf-model id="class" src="src/models/classroom.glb" position="-11 0.1 -13.45" rotation="0 -90 0" scale="0.8 0.8 0.8"></a-gltf-model> -->
+  
+  <!-- Walls -->
+  <a-entity geometry="primitive: box;" material="color: white" position="0 0 -4" scale="10 10 0.1" static-body></a-entity>
+  <a-entity geometry="primitive: box;" material="color: white" position="0 0 4.4"  scale="10 10 0.1" static-body></a-entity>
+  <a-entity geometry="primitive: box;" material="color: white" position="-3.7 0 0" rotation="0 90 0" scale="10 10 0.1" static-body></a-entity>
+  <a-entity geometry="primitive: box;" material="color: white" position="4.6 0 0" rotation="0 90 0" scale="10 10 0.1" static-body></a-entity>
 
-  <a-entity id="center-down-teleport" gltf-model="#teleportationArea" modify-materials scale="0.035 0.035 0.035" position="0 0.1 1.2"
-  animation="property: scale; to: 0.075 0.075 0.075; dur: 2000; startEvents: mouseenter;"
-  animation__2="property: scale; to: 0.035 0.035 0.035; dur: 200; startEvents: mouseleave;"></a-entity>
-
-  <a-entity data-aabb-collider-dynamic="true" class="grabbable" id="plot" scale="1 1 1" position="0 1.1 -0.6" graph="xMin: -6.2; xMax: 6.2; yMin: -6.2; yMax: 6.2; x2Min: -6.2; x2Max: 6.2; y2Min: -6.2; y2Max: 6.2; showBoundingLabels: true; showWireframe: false; function: f(x,y) = [x, y, a * cos(y) + b * sin(x)]"></a-entity >
-
-  <a-entity data-aabb-collider-dynamic="true" class="grabbable visible-on-vr" position="0.8 1 0.7" rotation="0 -70 0" graph-variable-ui="graph: #plot"></a-entity>
-
-   <a-entity gltf-model="#class" position="-10 0.1 -11.25" rotation="0 -90 0" scale="0.7 0.7 0.7"></a-entity>
-<!--  <a-gltf-model id="class" src="src/models/classroom.glb" position="-10 0.1 -11.25" rotation="0 -90 0" scale="0.7 0.7 0.7" ></a-gltf-model>-->
-
-  <a-entity gltf-model="#exit-sign" position="-1.2 2.22 -0.9" rotation="0 -50 0" scale="1 1 1"
+  <a-entity gltf-model="#exit-sign" position="-1.2 2.22 -1.9" rotation="0 -50 0" scale="1 1 1"
             material="color: #FFF;"
             onmouseenter="this.setAttribute('material', 'color', '#555');"
             onmouseleave="this.setAttribute('material', 'color', '#FFF');"
             layer="layer1"></a-entity>
-  <a-entity position="1 1 1.2" rotation="0 -90 0" scale="1.5 1.5 1.5" data-aabb-collider-dynamic="true" class="grabbable visible-on-vr" >
+  <a-entity position="0.8 1 0.2" rotation="0 -90 0" scale="1.5 1.5 1.5" data-aabb-collider-dynamic="true" class="grabbable visible-on-vr" >
     <a-entity my-toggle="title: Bounding Box; active: false" event-set__active="_target: #plot; graph.showBoundingBox: true" event-set__inactive="_target: #plot; graph.showBoundingBox: false" position="0 0 0"></a-entity>
-    <!--        <a-entity id="toggle2" my-toggle="title: bounding box; active: false" event-set__start="_event: click; _target: #toggle1; graph.showBoundingBox= true" position="0 0 0" clickable></a-entity>-->
     <a-entity my-toggle="title: Labels; active: true" event-set__active="_target: #plot; graph.showBoundingLabels: true" event-set__inactive="_target: #plot; graph.showBoundingLabels: false" position="0 0.2 0"></a-entity>
     <a-entity my-toggle="title: Hide Colors; active: false" event-set__active="_target: #plot; graph.showWireframe: true" event-set__inactive="_target: #plot; graph.showWireframe: false" position="0.25 0 0"></a-entity>
     <a-entity my-toggle="title: Grid; active: true" event-set__active="_target: #plot; graph.showGrid: true" event-set__inactive="_target: #plot; graph.showGrid: false" position="0.25 0.2 0"></a-entity>
   </a-entity>
 
-  <a-entity id="functions" position="-3 1.2 1" rotation="0 90 0">
+  <a-entity id="functions" position="-3 1.4 0.5" rotation="0 90 0">
     <a-entity id="function-text" position="0 0.1 0" scale="1.5 1.5 1.5" my-text="color: white"></a-entity>
     <a-entity id="function2-text" position="0 -0.1 0" scale="1.5 1.5 1.5" my-text="color: white"></a-entity>
   </a-entity>
 
-<!--  <a-entity light="type: spot; color: #ffffff; intensity: 1; castShadow: false" position="0 2 0" rotation="-90 0 0"></a-entity>-->
-  <a-entity light="type: ambient; color: #ffffff; intensity: 1;" position="0 3 0"></a-entity>
-
-  <!-- <a-entity position="0 1.2 -0.3" fps-counter="for90fps: false"></a-entity> -->
-
-  <!-- <a-log rotation="0 45 0" position="-2 0 -1"></a-log> -->
+  <a-entity light="type: ambient; color: #ffffff; intensity: 1;" position="0 3 -1"></a-entity>
 
   <a-entity interaction-hands aabb-collider="objects: .grabbable" id="lhand" hand-controls="hand: left; handModelStyle: highPoly" mixin="touch"></a-entity>
   <a-entity interaction-hands aabb-collider="objects: .grabbable" id="rhand" hand-controls="hand: right; handModelStyle: highPoly" mixin="touch"></a-entity>
@@ -195,37 +160,6 @@
   }
 
   plot.setAttribute('graph', getAllGetParameters());
-
-  // function checkARSupport() {
-  //   if (navigator.xr == null) {
-  //     return false;
-  //   }
-  //   if (navigator.xr.supportsSession == null) {
-  //     return false;
-  //   }
-  //   // Check to see if the UA can support an AR sessions.
-  //   return navigator.xr.supportsSession('immersive-ar')
-  //       .then(() => { console.log("AR content is supported!"); })
-  //       .catch((reason) => { console.log("AR content is not supported: " + reason); });
-  // }
-
-  // if(checkARSupport()) {
-  //   document.querySelector(".enter-ar").style.display = "none";
-  // }
-
-  //document.querySelector(".enter-ar").addEventListener("click", () => {
-  //  let params = Object.entries(plot.getAttribute("graph")).map(([key, val]) => `${key}=${encodeURIComponent(val)}`).join('&');
-  //  window.location.href = 'ar.html?' + params;
-  //});
-
-  // var a = 1;
-
-  // setInterval(() => {
-  //   plot.setAttribute("graph", {
-  //     a: a
-  //   })
-  //   a += 0.001;
-  // }, 1);
 
 </script>
 </html>
