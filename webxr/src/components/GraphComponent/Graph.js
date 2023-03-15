@@ -49,6 +49,12 @@ AFRAME.registerComponent('graph', {
         function2: {
             default: ''
         },
+        opacity: {
+            default: 1
+        },
+        opacity2: {
+            default: 1
+        },
         debounceTimeForBoundaryCalculation: {
             default: 0
         }
@@ -75,10 +81,13 @@ AFRAME.registerComponent('graph', {
 
         this.boundariesNeedUpdate = false;
 
+        this.opacity = 1
+        this.opacity2 = 1
         this.expression = new MathExpression(this.data.function);
         this.updateBoundingBox(this.expression, 20);
-        this.graph = this.createGraph(this.expression);
-        
+        this.graph = this.createGraph(this.expression, false, this.opacity);
+        this.graph.material.transparent = true;
+
         this.el.object3D.colliderBox = new THREE.Box3();
         this.el.object3D.colliderBox.copy( this.boundingBox ).applyMatrix4( this.graph.matrixWorld );
         this.boundingBoxVisual = new THREE.Box3Helper(this.boundingBox, 0xffffff);
@@ -96,7 +105,7 @@ AFRAME.registerComponent('graph', {
 
         if (this.data.function2) {
             this.expression2 = new MathExpression(this.data.function2);
-            this.graph2 = this.createGraph(this.expression2, true);
+            this.graph2 = this.createGraph(this.expression2, true, this.opacity2);
             this.updateBoundingBox(this.expression2, 20, true);
             this.boundingBoxVisual2 = new THREE.Box3Helper(this.boundingBox2, 0xffffff);
             this.root.add(this.graph2);
@@ -163,7 +172,7 @@ AFRAME.registerComponent('graph', {
         this.el.setObject3D('mesh', this.root)
 
     },
-    createGraph: function(expression, isGraph2 = false) {
+    createGraph: function(expression, isGraph2 = false, opacity) {
         // function mapping:
         // 1 input 1 output = curve
         // 1 input 2 output = curve
@@ -177,9 +186,9 @@ AFRAME.registerComponent('graph', {
             return this.createCurve(expression);
         } else if (inputSize == 2) {
             if (outputSize == 1) {
-                return this.createSurface(expression, isGraph2);
+                return this.createSurface(expression, isGraph2, opacity);
             } else {
-                return this.createSurface(expression, isGraph2);
+                return this.createSurface(expression, isGraph2, opacity);
             }
         }
     },
@@ -189,7 +198,7 @@ AFRAME.registerComponent('graph', {
             this.expression = new MathExpression(this.data.function);
             this.el.emit("function-changed", {function: this.data.function, function2: this.data.function2})
             this.root.remove(this.graph);
-            this.graph = this.createGraph(this.expression);
+            this.graph = this.createGraph(this.expression, false, this.opacity);
             this.root.add(this.graph);
             this.boundariesNeedUpdate = true;
         }
@@ -198,7 +207,7 @@ AFRAME.registerComponent('graph', {
             this.expression2 = new MathExpression(this.data.function2);
             this.el.emit("function-changed", {function: this.data.function, function2: this.data.function2})
             this.root.remove(this.graph2);
-            this.graph2 = this.createGraph(this.expression2);
+            this.graph2 = this.createGraph(this.expression2, true, this.opacity2);
             this.root.add(this.graph2);
             this.boundariesNeedUpdate = true;
             this.boundingBoxVisual2 = new THREE.Box3Helper(this.boundingBox2, 0xffffff);
@@ -245,6 +254,17 @@ AFRAME.registerComponent('graph', {
             }
         };
 
+        if (this.data.opacity !== oldData.opacity){
+            this.opacity = this.data.opacity
+            this.root.remove(this.graph);
+            this.graph = this.createGraph(this.expression, false, this.opacity);
+            this.root.add(this.graph);
+            this.boundariesNeedUpdate = true;
+            if (this.graph.material.uniforms.wireframeActive != null ) {
+                this.graph.material.uniforms.wireframeActive.value = this.data.showWireframe;
+            }
+        }
+
         if (this.graph2){
             for (let [param, info] of Object.entries(this.getParameterExtrema(true))) {
                 if (this.graph2.material.uniforms[param+"Min"].value != info.min) {
@@ -263,6 +283,17 @@ AFRAME.registerComponent('graph', {
                     this.boundariesNeedUpdate = true;
                 }
             };
+            
+            if (this.data.opacity2 !== oldData.opacity2){
+                this.opacity2 = this.data.opacity2
+                this.root.remove(this.graph2);
+                this.graph2 = this.createGraph(this.expression2, true, this.opacity2);
+                this.root.add(this.graph2);
+                this.boundariesNeedUpdate = true;
+                if (this.graph2.material.uniforms.wireframeActive != null ) {
+                    this.graph2.material.uniforms.wireframeActive.value = this.data.showWireframe;
+                }
+            }
         }
 
         if (this.boundariesNeedUpdate) {
@@ -548,11 +579,11 @@ AFRAME.registerComponent('graph', {
             }
         }
     },
-    createSurface: function (expression, isGraph2 = false) {
+    createSurface: function (expression, isGraph2 = false, opacity) {
         new THREE.BufferGeometry();
         const graphGeometry = new THREE.PlaneBufferGeometry(1, 1, 200, 200);
         graphGeometry.scale(1, 1, 1);
-        const graphMat = new MathGraphMaterial(expression, isGraph2);
+        const graphMat = new MathGraphMaterial(expression, isGraph2, opacity);
         const graph = new THREE.Mesh(graphGeometry, graphMat.material);
         graph.frustumCulled = false;
 

@@ -1,9 +1,9 @@
 export class MathGraphMaterial {
 
-    constructor(expression, isGraph2 = false) {
-
+    constructor(expression, isGraph2 = false, opacity) {
         this.expression = expression;
         this.isGraph2 = isGraph2;
+        this.opacity = opacity;
         this.uniforms = {
             colorB: {type: 'vec3', value: new THREE.Color(0xACB6E5)},
             colorA: {type: 'vec3', value: new THREE.Color(0x74ebd5)},
@@ -28,7 +28,7 @@ export class MathGraphMaterial {
             side: THREE.DoubleSide,
             fragmentShader: this.fragmentShader(),
             vertexShader: this.vertexShader(),
-            transparent: true
+            transparent: true,
         })
     }
 
@@ -115,12 +115,12 @@ export class MathGraphMaterial {
                 float f1 = 2.0 * hsl.z - f2;
                 
                 ${!this.isGraph2 ? 
-                `rgb.r = HueToRGB(f1, f2, hsl.x + (1.0/3.0));
-                rgb.g = HueToRGB(f1, f2, hsl.x);
-                rgb.b= HueToRGB(f1, f2, hsl.x - (1.0/3.0));` :
-                `rgb.r = HueToRGB(f2, f1, hsl.x + (1.0/3.0));
-                rgb.g = HueToRGB(f2, f1, hsl.x);
-                rgb.b= HueToRGB(f2, f1, hsl.x - (1.0/3.0));`
+                    `rgb.r = HueToRGB(f1, f2, hsl.x + (1.0/3.0));
+                    rgb.g = HueToRGB(f1, f2, hsl.x);
+                    rgb.b= HueToRGB(f1, f2, hsl.x - (1.0/3.0));` :
+                    `rgb.r = HueToRGB(f2, f1, hsl.x + (1.0/3.0));
+                    rgb.g = HueToRGB(f2, f1, hsl.x);
+                    rgb.b= HueToRGB(f2, f1, hsl.x - (1.0/3.0));`
                 }
             }
             return rgb;
@@ -130,16 +130,17 @@ export class MathGraphMaterial {
             float h = 0.7 * (yBoundaryMax - pos.y) / range;
             float s = 1.0;
             float l = 0.5;
-            return vec4(HSLToRGB(vec3(h, s, l)), 1.0);
+            return vec4(HSLToRGB(vec3(h, s, l)), ${this.opacity});
         }
 
         void main() {
             vec4 color = userDefinedColor();
             if (wireframeActive) {
                 if (mod(vUv.x, 0.02) < 0.003 || mod(vUv.y, 0.02) < 0.003) {
-                    color = vec4(0.1, 0.1, 0.1, 1);
+                    color = vec4(0.1, 0.1, 0.1, ${this.opacity});
                 } else {
-                    color = vec4(10, 10, 10, 0.7);
+                    ${this.isGraph2 ? `color = vec4(0.5, 0.5, 0.5, ${this.opacity * 0.8});` : `color = vec4(1, 1, 1, ${this.opacity * 0.7});`}
+                    
                 }
             }
             gl_FragColor = color;
