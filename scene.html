@@ -19,7 +19,7 @@
       window.location.href = `home.html?function=${encodeURIComponent(params.function)}${func2Param}`
     }
   </script>
-<link rel="shortcut icon" href="favicon.png"><script type="text/javascript" src="vr.6304c19dd281e933d925.bundle.js"></script></head>
+<link rel="shortcut icon" href="favicon.png"><script type="text/javascript" src="vr.d846634446bbe4435114.bundle.js"></script></head>
 
 <body>
   <span
@@ -46,7 +46,7 @@
 
     <a-asset-item id="teleportationArea" src="https://raw.githubusercontent.com/Youssef140/Assets/main/Assets/magic_ring_-_green/scene.gltf"></a-asset-item>
 
-     <a-asset-item id="class" src="https://cdn.glitch.me/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/CLASSROOM%203.glb"></a-asset-item>
+     <!-- <a-asset-item id="class" src="https://cdn.glitch.me/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/CLASSROOM%203.glb"></a-asset-item> -->
 
     <a-asset-item id="exit-sign" src="https://cdn.glitch.global/9c8de3fe-0afd-4613-b8a2-ca66167d2a9d/scene.gltf?v=1677528795614"></a-asset-item>
   </a-assets>
@@ -55,8 +55,8 @@
 
   <a-entity data-aabb-collider-dynamic="true" class="grabbable visible-on-vr" position="0.8 1 -0.3" rotation="0 -70 0" graph-variable-ui="graph: #plot"></a-entity>
 
-  <a-entity gltf-model="#class" position="-11 0.1 -13.45" rotation="0 -90 0" scale="0.8 0.8 0.8"></a-entity>
-  <!-- <a-gltf-model id="class" src="src/models/classroom.glb" position="-11 0.1 -13.45" rotation="0 -90 0" scale="0.8 0.8 0.8"></a-gltf-model> -->
+  <!-- <a-entity gltf-model="#class" position="-11 0.1 -13.45" rotation="0 -90 0" scale="0.8 0.8 0.8"></a-entity> -->
+  <a-gltf-model id="class" src="src/models/classroom.glb" position="-11 0.1 -13.45" rotation="0 -90 0" scale="0.8 0.8 0.8"></a-gltf-model>
   
   <!-- Walls -->
   <a-entity geometry="primitive: box;" material="color: white" position="0 0 -4" scale="10 10 0.1" static-body></a-entity>
@@ -85,6 +85,16 @@
 
   <a-entity interaction-hands aabb-collider="objects: .grabbable" id="lhand" hand-controls="hand: left; handModelStyle: highPoly" mixin="touch"></a-entity>
   <a-entity interaction-hands aabb-collider="objects: .grabbable" id="rhand" hand-controls="hand: right; handModelStyle: highPoly" mixin="touch"></a-entity>
+
+  <a-entity id="function1-opacity-slider" my-slider="title: Func 1 Opacity; value: 1; min: 0; max: 1;" position="-1.2 0.9 0.3" rotation="0 80 0">
+    <a-entity id="function1-opacity-plus" gltf-model="#plus" scale="0.0055 0.0055 0.0055" rotation="90 0 0" position="0.15 0.07 0"></a-entity>
+    <a-entity id="function1-opacity-minus" gltf-model="#minus" scale="0.0055 0.0055 0.0055" rotation="90 0 0" position="-0.47 0.07 0"></a-entity>
+  </a-entity>
+  
+  <a-entity id="function2-opacity-slider" my-slider="title: Func 2 Opacity; value: 1; min: 0; max: 1;" position="-1.2 0.9 0.3" rotation="0 80 0" visible="false">
+    <a-entity id="function2-opacity-plus" gltf-model="#plus" scale="0.0055 0.0055 0.0055" rotation="90 0 0" position="0.15 0.07 0"></a-entity>
+    <a-entity id="function2-opacity-minus" gltf-model="#minus" scale="0.0055 0.0055 0.0055" rotation="90 0 0" position="-0.47 0.07 0"></a-entity>
+  </a-entity>
 
   <a-sky color="white"></a-sky>
 
@@ -161,5 +171,14 @@
 
   plot.setAttribute('graph', getAllGetParameters());
 
+  window.addEventListener('load', () => {
+    const opacity1 = document.getElementById('function1-opacity-slider')
+    const opacity2 = document.getElementById('function2-opacity-slider')
+    console.log(getAllGetParameters())
+    if (getAllGetParameters().function2){
+      opacity1.setAttribute('position', "-1.2 1.2 0.3")
+      opacity2.setAttribute('visible', true)
+    }
+  })
 </script>
 </html>
