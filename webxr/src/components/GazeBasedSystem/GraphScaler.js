@@ -181,6 +181,24 @@ window.addEventListener("load", () => {
       function2OpacityMinus,
     ]);
     AFRAME.scenes[0].appendChild(graphscale);
+  } else {
+    const slider1 = document.getElementById(`function1-opacity-slider`);
+    const slider2 = document.getElementById(`function2-opacity-slider`);
+    const graph = document.getElementById("plot");
+
+    slider1.addEventListener("change", (evt) => {
+      var newvalue = evt.detail.value;
+      let graphAtributes = {};
+      graphAtributes["opacity"] = newvalue;
+      graph.setAttribute("graph", graphAtributes);
+    });
+
+    slider2.addEventListener("change", (evt) => {
+      var newvalue = evt.detail.value;
+      let graphAtributes = {};
+      graphAtributes["opacity2"] = newvalue;
+      graph.setAttribute("graph", graphAtributes);
+    });
   }
 });
 
