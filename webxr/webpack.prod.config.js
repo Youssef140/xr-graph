@@ -1,7 +1,6 @@
 const path = require("path");
 const merge = require("webpack-merge");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 
 const common = require("./webpack.common.config");
@@ -24,6 +23,8 @@ module.exports = merge(common, {
     filename: "[name].[contentHash].bundle.js",
     // dist is the folder name it gets exported to
     path: path.resolve(__dirname, "dist"),
+    publicPath: "/"
+
   },
   devServer: {
     overlay: {

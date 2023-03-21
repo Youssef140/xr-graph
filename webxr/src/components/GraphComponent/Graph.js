@@ -83,6 +83,7 @@ AFRAME.registerComponent('graph', {
 
         this.opacity = 1
         this.opacity2 = 1
+        this.showWireframe = false
         this.expression = new MathExpression(this.data.function);
         this.updateBoundingBox(this.expression, 20);
         this.graph = this.createGraph(this.expression, false, this.opacity);
@@ -167,6 +168,24 @@ AFRAME.registerComponent('graph', {
         this.el.sceneEl.addEventListener("stopScaleGraph", () => {
             if (this.scaleInterval) clearInterval(this.scaleInterval)
         })
+        this.el.sceneEl.addEventListener("applyOpacity", () => {  
+            this.root.remove(this.graph);
+            this.graph = this.createGraph(this.expression, false, this.opacity);
+            this.root.add(this.graph);
+            this.updateBoundariesDebounced()
+            if (this.graph.material.uniforms.wireframeActive != null ) {
+                this.graph.material.uniforms.wireframeActive.value = this.showWireframe;
+            }
+            if (this.graph2) {
+                this.root.remove(this.graph2);
+                this.graph2 = this.createGraph(this.expression2, true, this.opacity2);
+                this.root.add(this.graph2);
+                this.updateBoundariesDebounced()
+                if (this.graph2.material.uniforms.wireframeActive != null ) {
+                    this.graph2.material.uniforms.wireframeActive.value = this.showWireframe;
+                }
+            }
+        })
 
         //root.add(this.makeZeroPlanes())
         this.el.setObject3D('mesh', this.root)
@@ -230,6 +249,7 @@ AFRAME.registerComponent('graph', {
         }
         
         if (this.data.showWireframe != oldData.showWireframe) {
+            this.showWireframe = this.data.showWireframe
             if (this.graph.material.uniforms.wireframeActive != null ) {
                 this.graph.material.uniforms.wireframeActive.value = this.data.showWireframe;
             }
@@ -256,13 +276,6 @@ AFRAME.registerComponent('graph', {
 
         if (this.data.opacity !== oldData.opacity){
             this.opacity = this.data.opacity
-            this.root.remove(this.graph);
-            this.graph = this.createGraph(this.expression, false, this.opacity);
-            this.root.add(this.graph);
-            this.boundariesNeedUpdate = true;
-            if (this.graph.material.uniforms.wireframeActive != null ) {
-                this.graph.material.uniforms.wireframeActive.value = this.data.showWireframe;
-            }
         }
 
         if (this.graph2){
@@ -286,13 +299,6 @@ AFRAME.registerComponent('graph', {
             
             if (this.data.opacity2 !== oldData.opacity2){
                 this.opacity2 = this.data.opacity2
-                this.root.remove(this.graph2);
-                this.graph2 = this.createGraph(this.expression2, true, this.opacity2);
-                this.root.add(this.graph2);
-                this.boundariesNeedUpdate = true;
-                if (this.graph2.material.uniforms.wireframeActive != null ) {
-                    this.graph2.material.uniforms.wireframeActive.value = this.data.showWireframe;
-                }
             }
         }
 

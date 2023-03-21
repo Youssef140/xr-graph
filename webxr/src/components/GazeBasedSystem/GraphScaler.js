@@ -114,6 +114,7 @@ window.addEventListener("load", () => {
       });
       function1OpacityPlus.addEventListener("mouseup", () => {
         if (interval) clearInterval(interval);
+        function1OpacityPlus.emit("applyOpacity")
       });
       function1OpacityMinus.addEventListener("mousedown", () => {
         if (interval) clearInterval(interval);
@@ -121,6 +122,7 @@ window.addEventListener("load", () => {
       });
       function1OpacityMinus.addEventListener("mouseup", () => {
         if (interval) clearInterval(interval);
+        function1OpacityMinus.emit("applyOpacity")
       });
       function2OpacityPlus.addEventListener("mousedown", () => {
         if (interval) clearInterval(interval);
@@ -128,6 +130,7 @@ window.addEventListener("load", () => {
       });
       function2OpacityPlus.addEventListener("mouseup", () => {
         if (interval) clearInterval(interval);
+        function2OpacityPlus.emit("applyOpacity")
       });
       function2OpacityMinus.addEventListener("mousedown", () => {
         if (interval) clearInterval(interval);
@@ -135,6 +138,7 @@ window.addEventListener("load", () => {
       });
       function2OpacityMinus.addEventListener("mouseup", () => {
         if (interval) clearInterval(interval);
+        function2OpacityMinus.emit("applyOpacity")
       });
     } else {
       let interval = null;
@@ -144,6 +148,7 @@ window.addEventListener("load", () => {
       });
       function1OpacityPlus.addEventListener("mouseleave", () => {
         if (interval) clearInterval(interval);
+        function1OpacityPlus.emit("applyOpacity")
       });
       function1OpacityMinus.addEventListener("mouseenter", () => {
         if (interval) clearInterval(interval);
@@ -151,6 +156,7 @@ window.addEventListener("load", () => {
       });
       function1OpacityMinus.addEventListener("mouseleave", () => {
         if (interval) clearInterval(interval);
+        function1OpacityPlus.emit("applyOpacity")
       });
       function2OpacityPlus.addEventListener("mouseenter", () => {
         if (interval) clearInterval(interval);
@@ -158,6 +164,7 @@ window.addEventListener("load", () => {
       });
       function2OpacityPlus.addEventListener("mouseleave", () => {
         if (interval) clearInterval(interval);
+        function1OpacityPlus.emit("applyOpacity")
       });
       function2OpacityMinus.addEventListener("mouseenter", () => {
         if (interval) clearInterval(interval);
@@ -165,6 +172,7 @@ window.addEventListener("load", () => {
       });
       function2OpacityMinus.addEventListener("mouseleave", () => {
         if (interval) clearInterval(interval);
+        function1OpacityPlus.emit("applyOpacity")
       });
     }
 
