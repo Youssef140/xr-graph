@@ -84,7 +84,7 @@ window.addEventListener("load", () => {
     let graphscale = document.createElement("a-entity");
     graphscale.setAttribute("position", "-1 0.9 0");
     graphscale.setAttribute("rotation", "0 160 0");
-    graphscale.setAttribute("scale", "1.5 1.5 1.5")
+    graphscale.setAttribute("scale", "1.5 1.5 1.5");
     graphscale.appendChild(titlesEntity);
     graphscale.appendChild(scalePlus);
     graphscale.appendChild(scaleMinus);
@@ -93,8 +93,112 @@ window.addEventListener("load", () => {
     graphscale.appendChild(rangeYPlus);
     graphscale.appendChild(rangeYMinus);
 
-    setButtonColorEvents([scalePlus, scaleMinus, rangeXPlus, rangeXMinus, rangeYPlus, rangeYMinus])
+    let function1OpacityPlus = document.getElementById(
+      "function1-opacity-plus"
+    );
+    let function1OpacityMinus = document.getElementById(
+      "function1-opacity-minus"
+    );
+    let function2OpacityPlus = document.getElementById(
+      "function2-opacity-plus"
+    );
+    let function2OpacityMinus = document.getElementById(
+      "function2-opacity-minus"
+    );
+
+    if (getDevice() === "Desktop") {
+      let interval = null;
+      function1OpacityPlus.addEventListener("mousedown", () => {
+        if (interval) clearInterval(interval);
+        interval = setOpacity(1, "plus");
+      });
+      function1OpacityPlus.addEventListener("mouseup", () => {
+        if (interval) clearInterval(interval);
+      });
+      function1OpacityMinus.addEventListener("mousedown", () => {
+        if (interval) clearInterval(interval);
+        interval = setOpacity(1, "minus");
+      });
+      function1OpacityMinus.addEventListener("mouseup", () => {
+        if (interval) clearInterval(interval);
+      });
+      function2OpacityPlus.addEventListener("mousedown", () => {
+        if (interval) clearInterval(interval);
+        interval = setOpacity(2, "plus");
+      });
+      function2OpacityPlus.addEventListener("mouseup", () => {
+        if (interval) clearInterval(interval);
+      });
+      function2OpacityMinus.addEventListener("mousedown", () => {
+        if (interval) clearInterval(interval);
+        interval = setOpacity(2, "minus");
+      });
+      function2OpacityMinus.addEventListener("mouseup", () => {
+        if (interval) clearInterval(interval);
+      });
+    } else {
+      let interval = null;
+      function1OpacityPlus.addEventListener("mouseenter", () => {
+        if (interval) clearInterval(interval);
+        interval = setOpacity(1, "plus");
+      });
+      function1OpacityPlus.addEventListener("mouseleave", () => {
+        if (interval) clearInterval(interval);
+      });
+      function1OpacityMinus.addEventListener("mouseenter", () => {
+        if (interval) clearInterval(interval);
+        interval = setOpacity(1, "minus");
+      });
+      function1OpacityMinus.addEventListener("mouseleave", () => {
+        if (interval) clearInterval(interval);
+      });
+      function2OpacityPlus.addEventListener("mouseenter", () => {
+        if (interval) clearInterval(interval);
+        interval = setOpacity(2, "plus");
+      });
+      function2OpacityPlus.addEventListener("mouseleave", () => {
+        if (interval) clearInterval(interval);
+      });
+      function2OpacityMinus.addEventListener("mouseenter", () => {
+        if (interval) clearInterval(interval);
+        interval = setOpacity(2, "minus");
+      });
+      function2OpacityMinus.addEventListener("mouseleave", () => {
+        if (interval) clearInterval(interval);
+      });
+    }
+
+    setButtonColorEvents([
+      scalePlus,
+      scaleMinus,
+      rangeXPlus,
+      rangeXMinus,
+      rangeYPlus,
+      rangeYMinus,
+      function1OpacityPlus,
+      function1OpacityMinus,
+      function2OpacityPlus,
+      function2OpacityMinus,
+    ]);
     AFRAME.scenes[0].appendChild(graphscale);
+  } else {
+    const slider1 = document.getElementById(`function1-opacity-slider`);
+    const slider2 = document.getElementById(`function2-opacity-slider`);
+    const graph = document.getElementById("plot");
+
+    slider1.addEventListener("change", (evt) => {
+      var newvalue = evt.detail.value;
+      let graphAtributes = {};
+      graphAtributes["opacity"] = newvalue;
+      graph.setAttribute("graph", graphAtributes);
+    });
+
+    slider2.addEventListener("change", (evt) => {
+      var newvalue = evt.detail.value;
+      let graphAtributes = {};
+      graphAtributes["opacity2"] = newvalue;
+      graph.setAttribute("graph", graphAtributes);
+    });
   }
 });
 
@@ -202,7 +306,6 @@ window.addEventListener("load", () => {
 
   let scaleButtons = document.querySelectorAll(".scaleButton");
   scaleButtons.forEach((scaleButton) => {
-    var interval = null;
     if (getDevice() === "Mobile") {
       scaleButton.addEventListener("mouseenter", () => {
         scaleButton.emit("scaleGraph", scaleButton.id);
@@ -220,3 +323,23 @@ window.addEventListener("load", () => {
     });
   });
 });
+
+function setOpacity(index, mode) {
+  const slider = document.getElementById(`function${index}-opacity-slider`);
+  const graph = document.getElementById("plot");
+  let interval = setInterval(() => {
+    let sliderAttributes = slider.getAttribute("my-slider");
+    if (
+      (mode === "plus" && sliderAttributes.value < sliderAttributes.max) ||
+      (mode === "minus" && sliderAttributes.value > sliderAttributes.min)
+    ) {
+      let newvalue = sliderAttributes.value + (mode === "plus" ? 0.01 : -0.01);
+      let graphAtributes = {};
+      graphAtributes[`opacity${index === 1 ? "" : "2"}`] = newvalue;
+      graph.setAttribute("graph", graphAtributes);
+      sliderAttributes["value"] = newvalue;
+      slider.setAttribute("my-slider", sliderAttributes);
+    }
+  }, 25);
+  return interval;
+}
