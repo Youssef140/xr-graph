@@ -23,8 +23,6 @@ module.exports = merge(common, {
     filename: "[name].[contentHash].bundle.js",
     // dist is the folder name it gets exported to
     path: path.resolve(__dirname, "dist"),
-    publicPath: "/"
-
   },
   devServer: {
     overlay: {

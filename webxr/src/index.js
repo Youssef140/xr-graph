@@ -22,6 +22,9 @@ require('./components/TextComponent/text.component');
 require('./components/GazeBasedSystem/DeviceCamera')
 require('./components/GazeBasedSystem/GraphScaler')
 
+require('./images/calculus_background.PNG')
+require('./images/bending_background.PNG')
+
 import './styles/vr.css';
 
 AFRAME.registerComponent('interaction-hands', {
