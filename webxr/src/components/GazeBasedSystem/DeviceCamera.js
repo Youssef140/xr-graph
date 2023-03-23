@@ -81,7 +81,7 @@ window.addEventListener("load", (event) => {
   }
 });
 
-const createTeleport = (id, position, camera, cameraPos) => {
+const createTeleport = (id, position, rig, rigPos) => {
   let teleportationArea = document.createElement("a-entity");
   teleportationArea.setAttribute("id", id);
   teleportationArea.setAttribute("gltf-model", "#teleportationArea");
@@ -97,20 +97,55 @@ const createTeleport = (id, position, camera, cameraPos) => {
     "property: scale; to: 0.035 0.035 0.035; dur: 200; startEvents: mouseleave;"
   );
 
+  let intervalIndex = 0;
+  setInterval(() => {
+    let scale = (Math.sin(intervalIndex) + 1) / 100 + 0.035;
+    teleportationArea.setAttribute("scale", `${scale} ${scale} ${scale}`);
+    intervalIndex += Math.PI / 64;
+    if (intervalIndex.toFixed(4) === (2 * Math.PI).toFixed(4))
+      intervalIndex = 0;
+  }, 30);
+
   AFRAME.scenes[0].appendChild(teleportationArea);
 
+  teleportationArea.addEventListener("model-loaded", () => {
+    setGreenOpacity(teleportationArea, 0.5)
+  });
+
   var stillHovering = false;
+  var timeout = null;
 
   teleportationArea.addEventListener("mouseenter", () => {
+    setGreenOpacity(teleportationArea, 1)
     stillHovering = true;
-    setTimeout(function () {
-      if (stillHovering) camera.setAttribute("position", cameraPos);
+    if (timeout) clearTimeout(timeout)
+    timeout = setTimeout(function () {
+      if (stillHovering) rig.setAttribute("position", rigPos);
     }, 2000);
   });
 
   teleportationArea.addEventListener("mouseleave", () => {
+    setGreenOpacity(teleportationArea, 0.5)
     stillHovering = false;
+    if (timeout) clearTimeout(timeout)
   });
 
   return teleportationArea;
 };
+
+function setGreenOpacity(element, opacity) {
+  const obj = element.getObject3D("mesh");
+  obj.traverse((node) => {
+    try {
+      if (node.name === "Plane") {
+        node.children.forEach((mesh) => {
+          console.log(mesh);
+          // mesh.material.colorWrite = false
+          mesh.material.color = { r: 0, g: opacity, b: 0 };
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  });
+}

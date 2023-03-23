@@ -49,10 +49,12 @@ AFRAME.registerComponent("my-toggle", {
     var el = this.el;
     var data = this;
     if (getDevice() === "Mobile") {
+      let timeout = null;
       el.addEventListener("mouseenter", () => {
         this.knobMaterial.color.set("rgb(50, 50, 150)")
         data.stillHovering = true;
-        setTimeout(() => {
+        if (timeout) clearTimeout(timeout)
+        timeout = setTimeout(() => {
           if (data.stillHovering) {
             data.setActiveState(!data.active);
             if (data.active) {
@@ -71,6 +73,7 @@ AFRAME.registerComponent("my-toggle", {
       el.addEventListener("mouseleave", () => {
         this.knobMaterial.color.set("white")
         data.stillHovering = false;
+        if (timeout) clearTimeout(timeout)
       });
     } else {
       el.addEventListener("mouseenter", () => {
