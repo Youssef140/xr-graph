@@ -27,13 +27,22 @@
       .text-primary {
         color: #93ca69 !important;
       }
-      .project-card {
-        border-radius: 15px;
+      #calculus-card {
         background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-          url("src/images/background.jpg");
+          url('src/images/calculus_background.PNG');
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
+      }
+      #bending-card {
+        background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+          url('src/images/bending_background.PNG');
+        background-position: top;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+      .project-card {
+        border-radius: 15px;
         padding: 0;
         height: 45vh;
         display: flex;
@@ -67,7 +76,7 @@
         flex: 1;
       }
     </style>
-  <link rel="shortcut icon" href="favicon.png"></head>
+  <link rel="shortcut icon" href="/favicon.png"></head>
   <body class="bg-dark">
     <div id="wrapper">
       <div
@@ -85,22 +94,33 @@
           </p>
         </div>
         <div class="row">
-          <p class="col-12 text-secondary fs-5 d-none d-xl-block text-center my-4 my-md-4 my-lg-0">
+          <p
+            class="col-12 text-secondary fs-5 d-none d-xl-block text-center my-4 my-md-4 my-lg-0"
+          >
             Educational projects developed for specific courses to help students
-            visualize material in an immersive environment.<br /><b>Supervisor:</b> Dr.
-            Evan Fakhoury
+            visualize material in an immersive environment.
+            <br />
+            <b>Supervisor:</b>
+            Dr. Evan Fakhoury
           </p>
-          <p class="col-12 text-secondary fs-6 d-block d-xl-none text-center my-4 mt-0 my-md-4 my-lg-0">
+          <p
+            class="col-12 text-secondary fs-6 d-block d-xl-none text-center my-4 mt-0 my-md-4 my-lg-0"
+          >
             Educational projects developed for specific courses to help students
-            visualize material in an immersive environment.<br /><b>Supervisor:</b> Dr.
-            Evan Fakhoury
+            visualize material in an immersive environment.
+            <br />
+            <b>Supervisor:</b>
+            Dr. Evan Fakhoury
           </p>
         </div>
         <div
           class="row justify-content-center align-items-center flex-column flex-md-row"
         >
-          <div class="col-8 col-md-4 col-lg-3 project-card" onclick="window.location.href='home.html'">
-            <div class="project-header">
+          <div
+            class="col-8 col-md-4 col-lg-3 project-card"
+            onclick="window.location.href='home.html'"
+          >
+            <div id="calculus-card" class="project-header">
               <p class="text-primary text-center fs-4 mx-3 mx-md-0 mx-xl-5">
                 Calculus Graph Visualizer
               </p>
@@ -120,8 +140,11 @@
             </div>
           </div>
 
-          <div class="col-8 col-md-4 col-lg-3 project-card">
-            <div class="project-header">
+          <div
+            class="col-8 col-md-4 col-lg-3 project-card"
+            onclick="window.location.href='https://saraalarab1.github.io/Lateral-Torsional-Buckling/'"
+          >
+            <div id="bending-card" class="project-header">
               <p class="text-primary text-center fs-4 mx-3 mx-md-0 mx-xl-5">
                 Pressure Bending
               </p>
@@ -139,7 +162,7 @@
             </div>
           </div>
 
-          <div class="col-8 col-md-4 col-lg-3 project-card">
+          <!-- <div class="col-8 col-md-4 col-lg-3 project-card">
             <div class="project-header">
               <p class="text-primary text-center fs-4 mx-3 mx-md-0 mx-xl-5">
                 Project 3
@@ -153,10 +176,10 @@
               <p
                 class="text-center text-white m-0 d-block d-xl-none fs-6 mx-3 mx-md-0"
               >
-              Project 3 Description.
+                Project 3 Description.
               </p>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
