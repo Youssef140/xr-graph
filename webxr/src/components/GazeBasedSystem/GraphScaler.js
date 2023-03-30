@@ -93,18 +93,58 @@ window.addEventListener("load", () => {
     graphscale.appendChild(rangeYPlus);
     graphscale.appendChild(rangeYMinus);
 
-    let function1OpacityPlus = document.getElementById(
-      "function1-opacity-plus"
+    var function1OpacitySlider = document.createElement("a-entity");
+    function1OpacitySlider.setAttribute("id", "function1-opacity-slider");
+    function1OpacitySlider.setAttribute(
+      "my-slider",
+      "title: Func 1 Opacity; value: 1; min: 0; max: 1;"
     );
-    let function1OpacityMinus = document.getElementById(
-      "function1-opacity-minus"
+    function1OpacitySlider.setAttribute("position", "-1.1 0.8 0.3");
+    function1OpacitySlider.setAttribute("rotation", "0 80 0");
+
+    var function1OpacityPlus = document.createElement("a-entity");
+    function1OpacityPlus.setAttribute("id", "function1-opacity-plus");
+    function1OpacityPlus.setAttribute("gltf-model", "#plus");
+    function1OpacityPlus.setAttribute("scale", "0.0055 0.0055 0.0055");
+    function1OpacityPlus.setAttribute("rotation", "90 0 0");
+    function1OpacityPlus.setAttribute("position", "0.15 0.07 0");
+    function1OpacitySlider.appendChild(function1OpacityPlus);
+
+    var function1OpacityMinus = document.createElement("a-entity");
+    function1OpacityMinus.setAttribute("id", "function1-opacity-minus");
+    function1OpacityMinus.setAttribute("gltf-model", "#minus");
+    function1OpacityMinus.setAttribute("scale", "0.0055 0.0055 0.0055");
+    function1OpacityMinus.setAttribute("rotation", "90 0 0");
+    function1OpacityMinus.setAttribute("position", "-0.47 0.07 0");
+    function1OpacitySlider.appendChild(function1OpacityMinus);
+    AFRAME.scenes[0].appendChild(function1OpacitySlider);
+
+    var function2OpacitySlider = document.createElement("a-entity");
+    function2OpacitySlider.setAttribute("id", "function2-opacity-slider");
+    function2OpacitySlider.setAttribute(
+      "my-slider",
+      "title: Func 2 Opacity; value: 1; min: 0; max: 1;"
     );
-    let function2OpacityPlus = document.getElementById(
-      "function2-opacity-plus"
-    );
-    let function2OpacityMinus = document.getElementById(
-      "function2-opacity-minus"
-    );
+    function2OpacitySlider.setAttribute("position", "-1.1 0.8 0.3");
+    function2OpacitySlider.setAttribute("rotation", "0 80 0");
+    function2OpacitySlider.setAttribute("visible", "false");
+
+    var function2OpacityPlus = document.createElement("a-entity");
+    function2OpacityPlus.setAttribute("id", "function2-opacity-plus");
+    function2OpacityPlus.setAttribute("gltf-model", "#plus");
+    function2OpacityPlus.setAttribute("scale", "0.0055 0.0055 0.0055");
+    function2OpacityPlus.setAttribute("rotation", "90 0 0");
+    function2OpacityPlus.setAttribute("position", "0.15 0.07 0");
+    function2OpacitySlider.appendChild(function2OpacityPlus);
+
+    var function2OpacityMinus = document.createElement("a-entity");
+    function2OpacityMinus.setAttribute("id", "function2-opacity-minus");
+    function2OpacityMinus.setAttribute("gltf-model", "#minus");
+    function2OpacityMinus.setAttribute("scale", "0.0055 0.0055 0.0055");
+    function2OpacityMinus.setAttribute("rotation", "90 0 0");
+    function2OpacityMinus.setAttribute("position", "-0.47 0.07 0");
+    function2OpacitySlider.appendChild(function2OpacityMinus);
+    AFRAME.scenes[0].appendChild(function2OpacitySlider);
 
     if (getDevice() === "Desktop") {
       let interval = null;
@@ -114,7 +154,7 @@ window.addEventListener("load", () => {
       });
       function1OpacityPlus.addEventListener("mouseup", () => {
         if (interval) clearInterval(interval);
-        function1OpacityPlus.emit("applyOpacity")
+        function1OpacityPlus.emit("applyOpacity");
       });
       function1OpacityMinus.addEventListener("mousedown", () => {
         if (interval) clearInterval(interval);
@@ -122,7 +162,7 @@ window.addEventListener("load", () => {
       });
       function1OpacityMinus.addEventListener("mouseup", () => {
         if (interval) clearInterval(interval);
-        function1OpacityMinus.emit("applyOpacity")
+        function1OpacityMinus.emit("applyOpacity");
       });
       function2OpacityPlus.addEventListener("mousedown", () => {
         if (interval) clearInterval(interval);
@@ -130,7 +170,7 @@ window.addEventListener("load", () => {
       });
       function2OpacityPlus.addEventListener("mouseup", () => {
         if (interval) clearInterval(interval);
-        function2OpacityPlus.emit("applyOpacity")
+        function2OpacityPlus.emit("applyOpacity");
       });
       function2OpacityMinus.addEventListener("mousedown", () => {
         if (interval) clearInterval(interval);
@@ -138,7 +178,7 @@ window.addEventListener("load", () => {
       });
       function2OpacityMinus.addEventListener("mouseup", () => {
         if (interval) clearInterval(interval);
-        function2OpacityMinus.emit("applyOpacity")
+        function2OpacityMinus.emit("applyOpacity");
       });
     } else {
       let interval = null;
@@ -148,7 +188,7 @@ window.addEventListener("load", () => {
       });
       function1OpacityPlus.addEventListener("mouseleave", () => {
         if (interval) clearInterval(interval);
-        function1OpacityPlus.emit("applyOpacity")
+        function1OpacityPlus.emit("applyOpacity");
       });
       function1OpacityMinus.addEventListener("mouseenter", () => {
         if (interval) clearInterval(interval);
@@ -156,7 +196,7 @@ window.addEventListener("load", () => {
       });
       function1OpacityMinus.addEventListener("mouseleave", () => {
         if (interval) clearInterval(interval);
-        function1OpacityPlus.emit("applyOpacity")
+        function1OpacityPlus.emit("applyOpacity");
       });
       function2OpacityPlus.addEventListener("mouseenter", () => {
         if (interval) clearInterval(interval);
@@ -164,7 +204,7 @@ window.addEventListener("load", () => {
       });
       function2OpacityPlus.addEventListener("mouseleave", () => {
         if (interval) clearInterval(interval);
-        function1OpacityPlus.emit("applyOpacity")
+        function1OpacityPlus.emit("applyOpacity");
       });
       function2OpacityMinus.addEventListener("mouseenter", () => {
         if (interval) clearInterval(interval);
@@ -172,7 +212,7 @@ window.addEventListener("load", () => {
       });
       function2OpacityMinus.addEventListener("mouseleave", () => {
         if (interval) clearInterval(interval);
-        function1OpacityPlus.emit("applyOpacity")
+        function1OpacityPlus.emit("applyOpacity");
       });
     }
 
@@ -190,22 +230,45 @@ window.addEventListener("load", () => {
     ]);
     AFRAME.scenes[0].appendChild(graphscale);
   } else {
-    const slider1 = document.getElementById(`function1-opacity-slider`);
-    const slider2 = document.getElementById(`function2-opacity-slider`);
+    var function1OpacitySlider = document.createElement("a-entity");
+    function1OpacitySlider.setAttribute("id", "function1-opacity-slider");
+    function1OpacitySlider.setAttribute(
+      "my-slider",
+      "title: Func 1 Opacity; value: 1; min: 0; max: 1;"
+    );
+    function1OpacitySlider.setAttribute("position", "-0.9 0.8 0.5");
+    function1OpacitySlider.setAttribute("rotation", "0 80 0");
+    function1OpacitySlider.setAttribute("class", "grabbable");
+    AFRAME.scenes[0].appendChild(function1OpacitySlider);
+
+    var function2OpacitySlider = document.createElement("a-entity");
+    function2OpacitySlider.setAttribute("id", "function2-opacity-slider");
+    function2OpacitySlider.setAttribute(
+      "my-slider",
+      "title: Func 2 Opacity; value: 1; min: 0; max: 1;"
+    );
+    function2OpacitySlider.setAttribute("position", "-0.9 0.8 0.5");
+    function2OpacitySlider.setAttribute("rotation", "0 80 0");
+    function1OpacitySlider.setAttribute("class", "grabbable");
+    function2OpacitySlider.setAttribute("visible", "false");
+    AFRAME.scenes[0].appendChild(function2OpacitySlider);
+
     const graph = document.getElementById("plot");
 
-    slider1.addEventListener("change", (evt) => {
+    function1OpacitySlider.addEventListener("change", (evt) => {
       var newvalue = evt.detail.value;
       let graphAtributes = {};
       graphAtributes["opacity"] = newvalue;
       graph.setAttribute("graph", graphAtributes);
+      function2OpacityMinus.emit("applyOpacity");
     });
 
-    slider2.addEventListener("change", (evt) => {
+    function2OpacitySlider.addEventListener("change", (evt) => {
       var newvalue = evt.detail.value;
       let graphAtributes = {};
       graphAtributes["opacity2"] = newvalue;
       graph.setAttribute("graph", graphAtributes);
+      function2OpacityMinus.emit("applyOpacity");
     });
   }
 });

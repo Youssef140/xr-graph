@@ -72,7 +72,7 @@ window.addEventListener("load", (event) => {
     var graphScaler = document.createElement("a-entity");
     graphScaler.setAttribute("data-aabb-collider-dynamic", "true");
     graphScaler.setAttribute("class", "grabbable visible-on-vr");
-    graphScaler.setAttribute("position", "-0.8 1 0");
+    graphScaler.setAttribute("position", "-0.8 1 -0.15");
     graphScaler.setAttribute("rotation", "0 70 0");
     graphScaler.setAttribute("graph-parameter-ui", "graph: #plot");
 
