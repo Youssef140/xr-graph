@@ -19,7 +19,7 @@ export function getDevice() {
 window.addEventListener("load", (event) => {
   var rig = document.createElement("a-entity");
   rig.setAttribute("id", "rig");
-  rig.setAttribute("position", "3 0 7");
+  rig.setAttribute("position", "0.5 0 2");
   var camera = document.createElement("a-entity");
   camera.setAttribute("camera", "");
   camera.setAttribute("id", "camera");
