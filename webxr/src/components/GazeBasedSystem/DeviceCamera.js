@@ -139,8 +139,6 @@ function setGreenOpacity(element, opacity) {
     try {
       if (node.name === "Plane") {
         node.children.forEach((mesh) => {
-          console.log(mesh);
-          // mesh.material.colorWrite = false
           mesh.material.color = { r: 0, g: opacity, b: 0 };
         });
       }

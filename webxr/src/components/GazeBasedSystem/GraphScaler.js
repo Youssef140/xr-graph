@@ -93,13 +93,16 @@ window.addEventListener("load", () => {
     graphscale.appendChild(rangeYPlus);
     graphscale.appendChild(rangeYMinus);
 
+    var opacitySliders = document.createElement("a-entity");
+    opacitySliders.setAttribute("position", "-1.1 1 0.3");
+
     var function1OpacitySlider = document.createElement("a-entity");
     function1OpacitySlider.setAttribute("id", "function1-opacity-slider");
     function1OpacitySlider.setAttribute(
       "my-slider",
       "title: Func 1 Opacity; value: 1; min: 0; max: 1;"
     );
-    function1OpacitySlider.setAttribute("position", "-1.1 0.8 0.3");
+    function1OpacitySlider.setAttribute("position", "0 -0.2 0");
     function1OpacitySlider.setAttribute("rotation", "0 80 0");
 
     var function1OpacityPlus = document.createElement("a-entity");
@@ -117,7 +120,6 @@ window.addEventListener("load", () => {
     function1OpacityMinus.setAttribute("rotation", "90 0 0");
     function1OpacityMinus.setAttribute("position", "-0.47 0.07 0");
     function1OpacitySlider.appendChild(function1OpacityMinus);
-    AFRAME.scenes[0].appendChild(function1OpacitySlider);
 
     var function2OpacitySlider = document.createElement("a-entity");
     function2OpacitySlider.setAttribute("id", "function2-opacity-slider");
@@ -125,7 +127,7 @@ window.addEventListener("load", () => {
       "my-slider",
       "title: Func 2 Opacity; value: 1; min: 0; max: 1;"
     );
-    function2OpacitySlider.setAttribute("position", "-1.1 0.8 0.3");
+    function2OpacitySlider.setAttribute("position", "0 -0.2 0");
     function2OpacitySlider.setAttribute("rotation", "0 80 0");
     function2OpacitySlider.setAttribute("visible", "false");
 
@@ -144,7 +146,10 @@ window.addEventListener("load", () => {
     function2OpacityMinus.setAttribute("rotation", "90 0 0");
     function2OpacityMinus.setAttribute("position", "-0.47 0.07 0");
     function2OpacitySlider.appendChild(function2OpacityMinus);
-    AFRAME.scenes[0].appendChild(function2OpacitySlider);
+
+    opacitySliders.appendChild(function1OpacitySlider)
+    opacitySliders.appendChild(function2OpacitySlider)
+    AFRAME.scenes[0].appendChild(opacitySliders);
 
     if (getDevice() === "Desktop") {
       let interval = null;
@@ -230,16 +235,19 @@ window.addEventListener("load", () => {
     ]);
     AFRAME.scenes[0].appendChild(graphscale);
   } else {
+    var opacitySliders = document.createElement("a-entity");
+    opacitySliders.setAttribute("position", "-0.9 1 0.5");
+    opacitySliders.setAttribute("class", "grabbable");
+    opacitySliders.setAttribute("data-aabb-collider-dynamic", "true");
+
     var function1OpacitySlider = document.createElement("a-entity");
     function1OpacitySlider.setAttribute("id", "function1-opacity-slider");
     function1OpacitySlider.setAttribute(
       "my-slider",
       "title: Func 1 Opacity; value: 1; min: 0; max: 1;"
     );
-    function1OpacitySlider.setAttribute("position", "-0.9 0.8 0.5");
+    function1OpacitySlider.setAttribute("position", "0 -0.2 0");
     function1OpacitySlider.setAttribute("rotation", "0 80 0");
-    function1OpacitySlider.setAttribute("class", "grabbable");
-    AFRAME.scenes[0].appendChild(function1OpacitySlider);
 
     var function2OpacitySlider = document.createElement("a-entity");
     function2OpacitySlider.setAttribute("id", "function2-opacity-slider");
@@ -247,20 +255,23 @@ window.addEventListener("load", () => {
       "my-slider",
       "title: Func 2 Opacity; value: 1; min: 0; max: 1;"
     );
-    function2OpacitySlider.setAttribute("position", "-0.9 0.8 0.5");
+    function2OpacitySlider.setAttribute("position", "0 -0.2 0");
     function2OpacitySlider.setAttribute("rotation", "0 80 0");
-    function1OpacitySlider.setAttribute("class", "grabbable");
     function2OpacitySlider.setAttribute("visible", "false");
-    AFRAME.scenes[0].appendChild(function2OpacitySlider);
 
     const graph = document.getElementById("plot");
+
+    var sliderTimeout = null;
 
     function1OpacitySlider.addEventListener("change", (evt) => {
       var newvalue = evt.detail.value;
       let graphAtributes = {};
       graphAtributes["opacity"] = newvalue;
       graph.setAttribute("graph", graphAtributes);
-      function2OpacityMinus.emit("applyOpacity");
+      if (sliderTimeout) clearTimeout(sliderTimeout);
+      sliderTimeout = setTimeout(() => {
+        function1OpacitySlider.emit("applyOpacity");
+      }, 200)
     });
 
     function2OpacitySlider.addEventListener("change", (evt) => {
@@ -268,8 +279,16 @@ window.addEventListener("load", () => {
       let graphAtributes = {};
       graphAtributes["opacity2"] = newvalue;
       graph.setAttribute("graph", graphAtributes);
-      function2OpacityMinus.emit("applyOpacity");
+      if (sliderTimeout) clearTimeout(sliderTimeout);
+      sliderTimeout = setTimeout(() => {
+        function2OpacitySlider.emit("applyOpacity");
+      }, 200)
     });
+
+    opacitySliders.appendChild(function1OpacitySlider)
+    opacitySliders.appendChild(function2OpacitySlider)
+    AFRAME.scenes[0].appendChild(opacitySliders);
+
   }
 });
 
