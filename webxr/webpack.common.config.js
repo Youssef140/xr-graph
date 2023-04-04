@@ -2,7 +2,10 @@ module.exports = {
   // no weird "eval" stuff, shows code relatively clear in dist/main.js
   devtool: "none",
   // this is just the entry js that gets bundled
-  entry: "./src/index.js",
+  entry: {
+    beam_vr: "./beam/index.js",
+    calculus_vr: "./calculus/index.js",
+  },
   module: {
     rules: [
       {

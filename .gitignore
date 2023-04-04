@@ -1,3 +1,4 @@
 */node_modules
 .DS_Store
-webxr/src/models
+webxr/calculus/models
+webxr/beam/models

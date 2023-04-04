@@ -36,7 +36,7 @@ Chrome: [XR Graph - Browser Integration](https://chrome.google.com/webstore/deta
 
 Marker for AR:
 
-<img src="./webxr/src/images/marker.png" alt="ar marker" width="300"/>
+<img src="./webxr/calculus/images/marker.png" alt="ar marker" width="300"/>
 
 ## Documentation
 
