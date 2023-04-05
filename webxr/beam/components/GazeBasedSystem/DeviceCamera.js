@@ -33,7 +33,7 @@ window.addEventListener("load", (event) => {
     );
     camera.appendChild(cursorEntity);
   } else if (device === "Mobile") {
-    camera.setAttribute("position", "0 1.75 0");
+    camera.setAttribute("position", "0 1.68 0");
     camera.setAttribute("kinematic-body", "radius: 0.3");
     camera.setAttribute("look-controls", "pointerLockEnabled: false;");
     camera.setAttribute("wasd-controls", "acceleration: 200");
@@ -47,15 +47,15 @@ window.addEventListener("load", (event) => {
     );
     camera.appendChild(cursorEntity);
 
-    createTeleport("left-teleport", "6 0.3 2.7", rig, "6 0 2.7");
-    createTeleport("right-teleport", "0 0.3 2.7", rig, "0 0 2.7");
-    createTeleport("center-up-teleport", "3 0.2 0.5", rig, "3 0 0.5");
-    createTeleport("center-down-teleport", "3 0.2 7", rig, "3 0 7");
+    createTeleport("left-teleport", "-2.2 0.3 -1.7", rig, "-2.2 0 -1.7");
+    createTeleport("right-teleport", "3.2 0.3 -1.7", rig, "3.2 0 -1.7");
+    createTeleport("center-up-teleport", "0.5 0.3 -3", rig, "0.5 0 -3");
+    createTeleport("center-down-teleport", "0.5 0.3 1.5", rig, "0.5 0 1.5");
   } else {
    
     rig.setAttribute("kinematic-body", "radius: 0.4");
     rig.setAttribute("movement-controls", "speed: 0.1");
-    rig.setAttribute("position", "3 1 7");
+    rig.setAttribute("position", "0.5 0 2");
 
 
     camera.setAttribute("look-controls", "pointerLockEnabled: false;");

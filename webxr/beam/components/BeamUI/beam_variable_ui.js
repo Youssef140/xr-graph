@@ -50,8 +50,8 @@ AFRAME.registerComponent('beam-variable-ui', {
                 if(variable == "load_position"){
                     let arrow = document.getElementById("arrow_1")
                     let newarrowpos = ((newvalue - 10) / 2.5) + 3.65  
-                    arrow.setAttribute("position", {x:newarrowpos,y:6.5,z:-5.6})
-                }
+                    arrow.setAttribute("position", {x:newarrowpos,y:6.5,z:-5.3})
+                }        
             })
             let plus = document.createElement("a-entity")
             plus.setAttribute("gltf-model", "#plus")
@@ -180,7 +180,7 @@ AFRAME.registerComponent('beam-variable-ui', {
                     newvalue = sliderAttributes.value + (mode === "plus" ?  0.05 : -0.05);
 
                     let newarrowpos = arrow.getAttribute("position").x +  (mode === "plus" ? 0.08 : -0.08);
-                    arrow.setAttribute("position", {x:newarrowpos,y:6.5,z:-5.6})
+                    arrow.setAttribute("position", {x:newarrowpos,y:6.5,z:-5.3})
                 }else{
                     newvalue = sliderAttributes.value + (mode === "plus" ?  0.01 : -0.01);
                 }
