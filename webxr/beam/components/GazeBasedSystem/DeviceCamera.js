@@ -52,10 +52,11 @@ window.addEventListener("load", (event) => {
     createTeleport("center-up-teleport", "0.5 0.3 -3", rig, "0.5 0 -3");
     createTeleport("center-down-teleport", "0.5 0.3 1.5", rig, "0.5 0 1.5");
   } else {
-   
+    var play = document.getElementById('play')
+    play.setAttribute('visible', false)
     rig.setAttribute("kinematic-body", "radius: 0.4");
     rig.setAttribute("movement-controls", "speed: 0.1");
-    rig.setAttribute("position", "0.5 0 2");
+    rig.setAttribute("position", "0.5 0.7 3");
 
 
     camera.setAttribute("look-controls", "pointerLockEnabled: false;");
