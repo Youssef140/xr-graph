@@ -46,11 +46,12 @@ AFRAME.registerComponent('beam-variable-ui', {
             slider.setAttribute('position', `0 ${index * -height + offset} 0`)
             slider.addEventListener('change', (evt) => {
                 var newvalue = evt.detail.value;
-                let beamAttributes = {}
-                beamAttributes[variable] = newvalue;
-                this.data.beam_upper.setAttribute('beam_upper', beamAttributes)
-                this.data.beam.setAttribute('beam', beamAttributes)
-                this.data.beam_lower.setAttribute('beam_lower', beamAttributes)
+                this.updateBeam(variable, newvalue)
+                if(variable == "load_position"){
+                    let arrow = document.getElementById("arrow_1")
+                    let newarrowpos = ((newvalue - 10) / 2.5) + 3.65  
+                    arrow.setAttribute("position", {x:newarrowpos,y:6.5,z:-5.6})
+                }
             })
             let plus = document.createElement("a-entity")
             plus.setAttribute("gltf-model", "#plus")
@@ -178,8 +179,8 @@ AFRAME.registerComponent('beam-variable-ui', {
                 if(variable == "load_position"){
                     newvalue = sliderAttributes.value + (mode === "plus" ?  0.05 : -0.05);
 
-                    let newarrowpos = arrow.getAttribute("position").x +  (mode === "plus" ? 0.01 : -0.01);
-                    arrow.setAttribute("position", {x:newarrowpos,y:2.5,z:2.9})
+                    let newarrowpos = arrow.getAttribute("position").x +  (mode === "plus" ? 0.02 : -0.02);
+                    arrow.setAttribute("position", {x:newarrowpos,y:6.5,z:-5.6})
                 }else{
                     newvalue = sliderAttributes.value + (mode === "plus" ?  0.01 : -0.01);
                 }

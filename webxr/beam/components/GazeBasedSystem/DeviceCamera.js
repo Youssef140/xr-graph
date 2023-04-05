@@ -17,17 +17,10 @@ export function getDevice() {
 }
 
 window.addEventListener("load", (event) => {
-  var rig = document.createElement("a-entity");
-  rig.setAttribute("id", "rig");
-  rig.setAttribute("position", "0.5 0 2");
-  var camera = document.createElement("a-entity");
-  camera.setAttribute("camera", "");
-  camera.setAttribute("id", "camera");
+  var rig = document.getElementById("rig");
+  var camera = document.getElementById("camera");
   var device = getDevice();
   if (device === "Desktop") {
-    rig.setAttribute("kinematic-body", "radius: 0.4");
-    // rig.setAttribute("wasd-controls", "acceleration: 200");
-    rig.setAttribute("movement-controls", "speed: 0.2");
     camera.setAttribute("position", "0 1.6 0");
     camera.setAttribute("look-controls", "pointerLockEnabled: false;");
     var cursorEntity = document.createElement("a-entity");
@@ -39,8 +32,6 @@ window.addEventListener("load", (event) => {
       "color: #000; shader: flat; opacity: 0.6"
     );
     camera.appendChild(cursorEntity);
-    rig.appendChild(camera);
-    AFRAME.scenes[0].appendChild(rig);
   } else if (device === "Mobile") {
     camera.setAttribute("position", "0 1.75 0");
     camera.setAttribute("kinematic-body", "radius: 0.3");
@@ -60,9 +51,6 @@ window.addEventListener("load", (event) => {
     createTeleport("right-teleport", "0 0.3 2.7", rig, "0 0 2.7");
     createTeleport("center-up-teleport", "3 0.2 0.5", rig, "3 0 0.5");
     createTeleport("center-down-teleport", "3 0.2 7", rig, "3 0 7");
-
-    rig.appendChild(camera);
-    AFRAME.scenes[0].appendChild(rig);
   } else {
    
     rig.setAttribute("kinematic-body", "radius: 0.4");
@@ -70,27 +58,7 @@ window.addEventListener("load", (event) => {
     rig.setAttribute("position", "3 1 7");
 
 
-    // Create the left hand entity and attach it to the rig
-    var leftHand = document.createElement('a-entity');
-    leftHand.setAttribute('id', 'lhand');
-    leftHand.setAttribute('interaction-hands', '');
-    leftHand.setAttribute('aabb-collider', 'objects: .grabbable');
-    leftHand.setAttribute('hand-controls', 'hand: left; handModelStyle: highPoly');
-    leftHand.setAttribute('mixin', 'touch');
-    rig.appendChild(leftHand);
-
-    // Create the right hand entity and attach it to the rig
-    var rightHand = document.createElement('a-entity');
-    rightHand.setAttribute('id', 'rhand');
-    rightHand.setAttribute('interaction-hands', '');
-    rightHand.setAttribute('aabb-collider', 'objects: .grabbable');
-    rightHand.setAttribute('hand-controls', 'hand: right; handModelStyle: highPoly');
-    rightHand.setAttribute('mixin', 'touch');
-    rig.appendChild(rightHand);
-
     camera.setAttribute("look-controls", "pointerLockEnabled: false;");
-    rig.appendChild(camera);
-    AFRAME.scenes[0].appendChild(rig);
   }
 });
 
