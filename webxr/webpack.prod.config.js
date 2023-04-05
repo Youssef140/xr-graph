@@ -14,9 +14,9 @@ module.exports = merge(common, {
   // no weird "eval" stuff, shows code relatively clear in dist/main.js
   devtool: "none",
   entry: {
-    vr: "./src/index.js",
-    ar: "./src/ar-script.js",
-    expression_validation: "./src/components/GraphComponent/MathExpression.js"
+    beam_vr: "./beam/index.js",
+    calculus_vr: "./calculus/index.js",
+    expression_validation: "./calculus/components/GraphComponent/MathExpression.js"
   },
   output: {
     // the filename is the name of the bundled file
@@ -35,32 +35,32 @@ module.exports = merge(common, {
   },
   // Deletes the dist folder, so the new .js files wont stack and pollute the folder
   plugins: [new HtmlWebpackPlugin({
-    favicon: "./src/images/favicon.png",
+    favicon: "./calculus/images/favicon.png",
     chunks: [''],
-    template: "./src/index.html",
+    template: "./index.html",
     filename: "index.html",
     // Injects file in the head of the html
     inject: 'head'
   }),new HtmlWebpackPlugin({
-    favicon: "./src/images/favicon.png",
+    favicon: "./calculus/images/favicon.png",
     chunks: ['expression_validation'],
-    template: "./src/home.html",
-    filename: "home.html",
+    template: "./calculus/home.html",
+    filename: "calculus_home",
     // Injects file in the head of the html
     inject: 'head'
   }),new HtmlWebpackPlugin({
-    favicon: "./src/images/favicon.png",
-    chunks: ['vr'],
-    template: "./src/scene.html",
-    filename: "scene.html",
+    favicon: "./calculus/images/favicon.png",
+    chunks: ['calculus_vr'],
+    template: "./calculus/scene.html",
+    filename: "calculus_scene",
     // Injects file in the head of the html
     inject: 'head'
   }),
     new HtmlWebpackPlugin({
-      favicon: "./src/images/favicon.png",
-      chunks: ['ar'],
-      template: "./src/ar.html",
-      filename: "ar.html",
+      favicon: "./beam/images/favicon.png",
+      chunks: ['beam_vr'],
+      template: "./beam/beam_scene.html",
+      filename: "beam_scene",
       // Injects file in the head of the html
       inject: 'head'
     })]
