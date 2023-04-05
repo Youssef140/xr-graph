@@ -21,7 +21,7 @@ window.addEventListener("load", (event) => {
   var camera = document.getElementById("camera");
   var device = getDevice();
   if (device === "Desktop") {
-    camera.setAttribute("position", "0 1.6 0");
+    camera.setAttribute("position", "0 1.7 0");
     camera.setAttribute("look-controls", "pointerLockEnabled: false;");
     var cursorEntity = document.createElement("a-entity");
     cursorEntity.setAttribute("cursor", "");
