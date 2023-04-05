@@ -139,14 +139,14 @@ window.addEventListener('load', () => {
                     try {
                         new MathExpression(document.querySelector('#function2-input').value);
             
-                        window.location.href = 'calculus_scene?function=' + encodeURIComponent(document.querySelector('#function-input').value) + '&function2=' + encodeURIComponent(document.querySelector('#function2-input').value) 
+                        window.location.href = 'calculus_scene.html?function=' + encodeURIComponent(document.querySelector('#function-input').value) + '&function2=' + encodeURIComponent(document.querySelector('#function2-input').value) 
                     } catch (e) {
                         error_text.innerHTML = "Function 2 is invalid."
                         error_text.classList.remove("d-none")
                         error_text.classList.add("d-block")
                     }
                 } else {
-                    window.location.href = 'calculus_scene?function=' + encodeURIComponent(document.querySelector('#function-input').value)
+                    window.location.href = 'calculus_scene.html?function=' + encodeURIComponent(document.querySelector('#function-input').value)
                 }
             } catch (e) {
                 error_text.innerHTML = "Function 1 is invalid."

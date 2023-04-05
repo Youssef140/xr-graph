@@ -42,7 +42,7 @@ module.exports = merge(common, {
     favicon: "./calculus/images/favicon.png",
     chunks: ['expression_validation'],
     template: "./calculus/home.html",
-    filename: "calculus_home",
+    filename: "calculus_home.html",
     // Injects file in the head of the html
     inject: 'head'
   }),
@@ -50,7 +50,7 @@ module.exports = merge(common, {
     favicon: "./calculus/images/favicon.png",
     chunks: ['calculus_vr'],
     template: "./calculus/scene.html",
-    filename: "calculus_scene",
+    filename: "calculus_scene.html",
     // Injects file in the head of the html
     inject: 'head'
   }),
@@ -58,7 +58,7 @@ module.exports = merge(common, {
     favicon: "./beam/images/favicon.png",
     chunks: ['beam_vr'],
     template: "./beam/beam_scene.html",
-    filename: "beam_scene",
+    filename: "beam_scene.html",
     // Injects file in the head of the html
     inject: 'head'
   })]
