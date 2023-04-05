@@ -81,14 +81,13 @@
       }
 
         const params = getAllGetParameters()
-        console.log(params)
         if (params.function)
           document.querySelector('#function-input').value = params.function
         if (params.function2)
           document.querySelector('#function2-input').value = params.function2
         })
     </script>
-  <link rel="shortcut icon" href="favicon.png"><script type="text/javascript" src="expression_validation.db5794bba61d3f7096aa.bundle.js"></script></head>
+  <link rel="shortcut icon" href="favicon.png"><script type="text/javascript" src="expression_validation.86eeee72711b2f22bc48.bundle.js"></script></head>
   <body class="bg-dark my-2">
     <div class="container d-flex flex-column justify-content-evenly">
       <div class="row my-3 my-xl-0 justify-content-center">
