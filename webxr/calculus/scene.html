@@ -86,16 +86,6 @@
   <a-entity interaction-hands aabb-collider="objects: .grabbable" id="lhand" hand-controls="hand: left; handModelStyle: highPoly" mixin="touch"></a-entity>
   <a-entity interaction-hands aabb-collider="objects: .grabbable" id="rhand" hand-controls="hand: right; handModelStyle: highPoly" mixin="touch"></a-entity>
 
-  <a-entity id="function1-opacity-slider" my-slider="title: Func 1 Opacity; value: 1; min: 0; max: 1;" position="-1.2 0.9 0.3" rotation="0 80 0">
-    <a-entity id="function1-opacity-plus" gltf-model="#plus" scale="0.0055 0.0055 0.0055" rotation="90 0 0" position="0.15 0.07 0"></a-entity>
-    <a-entity id="function1-opacity-minus" gltf-model="#minus" scale="0.0055 0.0055 0.0055" rotation="90 0 0" position="-0.47 0.07 0"></a-entity>
-  </a-entity>
-  
-  <a-entity id="function2-opacity-slider" my-slider="title: Func 2 Opacity; value: 1; min: 0; max: 1;" position="-1.2 0.9 0.3" rotation="0 80 0" visible="false">
-    <a-entity id="function2-opacity-plus" gltf-model="#plus" scale="0.0055 0.0055 0.0055" rotation="90 0 0" position="0.15 0.07 0"></a-entity>
-    <a-entity id="function2-opacity-minus" gltf-model="#minus" scale="0.0055 0.0055 0.0055" rotation="90 0 0" position="-0.47 0.07 0"></a-entity>
-  </a-entity>
-
   <a-sky color="white"></a-sky>
 
 </a-scene>
@@ -174,9 +164,10 @@
   window.addEventListener('load', () => {
     const opacity1 = document.getElementById('function1-opacity-slider')
     const opacity2 = document.getElementById('function2-opacity-slider')
-    console.log(getAllGetParameters())
     if (getAllGetParameters().function2){
-      opacity1.setAttribute('position', "-1.2 1.2 0.3")
+      let position = opacity1.getAttribute("position")
+      position.y = 0.1
+      opacity1.setAttribute('position', position)
       opacity2.setAttribute('visible', true)
     }
   })
